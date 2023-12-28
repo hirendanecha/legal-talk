@@ -1,0 +1,251 @@
+<div
+  class="left-sidebar profile-sidebar cus-scrollbar p-5"
+  [ngClass]="{
+    'mh-100 vh-100': (breakpointService?.screen | async).lg.lessThen
+  }"
+>
+  <ng-container *ngIf="tokenService.getCredentials()">
+    <div class="profile-pic d-flex gap-2" routerLink="/home">
+      <div class="position-relative">
+        <img
+          class="avatar-img max-un"
+          loading="lazy"
+          data-src="{{ sharedService?.userData?.ProfilePicName }}"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+          alt="avatar"
+        />
+      </div>
+      <div class="text-area d-flex flex-column justify-content-start">
+        <h6 class="m-0 text-ellipsis w-200-px">
+          {{ sharedService?.userData?.Username }}
+        </h6>
+      </div>
+    </div>
+    <ul class="profile-link m-0 mt-5 p-0 border-bottom-0">
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
+          routerLink="/home"
+          routerLinkActive="active"
+          (click)="reloadPage()"
+        >
+          <fa-icon [icon]="['fas', 'home']" class="font-24-px" />
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
+          routerLink="/health-practitioner"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'house-medical']" class="font-24-px" />
+          <span>Health Practitioner</span>
+        </a>
+      </li>
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
+          routerLink="/pages"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'stethoscope']" class="font-24-px" />
+          <span>Healing Topics</span>
+        </a>
+      </li>
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
+          routerLink="/request-video-call"
+          routerLinkActive="active"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'phone']" class="font-24-px" />
+          <span>Request Private Video Call</span>
+        </a>
+      </li>
+
+      <li class="ms-1">
+        <a
+          routerLink="/research"
+          target="_blank"
+          routerLinkActive="active"
+          class="d-flex gap-4"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Research"
+        >
+          <fa-icon [icon]="['fas', 'book-open']" class="font-24-px" />
+          <span>Research</span>
+        </a>
+      </li>
+
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4 position-relative"
+          routerLink="/notifications"
+          routerLinkActive="active"
+          (click)="notificationNavigation()"
+        >
+          <!-- (click)="closeSidebar()" -->
+          <span
+            *ngIf="sharedService.isNotify"
+            class="abs-area position-absolute d-center smtxt"
+          ></span>
+          <fa-icon [icon]="['fas', 'bell']" class="font-24-px" />
+          <span>Notifications</span>
+        </a>
+      </li>
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
+          [routerLink]="'settings/view-profile/' + profileId"
+          routerLinkActive="active"
+        >
+          <fa-icon [icon]="['fas', 'gear']" class="font-20-px" />
+          <span>View Profile</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a
+          href="https://1776token.com/"
+          target="_blank"
+          class="d-flex gap-4"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'link']" class="font-24-px" />
+          <span>1776 Token</span>
+        </a>
+      </li> -->
+      <li>
+        <a
+          href="https://localfoods.market/"
+          target="_blank"
+          class="d-flex gap-4"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'link']" class="font-24-px" />
+          <span>Local Foods</span>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://lamarslist.com/"
+          target="_blank"
+          class="d-flex gap-4"
+          (click)="closeSidebar()"
+        >
+          <fa-icon [icon]="['fas', 'link']" class="font-24-px" />
+          <span>Lamars List</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a class="d-flex gap-4" (click)="openWalletPopUp()">
+          <fa-icon [icon]="['fas', 'download']" class="font-24-px" />
+          <span>Download 1776 Wallet</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a class="d-flex gap-4" (click)="openClaimTokenPopUp()">
+          <fa-icon [icon]="['fas', 'certificate']" class="font-24-px" />
+          <span>Claim 50 free 1776</span>
+        </a>
+      </li> -->
+
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <div
+          class="d-flex gap-4 toggle-dropdown align-items-center"
+          (click)="collapse.toggle()"
+        >
+          <fa-icon [icon]="['fas', 'gear']" class="font-24-px" />
+          <span class="me-auto">Settings</span>
+          <fa-icon
+            [icon]="['fas', collapse.shown ? 'chevron-down' : 'chevron-up']"
+          />
+        </div>
+
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isSettingMenuCollapse">
+          <ul class="ps-3">
+            <li>
+              <a
+                routerLink="/settings/see-first-users"
+                routerLinkActive="active"
+                class="d-flex gap-4"
+                (click)="closeSidebar()"
+              >
+                <fa-icon [icon]="['fas', 'user-plus']" class="font-24-px" />
+                <span>See First Users</span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                routerLink="/settings/unsubscribed-users"
+                routerLinkActive="active"
+                class="d-flex gap-4"
+                (click)="closeSidebar()"
+              >
+                <fa-icon [icon]="['fas', 'user-minus']" class="font-24-px" />
+                <span>Unsubscribed Users</span>
+              </a>
+            </li>
+
+            <!-- <li>
+              <a
+                routerLink="/settings/delete-profile"
+                routerLinkActive="active"
+                class="d-flex gap-4"
+                (click)="closeSidebar()"
+              >
+                <fa-icon [icon]="['fas', 'user-xmark']" class="font-24-px" />
+                <span>Delete Account</span>
+              </a>
+            </li> -->
+          </ul>
+        </div>
+      </li>
+
+      <li class="d-lg-none d-block">
+        <a class="d-flex gap-4" (click)="openProfileMenuModal()">
+          <fa-icon [icon]="['fas', 'user']" class="font-24-px" />
+          <span>Profile</span>
+        </a>
+      </li>
+
+      <li class="d-lg-none d-block">
+        <a class="d-flex gap-4" (click)="openRightSidebar()">
+          <fa-icon [icon]="['fas', 'border-all']" class="font-24-px" />
+          <span>Dashboard</span>
+        </a>
+      </li>
+    </ul>
+    <ng-container>
+      <div class="mt-3" *ngIf="sharedService?.advertizementLink?.length">
+        <h6>Advertizement Link</h6>
+        <div *ngFor="let item of sharedService?.advertizementLink">
+          <app-post-meta-data-card [post]="item" />
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!tokenService.getCredentials()">
+    <div class="dashboard-img mb-5">
+      <img
+        class="w-100 rounded-3"
+        src="/assets/images/landingpage/Healing-Tube-Logo.png"
+      />
+      <!-- <span class="mt-3 text-start font-14-px">
+        The Umbrella platform for All freedom based projects worldwide.
+      </span> -->
+      <span class="c-fonts text-center mt-6">
+        Private video consultations with Naturopathic Doctors <br />
+        and Holistic Healers from around the world
+      </span>
+      <span class="c-fonts py-6 mt-10 text-center"
+        >Social Discussion on how to heal various ailments</span
+      >
+    </div>
+  </ng-container>
+</div>

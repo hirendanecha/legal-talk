@@ -1,0 +1,34 @@
+<div class="img-preview rounded-3" [ngClass]="classes">
+  <img
+    loading="lazy"
+    data-src="{{ src }}"
+    class="w-100 h-100 rounded-3"
+    alt="preview-img"
+    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+  />
+
+  <div
+    class="icon-eye d-flex flex-column justify-content-center align-items-center c-icon-color icon-container"
+    (click)="openImagePreview(src)"
+  >
+    <fa-icon [icon]="['fas', 'eye']" class="font-28-px" />
+  </div>
+</div>
+
+<ng-container *ngIf="previewSrc">
+  <div
+    class="img-preview-full-screen d-flex flex-column justify-content-center align-items-center p-5 c-icon-color" (click)="closeImagePreview()"
+  >
+    <fa-icon [icon]="['fas', 'xmark']" class="c-pointer close-icon font-40-px" (click)="closeImagePreview()" />
+
+    <!-- width="600" -->
+    <img
+      loading="lazy"
+      data-src="{{ src }}"
+      class="w-80 h-80 rounded-3 image-preview"
+      alt="preview-img"
+      onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+      (click)="stopPropagation($event)"
+    />
+  </div>
+</ng-container>

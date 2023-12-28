@@ -1,0 +1,66 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div #tagInputDiv contenteditable [attr.placeholder]="placeholder" class="tag-input-div tag-image-preview input-area c-text"
+    (input)="messageOnKeyEvent()" [mentionConfig]="{
+      items: userList,
+      labelKey: 'Username',
+      triggerChar: '@',
+    }" [mentionListTemplate]="mentionListTemplate" (itemSelected)="selectTagUser($event)"></div>
+  <ng-container *ngIf="isShowEmojis">
+    <div ngbDropdown placement="bottom-end" class="select-emaojies">
+      <button type="button" id="emojiModel" ngbDropdownToggle title="Emojis">
+        <img src="https://s3.us-east-1.wasabisys.com/freedom-social/freedom-emojies/Nerd.gif" class="emoji-select" alt="Emoji">
+      </button>
+      <!-- Emojis -->
+      <div ngbDropdownMenu aria-labelledby="emojiModel" class="emojiModelStyle">
+        <div>
+          <button (click)="selectEmoji(emoji)" *ngFor="let emoji of emojiPaths">
+            <img data-src="{{ emoji }}" loading="eager" class="emoji-style" alt="Emoji" draggable="false">
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  </div>
+  <ng-container *ngIf="isShowMetaLoader">
+    <app-inline-loader *ngIf="isMetaLoader" classes="position-absolute inline-meta-loader" />
+  </ng-container>
+  
+  <ng-template #mentionListTemplate let-item="item" class="user-dropdown-menu w-100 overflow-auto">
+    <div class="d-flex gap-3 pe-auto overflow-hidden">
+      <img loading="lazy" class="w-32-px h-32-px pt-0 rounded" data-src="{{ item.ProfilePicName }}" [alt]="item?.Username"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';" />
+      <span>{{ (item.Username.split(" ")).join("") }}</span>
+    </div>
+  </ng-template>
+  <!-- <div #userSearchDropdownRef ngbDropdown>
+    <div ngbDropdownMenu class="user-dropdown-menu w-100 overflow-auto">
+      <ng-container *ngFor="let user of userList">
+        <div
+          ngbDropdownItem
+          class="d-flex gap-3 pe-auto overflow-hidden"
+          role="button"
+          (click)="selectTagUser(user)"
+        >
+          <img
+            loading="lazy"
+            class="w-32-px h-32-px rounded"
+            data-src="{{ user.ProfilePicName }}"
+            [alt]="user.Username"
+            onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+          />
+          <span>{{ user.Username }}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div> -->
+  
+  <ng-container *ngIf="isShowMetaPreview && metaData?.metaimage">
+    <app-post-meta-data-card [post]="metaData" class="pt-5" />
+  </ng-container>
+  
+  <ng-container *ngIf="copyImage">
+    <div class="rounded m-3">
+      <!-- <fa-icon [icon]="['fas', 'xmark']" class="position-absolute start-100 translate-middle badge bg-danger py-1 font-16-px c-pointer c-icon-color" (click)="onClearFile()" /> -->
+      <img [src]="copyImage">
+    </div>
+  </ng-container>

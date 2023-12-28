@@ -1,0 +1,25 @@
+:host {
+  .right-sidebar.cus-scrollbar {
+    position: sticky;
+    top: 92px;
+    width: 100%;
+    max-height: calc(100vh - 112px);
+    overflow-x: auto;
+  }
+
+  .list-unstyled {
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    font-size: 11px;
+    text-align: center;
+    display: flex;
+
+    li {
+      padding: 3px;
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+}

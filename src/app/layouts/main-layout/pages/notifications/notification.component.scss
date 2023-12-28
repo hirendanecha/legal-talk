@@ -1,0 +1,12 @@
+.notification-single {
+  .notification-area {
+    .unread-notification {
+      width: 13px;
+      height: 13px;
+      background: red;
+      // background: var(--primary-color);
+      border-radius: 50%;
+      margin-left: 5px;
+    }
+  }
+}

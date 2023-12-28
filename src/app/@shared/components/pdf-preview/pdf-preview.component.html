@@ -1,0 +1,54 @@
+<div class="img-preview rounded-3" [ngClass]="classes">
+  <div class="pdf-container" (click)="openImagePreview(src)">
+    <!-- <pdf-viewer
+      [src]="src"
+      [rotation]="0"
+      [original-size]="false"
+      [show-all]="true"
+      [fit-to-page]="true"
+      [zoom]="0.98"
+      [zoom-scale]="'page-width'"
+      [stick-to-page]="false"
+      [render-text]="true"
+      [external-link-target]="'blank'"
+      [autoresize]="true"
+      [show-borders]="false"
+    ></pdf-viewer> -->
+  </div>
+
+  <!-- <div
+    class="icon-eye d-flex flex-column justify-content-center align-items-center c-icon-color icon-container"
+    
+  >
+    <fa-icon [icon]="['fas', 'eye']" class="font-28-px" />
+  </div> -->
+</div>
+<ng-container *ngIf="previewSrc">
+  <div
+    class="img-preview-full-screen d-flex flex-column justify-content-center align-items-center p-5 c-icon-color"
+    (click)="closeImagePreview()"
+  >
+    <fa-icon
+      [icon]="['fas', 'xmark']"
+      class="c-pointer close-icon font-40-px"
+      (click)="closeImagePreview()"
+    />
+
+    <div class="pdf-container">
+      <!-- <pdf-viewer
+        [src]="src"
+        [rotation]="0"
+        [original-size]="false"
+        [show-all]="true"
+        [fit-to-page]="false"
+        [zoom]="0.98"
+        [zoom-scale]="'page-width'"
+        [stick-to-page]="false"
+        [render-text]="true"
+        [external-link-target]="'blank'"
+        [autoresize]="true"
+        [show-borders]="false"
+      ></pdf-viewer> -->
+    </div>
+  </div>
+</ng-container>

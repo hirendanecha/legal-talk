@@ -1,0 +1,69 @@
+<div class="card group-post-card single-box border-secondary mb-0 rounded-1">
+  <div class="card-img-top c-pointer" (click)="openResearchPost()">
+    <!-- [ngStyle]="{
+      'background-image':
+        'url(' +
+        (post?.image ||
+          'https://freedom.social/assets/newtemplate/images/mb-logo.png') +
+        ')'
+    }" -->
+    <img
+      [src]="
+        post?.image ||
+        post?.metaimage ||
+        post?.imageUrl ||
+        '/assets/images/default-profile.jpg'
+      "
+      class="card-img-top"
+      alt=""
+    />
+  </div>
+
+  <div class="card-body p-2 border-top">
+    <div
+      class="card-text text-start font-12-px text-wrap c-pointer"
+      (click)="openResearchPost()"
+    >
+      <ng-container *ngIf="post?.title">
+        <span class="text-danger" [innerHTML]="post?.title"></span>
+      </ng-container>
+
+      <ng-container *ngIf="post?.textpostdesc || post?.postdescription">
+        <!-- class="text-danger" -->
+        <span [innerHTML]="post?.textpostdesc || post?.postdescription"> </span>
+      </ng-container>
+
+      <ng-container *ngIf="post?.postToSharedDesc || post?.metadescription">
+        <span [innerHTML]="post?.postToSharedDesc || post?.metadescription">
+        </span>
+      </ng-container>
+    </div>
+
+    <div
+      class="d-flex flex-wrap justify-content-start align-items-start mt-2 pt-2 border-top"
+    >
+      <a
+        class="link-primary font-12-px w-50 text-start"
+        [appCopyClipboard]="
+          webUrl + 'research/post/' + (post?.postID || post?.id)
+        "
+        >copy link url</a
+      >
+      <a
+        href="/research/post/{{ post?.id }}"
+        target="_blank"
+        class="link-primary font-12-px w-50 text-start"
+        >larger view</a
+      >
+      <!-- <a href="#" class="link-primary font-12-px w-50 text-start"
+        >unsubscribe</a
+      >
+      <a
+        href="/research/post/{{ post?.postToProfileID }}"
+        target="_blank"
+        class="link-primary font-12-px w-50 text-start"
+        >research</a
+      > -->
+    </div>
+  </div>
+</div>

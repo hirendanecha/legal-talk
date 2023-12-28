@@ -1,0 +1,95 @@
+:host {
+  .img-preview {
+    position: relative;
+    overflow: hidden;
+
+    .icon-eye {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      left: 0;
+      top: 0;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      fa-icon {
+        transition: 0.3s ease-in-out;
+        color: transparent;
+      }
+
+      &:hover {
+        transition: 0.3s ease-in-out;
+        background-color: #00000075;
+
+        fa-icon {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .img-preview-full-screen {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: 100vh;
+    max-height: 100vh;
+    background-color: #000000ab;
+    z-index: 999;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      transition: 0.3s ease-in-out;
+      background-color: #000000bb;
+    }
+
+    .close-icon {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      transition: 0.3s ease-in-out;
+      color: #fff;
+      border: 2px solid var(--scroll-color);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+
+      &:hover {
+        transition: 0.3s ease-in-out;
+        // transform: rotate(180deg);
+      }
+    }
+
+    .image-preview{
+      bottom: 0px;
+      height: 100%;
+      // left: 0px;
+      // opacity: 0;
+      position: absolute;
+      // right: 0px;
+      top: 0px;
+      // width: 100%;
+      z-index: -1;
+    }
+  }
+}
+
+::ng-deep .c-icon-color{
+  svg path {
+    fill: var(--secondary-color) !important;
+  }
+}
+
+.icon-container .font-28-px {
+  display: none;
+}
+
+.icon-container:hover .font-28-px {
+  display: inline-block;
+}

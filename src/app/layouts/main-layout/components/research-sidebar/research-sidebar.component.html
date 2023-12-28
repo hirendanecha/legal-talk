@@ -1,0 +1,26 @@
+<div class="research-sidebar profile-sidebar cus-scrollbar p-5" [ngClass]="{'mh-100 vh-100': (breakpointService?.screen | async).lg.lessThen}">
+  <a class="d-flex justify-content-between gap-3" (click)="collapse.toggle()" role="button">
+    <span class="fw-bold">HealingTube Research Topics</span>
+    <fa-icon [icon]="['fas', isResearchTopicCollapse ? 'chevron-down' : 'chevron-up']" />
+  </a>
+
+  <div class="border-top mt-5 pt-3" #collapse="ngbCollapse" [(ngbCollapse)]="isResearchTopicCollapse">
+    <ng-container *ngIf="researches?.length > 0; else elseNoResearchFound">
+      <ul class="p-0 m-0">
+        <ng-container *ngFor="let research of researches">
+          <li>
+            <a [routerLink]="'/research/' + research?.UniqueLink" target="_blank" class="d-flex align-items-center py-3">
+              <fa-icon [icon]="['fas', 'chevron-right']" />
+              <span class="font-14-px ps-2" >{{research?.FirstName}}</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </ng-container>
+  </div>
+</div>
+
+
+<ng-template #elseNoResearchFound>
+  <app-inline-loader />
+</ng-template>

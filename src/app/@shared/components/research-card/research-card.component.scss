@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .group-post-card.card {
+    width: 100%;
+
+    .card-img-top {
+      height: 120px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: white;
+    }
+
+    .card-body {
+      .card-text {
+        display: -webkit-box;
+        flex-wrap: wrap;
+        width: 100%;
+        // max-width: 200px;
+        height: 74px;
+        overflow: hidden;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    .border-top {
+      border-color: var(--bs-border-color) !important;
+    }
+  }
+}
+
+::ng-deep {
+  .group-post-card.card {
+    .card-body {
+      .card-text * {
+        font-size: 12px !important;
+      }
+      span{
+        a{
+          color: rgba(var(--bs-danger-rgb));
+        }
+      }
+    }
+  }
+}

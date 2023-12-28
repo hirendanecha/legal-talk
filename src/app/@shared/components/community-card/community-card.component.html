@@ -1,0 +1,92 @@
+<ng-container *ngIf="community?.Id">
+  <div
+    class="single-box mb-0 p-5 h-100 d-flex flex-column"
+    (click)="goToCommunityDetailPage()"
+    role="button"
+  >
+    <div class="avatar-box position-relative">
+      <img
+        loading="lazy"
+        class="avatar-img cover-img w-100 h-160-px"
+        data-src="{{ community?.coverImg }}"
+        onerror="this.onerror=null;this.src='/assets/images/banner/Healing-Tube-Logo.png'"
+        alt="avatar"
+      />
+    </div>
+
+    <div class="abs-avatar-item">
+      <img
+        loading="lazy"
+        class="w-80-px h-80-px rounded-3 shadow-none"
+        data-src="{{ community?.logoImg }}"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+        alt="avatar"
+      />
+    </div>
+
+    <h6 class="m-0 mb-2 mt-3">{{ community.CommunityName }}</h6>
+    <p class="smtxt public-group mb-0">{{ community.CommunityDescription }}</p>
+
+    <div class="friends-list d-center gap-1 text-center">
+      <span class="smtxt m-0">{{ community.members }} Members</span>
+    </div>
+
+    <ng-container *ngIf="type">
+      <div
+        class="d-flex justify-content-between align-items-center pt-5 gap-2 mt-auto"
+      >
+        <ng-container *ngIf="['my', 'joined'].includes(type)">
+          <button
+            class="btn btn-outline-danger alt third w-80-px"
+            (click)="deleteOrLeaveCommunity($event, community.profileId === profileId ? 'my' : 'Leave')"
+          >
+            {{ type === "my" ? "Delete" : "Leave" }}
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'local'">
+          <button
+            *ngIf="community.profileId === profileId"
+            class="btn btn-outline-danger alt third w-80-px"
+            (click)="deleteOrLeaveCommunity($event, 'my')"
+          >
+            {{ "Delete" }}
+          </button>
+          <button
+            *ngIf="
+              community.profileId !== profileId &&
+              community.memberList?.includes(profileId)
+            "
+            class="btn btn-outline-danger alt third w-80-px"
+            (click)="deleteOrLeaveCommunity($event, 'local')"
+          >
+            {{ "Leave" }}
+          </button>
+          <button
+            *ngIf="
+              community.profileId !== profileId &&
+              !community?.memberList?.includes(profileId)
+            "
+            class="btn btn-outline-success alt third w-80-px"
+            (click)="joinCommunity($event)"
+          >
+            Join
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="community?.isApprove === 'Y'">
+          <button class="btn btn-outline-primary alt third w-80-px">
+            View
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'my' && community?.isApprove === 'N'">
+          <span class="text-danger m-0 c-class"
+            >Waiting Approval within 24hours</span
+          >
+          <!-- <span class="text-danger m-0">Not Approve</span> -->
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -1,0 +1,14 @@
+.form-dark {
+  label {
+    color: var(--heading-1st-color) !important;
+  }
+  .login-button {
+    padding: 0.8rem 2.6rem;
+  }
+}
+
+::ng-deep app-post-meta-data-card .post-img {
+  img {
+    height: 150px;
+  }
+}

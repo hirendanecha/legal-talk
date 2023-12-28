@@ -1,0 +1,37 @@
+.edit-profile {
+  .sidebar-bar {
+    min-width: 300px;
+    max-width: 300px;
+    height: max-content;
+
+    .profile-img {
+      min-height: 260px;
+    }
+  }
+
+  .cover-image {
+    min-height: 300px;
+    max-height: 300px;
+  }
+
+  .edit-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    fa-icon {
+      padding: 16px;
+      background-color: #6c757da3;
+      border-radius: 50%;
+      transition: 0.3s ease-in-out;
+      border: 2px solid transparent;
+    }
+
+    &:hover {
+      fa-icon {
+        transform: scale(1.2);
+        background-color: var(--section-1st-color);
+      }
+    }
+  }
+}

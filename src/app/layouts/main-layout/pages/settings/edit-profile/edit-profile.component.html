@@ -1,0 +1,212 @@
+<div class="d-flex flex-column flex-lg-row w-100 gap-5 edit-profile">
+  <app-img-picker
+    classes="w-300-px h-300-px"
+    [url]="customer.ProfilePicName"
+    (onFileChange)="onProfileImgChange($event)"
+  />
+
+  <div class="d-flex flex-column mb-5 w-100">
+    <app-img-picker
+      classes="w-100 h-300-px"
+      defaultImg="/assets/images/profile-cover.png"
+      [url]="customer.CoverPicName"
+      (onFileChange)="onProfileCoverImgChange($event)"
+    />
+
+    <div class="single-box p-5 mt-5">
+      <form
+        id="loginForm"
+        class="form-dark"
+        ngNativeValidate
+        autocomplete="off"
+      >
+        <!-- (ngSubmit)="confirmAndUpdateCustomer()" -->
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">First Name</label>
+            <input
+              type="text"
+              class="input-area"
+              name="fname"
+              placeholder="Enter Your Name"
+              [(ngModel)]="customer.FirstName"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">Last Name</label>
+            <input
+              type="text"
+              class="input-area"
+              name="lname"
+              placeholder="Enter Your Name"
+              [(ngModel)]="customer.LastName"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label align-items-center"
+              >User Name</label
+            >
+            <input
+              type="text"
+              name="uname"
+              class="input-area"
+              placeholder="Enter your Username"
+              [(ngModel)]="customer.Username"
+              (keyup)="onChangeTag($event)"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label align-items-center"
+              >Email<span class="font-12-px ms-2">(not editable)</span></label
+            >
+
+            <input
+              type="text"
+              name="email"
+              class="input-area"
+              placeholder="Enter your email"
+              [(ngModel)]="userMail"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">Country</label>
+            <select
+              id="country"
+              name="country"
+              class="input-area w-100"
+              [(ngModel)]="customer.Country"
+              (change)="changeCountry()"
+            >
+              <option value="">Select Country</option>
+              <option
+                [value]="item.country_code"
+                *ngFor="let item of allCountryData"
+              >
+                {{ item.country }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">Zip Code</label>
+            <input
+              type="text"
+              class="input-area"
+              placeholder="Enter your zip code"
+              [disabled]="!customer.Country"
+              [(ngModel)]="customer.Zip"
+              name="zip"
+              #zipCode
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">State</label>
+            <input
+              type="text"
+              class="input-area"
+              placeholder="Enter your state"
+              disabled
+              name="state"
+              [(ngModel)]="customer.State"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label class="d-flex form-label">City</label>
+            <!-- <input
+              type="text"
+              class="input-area"
+              name="city"
+              placeholder="Enter your city"
+              disabled
+              [(ngModel)]="customer.City"
+            /> -->
+
+            <input
+              type="text"
+              class="input-area"
+              name="County"
+              placeholder="Enter your city"
+              disabled
+              [(ngModel)]="customer.County"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-md-6 mb-3">
+            <label class="d-flex form-label">County</label>
+            <!-- <input
+              type="text"
+              class="input-area"
+              name="County"
+              placeholder="Enter your county"
+              disabled
+              [(ngModel)]="customer.County"
+            /> -->
+            <input
+              type="text"
+              class="input-area"
+              name="city"
+              placeholder="Enter your county"
+              disabled
+              [(ngModel)]="customer.City"
+            />
+          </div>
+          <div class="col-6 col-md-6 mb-3">
+            <label class="d-flex form-label">Mobile</label>
+            <input
+              type="text"
+              class="input-area"
+              name="mobile"
+              placeholder="Enter your mobile number"
+              [(ngModel)]="customer.MobileNo"
+            />
+          </div>
+          <!-- <div
+            class="justify-content-end align-items-end d-flex"
+          >
+        </div> -->
+        </div>
+      </form>
+      <div class="d-flex flex-column">
+        <label class="d-flex form-label">Preferences</label>
+        <div class="d-flex">
+          <p class="m-2">
+            Notification Sound when you are tagged
+            <strong>{{ isNotificationSoundEnabled ? "On" : "Off" }}</strong>
+          </p>
+          <div class="form-switch">
+            <input
+              [(ngModel)]="isNotificationSoundEnabled"
+              class="form-check-input"
+              type="checkbox"
+              role="switch" 
+              id="flexSwitchCheckChecked"
+              (change)="notificationSound()"
+            />
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary mt-5 login-button float-end w-100-px"
+        (click)="confirmAndUpdateCustomer()"
+      >
+        <!-- type="submit" -->
+        Update
+      </button>
+      <button
+        class="btn btn-outline-danger mt-5 px-3 py-1 h-auto d-flex gap-2 align-items-center mb-5 delete-account float-start"
+        (click)="deleteAccount()"
+      >
+        Delete
+
+        <fa-icon [icon]="['fas', 'trash-can']" class="font-20-px" />
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="post-item d-flex flex-column gap-4">
+  <ng-container *ngIf="postList?.length > 0; else elseNoPostFound">
+    <ng-container *ngFor="let post of postList;let i = index">
+      <app-post-card [post]="post" [seeFirstList]="seeFirstList" (onEditPost)="onEditPostData(post, i)" (getPostList)="getPostList()" />
+    </ng-container>
+
+    <!-- <div
+      class="col-12 my-5 text-center"
+      *ngIf="parentComponent === 'HomeComponent' && postList.length > 9"
+    >
+      <button class="cmn-btn alt third fw-600 p-3" (click)="loadMore()">
+        Load More
+      </button>
+    </div> -->
+  </ng-container>
+</div>
+
+<app-inline-loader *ngIf="isPostLoader" />
+<ng-template #elseNoPostFound>
+  <ng-container *ngIf="!isPostLoader">
+    <h6 class="px-4 py-5 text-center">No Post Available</h6>
+  </ng-container>
+</ng-template>

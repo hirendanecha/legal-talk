@@ -1,0 +1,132 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .c-pdf-show {
+    overflow: hidden;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    text-overflow: ellipsis;
+  }
+}
+.search-user-list {
+  max-height: 332px;
+  overflow: auto;
+}
+::ng-deep {
+  .emoji-menu-panale {
+    position: fixed;
+    right: 36%;
+    top: 160px;
+    display: flex;
+    bottom: unset !important;
+    max-width: 400px;
+    .modal-content {
+      .emoji-mart {
+        background-color: var(--body-color);
+        width: 314px !important;
+        height: 320px;
+        border-color: var(--body-color);
+        emoji-search {
+          display: none;
+        }
+        .emoji-mart-bar {
+          emoji-preview {
+            display: none;
+          }
+        }
+        .emoji-mart-scroll {
+          .emoji-mart-category {
+            .emoji-mart-category-label {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .post-item {
+    width: 100%;
+    max-width: 656px;
+    .post-single-box {
+      .info-area {
+        .username {
+          color: var(--para-1st-color);
+        }
+      }
+
+      .post-description {
+        .postlink {
+          img {
+            border-radius: 0.5rem;
+          }
+          h3 {
+            font-size: 18px;
+            margin-top: 10px;
+          }
+        }
+      }
+      .total-react-share {
+        .like-count-section {
+          cursor: pointer;
+          ul {
+            li {
+              .active {
+                color: var(--primary-color) !important;
+              }
+            }
+          }
+        }
+      }
+      .like-comment-share {
+        .like-button {
+          .active {
+            color: var(--primary-color) !important;
+          }
+        }
+      }
+      .comments-area {
+        .like-button {
+          .active {
+            color: var(--primary-color) !important;
+          }
+        }
+      }
+    }
+  }
+
+  .share-post {
+    .post-message-input {
+      a {
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+  app-tag-user-input {
+    .inline-meta-loader {
+      top: 10px;
+      left: 240px;
+    }
+  }
+  .comment-emoji,
+  .replay-comment-emoji {
+    .inline-meta-loader {
+      top: unset;
+      left: -50px;
+    }
+  }
+  .c-icon-color {
+    svg path {
+      fill: var(--secondary-color);
+    }
+  }
+
+  ngb-tooltip-window {
+    z-index: 1 !important;
+  }
+}

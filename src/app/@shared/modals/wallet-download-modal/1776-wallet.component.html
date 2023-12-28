@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <h5 class="text-start m-0">Download 1776 Wallet</h5>
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="font-20-px"
+    role="button"
+    (click)="activeModal.close()"
+  />
+</div>
+<div class="modal-body text-center">
+  <div class="mid-area">
+    <div class="p-3 gap-3">
+      <span>Windows PC Download</span><br />
+      <span>1776-2.0.1-win64-setup-unsigned:</span>
+      <a
+        class="ms-1"
+        href="https://s3.us-east-1.wasabisys.com/wallet-download/1776-2.0.1-win64-setup-unsigned.exe"
+        >Click Here</a
+      >
+    </div>
+    <div class="p-3 gap-3 border-top">
+      <span>Linux Download</span><br />
+      <span>1776-2.0.1-x86_64-linux:</span>
+      <a
+        class="ms-1"
+        href="https://s3.us-east-1.wasabisys.com/wallet-download/1776-2.0.1-x86_64-linux-gnu.zip"
+        >Click Here</a
+      ><br />
+      <span>1776-2.0.1-x86_64-linux:</span>
+      <a
+        class="ms-1"
+        href="https://s3.us-east-1.wasabisys.com/wallet-download/1776-2.0.1-x86_64-linux-gnu.tar.gz"
+        >Click Here</a
+      >
+    </div>
+    <div class="p-3 gap-3 border-top">
+      <span>Mac Download</span><br />
+      <span>1776-2.0.1-osx-unsigned.dmg:</span>
+      <a
+        class="ms-1"
+        href="https://s3.us-east-1.wasabisys.com/wallet-download/1776-2.0.1-osx64.tar.gz"
+        >Click Here</a
+      ><br />
+      <span>1776-2.0.1-osx64-gz:</span>
+      <a
+        class="ms-1"
+        href="https://s3.us-east-1.wasabisys.com/wallet-download/1776-2.0.1-osx-unsigned.dmg"
+        >Click Here</a
+      >
+    </div>
+  </div>
+</div>
+<div class="modal-footer justify-content-end">
+  <button
+    id="common-filter-cancel"
+    type="button"
+    class="cmn-btn alt p-2"
+    (click)="activeModal.close(cancelButtonLabel)"
+  >
+    {{ cancelButtonLabel }}
+  </button>
+</div>

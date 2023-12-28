@@ -1,0 +1,127 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .tag-input-div {
+    font-size: 16px !important;
+    min-height: 56px;
+    // line-break: anywhere;
+    text-align: start;
+    max-width: 541px;
+    width: calc(100% - 60px);
+    overflow: hidden;
+    overflow-wrap: anywhere;
+
+    @media (max-width: 767px) {
+      max-width: 395px;
+    }
+    @media (max-width: 552px) {
+      max-width: 340px;
+    }
+    @media (max-width: 494px) {
+      max-width: 280px;
+    }
+    @media (max-width: 432px) {
+      max-width: 220px;
+    }
+
+    div {
+      background: unset !important;
+      background-color: unset !important;
+      font-size: 16px !important;
+    }
+
+    &[placeholder]:empty {
+      &:before {
+        content: attr(placeholder);
+        color: #697495;
+      }
+      &:focus {
+        &:before {
+          content: "";
+        }
+      }
+    }
+
+    .user-dropdown-menu {
+      max-height: 300px;
+    }
+  }
+  .select-emaojies {
+    position: absolute;
+    right: 0;
+    top: 5px;
+
+    @media (max-width: 575px) {
+      right: 52px;
+    }
+
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
+    }
+    .emoji-select {
+      max-width: 60px;
+      min-width: 60px;
+    }
+    .emojiModelStyle {
+      width: 282px;
+      // height: 225px;
+
+      .emoji-style {
+        width: 70px;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .tag-input-div {
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    span,
+    p {
+      background: unset !important;
+      background-color: unset !important;
+      font-size: 16px !important;
+      line-height: unset !important;
+      color: var(--para-2nd-color) !important;
+      font-weight: 400 !important;
+      overflow-wrap: anywhere;
+    }
+    // br {
+    //   display: none;
+    // }
+    a {
+      color: rgb(var(--bs-danger-rgb)) !important;
+    }
+  }
+  .dropdown-menu.show {
+    max-height: 292px;
+  }
+  mention-list {
+    .mention-menu {
+      width: 340px;
+      .mention-item {
+        padding: 8px;
+      }
+    }
+  }
+
+  .tag-image-preview {
+    img {
+      display: none !important;
+    }
+  }
+}
+.tag-image-preview ::ng-deep img[src$=".gif"] {
+  display: unset !important;
+}

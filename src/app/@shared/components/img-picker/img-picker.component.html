@@ -1,0 +1,22 @@
+<div class="img-picker single-box mb-0 d-flex flex-column position-relative p-5 rounded-3" [ngClass]="classes" >
+  <img
+    class="w-100 h-100 rounded-3"
+    loading="lazy"
+    data-src="{{
+      fileData?.url || url || defaultImg
+    }}"
+    onerror="this.onerror=null;this.src=defaultImg;"
+  />
+
+  <div class="edit-image d-flex justify-content-center align-items-center w-100 h-100 c-pointer" (click)="imgFileTagRef.click()" >
+    <ng-container *ngIf="!fileData?.url">
+      <fa-icon [icon]="['fas', 'camera']" class="eye-icon" ></fa-icon>
+    </ng-container>
+
+    <ng-container *ngIf="fileData?.url">
+      <fa-icon [icon]="['fas', 'xmark']" class="position-absolute top-0 start-100 translate-middle badge bg-danger py-1 font-16-px c-pointer c-icon-color" (click)="onClearFile($event)" />
+    </ng-container>
+
+    <input type="file" #imgFileTagRef hidden required class="d-none" accept="image/*" (change)="onImgFileChange($event)"/>
+  </div>
+</div>

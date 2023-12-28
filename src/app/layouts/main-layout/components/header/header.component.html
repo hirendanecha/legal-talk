@@ -1,0 +1,214 @@
+<header class="header-section w-100">
+  <div class="container p-3">
+    <nav class="navbar navbar-expand-lg justify-content-between w-100 p-0">
+      <div class="left-area d-flex align-items-center gap-3">
+        <ng-container
+          *ngIf="
+            (breakpointService?.screen | async).lg.gatherThen;
+            else mobileView
+          "
+        >
+          <a routerLink="/home" class="navbar-brand p-0 m-0">
+            <img
+              src="assets/images/landingpage/Healing-Tube-Logo-Square.svg"
+              class="w-48-px h-48-px rounded-3"
+              alt="logo"
+              onerror="this.onerror=null;"
+            />
+          </a>
+        </ng-container>
+
+        <ng-template #mobileView>
+          <div class="mobile-view">
+            <div class="single-item d-flex">
+              <div
+                class="icon-area d-center position-relative"
+                (click)="openProfileMobileMenuModal()"
+              >
+                <img
+                  *ngIf="sharedService?.userData?.ProfilePicName"
+                  class="w-48-px h-48-px rounded-3"
+                  loading="lazy"
+                  data-src="{{ sharedService?.userData?.ProfilePicName }}"
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                  alt="avatar"
+                />
+                <img
+                  *ngIf="!sharedService?.userData?.ProfilePicName"
+                  src="assets/images/landingpage/Healing-Tube-Logo-Square.svg"
+                  class="w-48-px h-48-px rounded-3"
+                  alt="logo"
+                  onerror="this.onerror=null;"
+                />
+              </div>
+              <div
+                class="icon-area d-center position-relative ms-7"
+                (click)="openNotificationsMobileModal()"
+              >
+                <span
+                  *ngIf="sharedService.isNotify"
+                  class="abs-area position-absolute d-center smtxt"
+                ></span>
+                <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+        <div
+          class="input-area h-48-px d-md-flex d-none align-items-center"
+          *ngIf="tokenService.getCredentials()"
+        >
+          <fa-icon [icon]="['fas', 'magnifying-glass']" class="me-1" />
+          <input
+            type="text"
+            id="search"
+            name="search"
+            placeholder="Search"
+            autocomplete="off"
+            [(ngModel)]="searchText"
+            (input)="getUserList()"
+          />
+        </div>
+
+        <ng-container *ngIf="searchText">
+          <div #userSearchDropdownRef ngbDropdown>
+            <div ngbDropdownMenu class="search-user-list">
+              <ng-container *ngFor="let user of userList">
+                <div
+                  ngbDropdownItem
+                  class="d-flex gap-3 pe-auto"
+                  role="button"
+                  (click)="openProfile(user.Id)"
+                >
+                  <img
+                    loading="lazy"
+                    class="w-32-px h-32-px rounded"
+                    data-src="{{ user.ProfilePicName }}"
+                    [alt]="user.Username"
+                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                  />
+                  <span>{{ user.Username.split(" ").join("") }}</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <ul
+        *ngIf="tokenService.getCredentials()"
+        class="navbar-nav d-flex flex-row justify-content-around align-self-center ms-auto m-lg-auto gap-3 gap-xl-20 gap-lg-10 py-0"
+      >
+        <li>
+          <!-- (click)="scrollToTop()" -->
+          <!-- (dblclick)="reloadPage()" -->
+          <a
+            routerLink="/home"
+            (dblclick)="reloadPage()"
+            routerLinkActive="active"
+            class="nav-icon home cursor"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Home"
+          >
+            <fa-icon [icon]="['fas', 'house']" class="font-24-px me-8" />
+          </a>
+        </li>
+        <!-- <li>
+          <a
+            routerLink="/research"
+            target="_blank"
+            routerLinkActive="active"
+            class="nav-icon research"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Research"
+          >
+            <fa-icon [icon]="['fas', 'book-open']" class="font-24-px mx-5" />
+          </a>
+        </li> -->
+        <li>
+          <!-- (click)="redirectToTube()" -->
+          <a
+            [href]="
+              channelId
+                ? environment.tubeUrl + '?channelId=' + channelId
+                : environment.tubeUrl
+            "
+            target="_blank"
+            routerLinkActive="active"
+            class="nav-icon cursor"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Healing Video"
+          >
+            <fa-icon [icon]="['fas', 'play']" class="font-24-px me-7" />
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="right-area d-lg-flex d-none justify-content-end align-items-center gap-6 cus-z p-0"
+        *ngIf="tokenService.getCredentials()"
+      >
+        <div class="single-item">
+          <div
+            class="icon-area d-center position-relative"
+            (click)="openNotificationsModal()"
+          >
+            <span
+              *ngIf="sharedService.isNotify"
+              class="abs-area position-absolute d-center smtxt"
+            ></span>
+            <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
+          </div>
+        </div>
+
+        <div class="single-item">
+          <div
+            class="icon-area d-center position-relative"
+            (click)="openProfileMenuModal()"
+          >
+            <img
+              class="w-100 h-100 rounded-3"
+              loading="lazy"
+              data-src="{{ sharedService?.userData?.ProfilePicName }}"
+              onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+              alt="avatar"
+            />
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="c-color">
+    <div class="container">
+      <ng-container *ngIf="(breakpointService?.screen | async).xl.lessThen">
+        <div
+          class="d-flex justify-content-between sticky-element p-3 p-sm-5 rounded-4"
+        >
+          <ng-container *ngIf="(breakpointService?.screen | async).lg.lessThen">
+            <button
+              class="button d-flex align-items-center gap-2"
+              (click)="openLeftSidebar()"
+            >
+              <fa-icon [icon]="['fas', 'bars']" />
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="(breakpointService?.screen | async).xl.lessThen">
+            <button
+              class="button d-flex align-items-center gap-2 ms-5"
+              (click)="openRightSidebar()"
+            >
+              <fa-icon [icon]="['fas', 'border-all']" />
+              <span>Dashboard</span>
+            </button>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,211 @@
+<div class="modal-header border-0">
+  <h5 class="text-start">{{ title }}</h5>
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="xxltxt"
+    role="button"
+    (click)="activeModal.close()"
+  />
+</div>
+
+<div class="modal-body text-center">
+  <form
+    class="form-dark row"
+    [formGroup]="pageForm"
+    (ngSubmit)="uploadImgAndSubmit()"
+  >
+    <div class="col-12 mb-5">
+      <label class="form-label d-flex"
+        >Topic Name<span class="text-danger">*</span></label
+      >
+      <input
+        type="text"
+        class="input-area"
+        name="cname"
+        formControlName="CommunityName"
+        placeholder="Enter your topic name"
+        (keyup)="onCommunityNameChange()"
+      />
+    </div>
+    <div class="row">
+      <div class="col-6 mb-5 d-grid">
+        <label class="form-label d-flex"
+          >Country<span class="text-danger">*</span></label
+        >
+        <select
+          id="Country"
+          required
+          name="Country"
+          class="input-area w-100"
+          (change)="changeCountry()"
+          formControlName="Country"
+        >
+          <option [value]="defaultCountry">United states</option>
+          <option
+            *ngFor="let item of allCountryData; let i = index"
+            [value]="item.country_code"
+          >
+            {{ item.country }}
+          </option>
+        </select>
+      </div>
+      <div class="col-6 mb-5 d-grid">
+        <label class="form-label d-flex"
+          >Zip<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="input-area"
+          name="cname"
+          formControlName="Zip"
+          placeholder="Enter your Zip"
+          #zipCode
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 mb-3">
+        <label class="form-label d-flex"
+          >State<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="input-area"
+          required
+          placeholder="Enter your state"
+          name="State"
+          formControlName="State"
+        />
+      </div>
+
+      <div class="col-4 mb-3">
+        <label class="form-label d-flex"
+          >City<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="input-area"
+          required
+          name="County"
+          placeholder="Enter your County"
+          formControlName="County"
+        />
+      </div>
+      <div class="col-4 mb-3">
+        <label class="form-label d-flex"
+          >County<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="input-area"
+          required
+          name="City"
+          placeholder="Enter your city"
+          formControlName="City"
+        />
+      </div>
+    </div>
+
+    <div class="col-12 mb-5">
+      <label class="form-label d-flex">Description</label>
+      <textarea
+        name="dec"
+        cols="30"
+        rows="3"
+        placeholder="Enter your description"
+        formControlName="CommunityDescription"
+        required
+      ></textarea>
+    </div>
+
+    <div class="col-6 mb-5 d-grid">
+      <label class="form-label d-flex"
+        >Logo Image<span class="text-danger">*</span></label
+      >
+      <app-img-picker
+        classes="w-160-px h-160-px p-0"
+        (onFileChange)="onLogoImgChange($event)"
+        [url]="data?.logoImg"
+      />
+    </div>
+
+    <div class="col-6 mb-5 d-grid">
+      <label class="form-label d-flex"
+        >Cover Image<span class="text-danger">*</span></label
+      >
+      <app-img-picker
+        classes="w-160-px h-160-px p-0"
+        (onFileChange)="onCoverImgChange($event)"
+        [url]="data?.coverImg"
+      />
+    </div>
+
+    <div class="col-12 mb-5">
+      <label class="form-label d-flex"
+        >Topic Url<span class="text-danger">*</span></label
+      >
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text h-100 border-0 ps-5 pe-0">{{
+            originUrl
+          }}</span>
+        </div>
+        <input
+          type="text"
+          class="input-area ps-1"
+          name="cSlug"
+          formControlName="slug"
+          placeholder="Enter topic url slug"
+        />
+      </div>
+    </div>
+    <div class="row advertizement-link">
+      <div class="col-md-6">
+        <label class="form-label d-flex">Advertizement Link 1</label>
+        <app-tag-user-input
+          class=""
+          placeholder="Put a link for advertizement!"
+          [value]="inputLinkValue1"
+          [isShowMetaLoader]="false"
+          (onDataChange)="onTagUserInputChangeEvent($event)"
+          [isShowMetaLoader]="false"
+          [isShowMetaPreview]="true"
+          [isAllowTagUser]="false"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label d-flex">Advertizement Link 2</label>
+        <app-tag-user-input
+          class=""
+          placeholder="Put a link for advertizement!"
+          [value]="inputLinkValue2"
+          [isShowMetaLoader]="false"
+          (onDataChange)="onTagUserInputChangeEvent1($event)"
+          [isShowMetaLoader]="false"
+          [isShowMetaPreview]="true"
+          [isAllowTagUser]="false"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer justify-content-end gap-3 border-0">
+  <button
+    id="common-filter-cancel"
+    type="button"
+    class="cmn-btn alt p-2"
+    (click)="activeModal.close('Cancel')"
+  >
+    {{ cancelButtonLabel }}
+  </button>
+  <button
+    id="common-filter-confirm"
+    type="submit"
+    class="cmn-btn p-2"
+    [disabled]="!pageDetails"
+    (click)="uploadImgAndSubmit()"
+  >
+    {{ confirmButtonLabel }}
+  </button>
+</div>

@@ -1,0 +1,19 @@
+<div class="footer-menu d-lg-none d-flex justify-content-between align-items-center gap-3 position-fixed bottom-0 w-100 cus-z p-3">
+  <div class="single-item">
+    <div class="icon-area d-center position-relative" (click)="openNotificationsModal()">
+      <span *ngIf="sharedService.isNotify" class="abs-area position-absolute d-center smtxt"></span>
+      <fa-icon [icon]="['fas', 'bell']" class="font-20-px" />
+    </div>
+  </div>
+
+  <div class="single-item">
+    <div class="icon-area d-center position-relative" (click)="openProfileMenuModal()">
+      <img
+        class="w-100 h-100 rounded-3"
+        loading="lazy"
+        data-src="{{ sharedService?.userData?.ProfilePicName }}" onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+        alt="avatar"
+      />
+    </div>
+  </div>
+</div>

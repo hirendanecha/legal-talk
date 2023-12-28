@@ -1,0 +1,7 @@
+:host {
+  ::ng-deep {
+    .tag-input-div {
+      max-width: unset !important;
+    }
+  }
+}

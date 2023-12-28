@@ -1,0 +1,7 @@
+h5 {
+  text-transform: none;
+}
+
+::ng-deep .custome-width .tag-input-div {
+  max-width: unset !important;
+}

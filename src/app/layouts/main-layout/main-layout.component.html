@@ -1,0 +1,31 @@
+<app-header />
+
+<div class="main-content d-flex justify-content-start align-items-start">
+  <div class="container pt-5">
+    <div class="d-lg-flex d-block w-100 gap-5 min-vh-100 main-layout">
+      <ng-container *ngIf="sidebar?.isShowLeftSideBar && (breakpointService?.screen | async).lg.gatherThen">
+        <div class="my-profile-sidebar">
+          <ng-container *ngIf="!sidebar?.isShowResearchLeftSideBar">
+            <app-left-sidebar />
+          </ng-container>
+
+          <ng-container *ngIf="sidebar?.isShowResearchLeftSideBar">
+            <app-research-sidebar />
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <div class="mb-15 w-100">
+        <router-outlet />
+      </div>
+
+      <ng-container *ngIf="sidebar?.isShowRightSideBar && (breakpointService?.screen | async).xl.gatherThen">
+        <div class="my-list-sidebar">
+          <app-right-sidebar />
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- <app-footer /> -->

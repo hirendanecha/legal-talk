@@ -1,0 +1,47 @@
+<div class="mb-5 d-flex gap-3 justify-content-between">
+  <div class="d-flex flex-column pt-3">
+    <h6 class="d-block d-xl-none text-start">Communities</h6>
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="activeIdTab" (activeIdChange)="getCommunities()"
+      class="nav flex-wrap tab-area">
+      <li ngbNavItem="local">
+        <button ngbNavLink class="d-flex gap-1">
+          All Health
+          <div class="d-none d-xl-block">Practitioners</div>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="btn-item text-center">
+    <button class="btn btn-sm btn-primary gap-1 d-flex align-items-center m-auto mt-1" (click)="createCommunity()">
+      <fa-icon [icon]="['fas', 'plus']" class="c-icon-color" />
+      Apply to be
+      <div class="d-none d-sm-block">Health</div>
+      <div class="d-none d-xl-block">Practitioner</div>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <ng-container *ngFor="let community of communities">
+    <div>
+      <!-- class="col-12 col-md-6 col-xl-4 pb-6" -->
+      <!-- <app-community-card
+        [type]="activeIdTab"
+        [community]="community"
+        (getCommunities)="getCommunities()"
+      /> -->
+      <app-health-partitioner-card [type]="activeIdTab" [community]="community"
+        (getCommunities)="getCommunities()"></app-health-partitioner-card>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!communities.length">
+    <app-inline-loader *ngIf="isCommunityLoader" />
+
+    <ng-container *ngIf="!isCommunityLoader">
+      <span>No Practitioner found</span>
+    </ng-container>
+  </ng-container>
+</div>

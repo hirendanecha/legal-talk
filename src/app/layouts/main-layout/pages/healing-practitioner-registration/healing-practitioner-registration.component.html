@@ -1,0 +1,181 @@
+<ng-container *ngIf="!selectPractitionerPage">
+  <div class="healing-registration-container">
+    <h2 class="text-center">What do you want to do?</h2>
+    <div class="d-flex justify-content-center mt-10">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="card text-center">
+          <div class="card-body">
+            <p class="card-text">
+              Find a Naturopathic Doctor or Holistic Practitioner to have a
+              private video consultation?
+            </p>
+            <button>
+              <a (click)="backPreview()" class="btn btn-primary">Select</a>
+            </button>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <p class="card-text">
+              Social discussion on how to heal various ailments?
+            </p>
+            <button>
+              <a href="/home" class="btn btn-primary">Select</a>
+            </button>
+          </div>
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <p class="card-text">
+              Watch videos from Naturopathic Doctors and Holistic Practitioners
+            </p>
+            <button>
+              <a href="https://video.healing.tube/" class="btn btn-primary"
+                >Select</a
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="selectPractitionerPage">
+  <div class="d-flex justify-content-center mt-10">
+    <div class="d-flex flex-column">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="countryCheckbox"
+          id="countryCheckbox"
+          [(ngModel)]="isCountryChecked"
+          (change)="updateCheckbox('country')"
+        />
+        <label class="form-check-label selectCountry" for="countryCheckbox">
+          <span class="d-none d-sm-block">Find a local practitioner in&nbsp;</span
+          >Country:
+          <select
+            id="Country"
+            required
+            name="Country"
+            class="input-area w-100"
+            (change)="changeCountry()"
+            [disabled]="!isCountryChecked"
+            [(ngModel)]="selectedCountry"
+          >
+            <option
+              [value]="item.country_code"
+              *ngFor="let item of allCountryData"
+            >
+              {{ item.country }}
+            </option>
+          </select>
+          State:
+          <select
+            id="State"
+            required
+            name="State"
+            class="input-area w-100"
+            [disabled]="!isCountryChecked"
+            [(ngModel)]="selectedState"
+          >
+            <option [value]="item.state" *ngFor="let item of allStateData">
+              {{ item.state }}
+            </option>
+          </select>
+        </label>
+      </div>
+      <div class="text-center mt-4">
+        <h3>OR</h3>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="worldwideCheckbox"
+          id="worldwideCheckbox"
+          [(ngModel)]="isWorldwideChecked"
+          (change)="updateCheckbox('worldwide')"
+        />
+        <label class="form-check-label selectCountry" for="worldwideCheckbox">
+          Worldwide Located Worldwide
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="healing-sub-container">
+    <h2 class="text-center mt-10">
+      What emphasis are you interested in healing:
+    </h2>
+    <div class="d-flex justify-content-center mt-5">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div *ngFor="let card of cards" class="card text-center">
+          <div class="card-body">
+            <h4 class="card-title">{{ card.title }}</h4>
+            <p class="card-text">{{ card.description }}</p>
+            <button (click)="selectCard(card.id)">
+              <a
+                class="btn"
+                [ngClass]="isSelected(card.id) ? 'btn-success' : 'btn-primary'"
+              >
+                {{ isSelected(card.id) ? "Selected" : "Select" }}</a
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column mt-6">
+    <h4>Topics for Discussion with a Healing Practitioner</h4>
+    <div class="container">
+      <div class="row">
+        <div *ngFor="let area of practitionerArea" class="col-md-6 col-lg-3">
+          <div class="form-check">
+            <div class="d-flex align-items-center">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="area.aId"
+                id="modality{{ area.aId }}"
+                (change)="onAreaboxChange($event, area)"
+              />
+              <div class="title-container">
+                <label class="form-check-label ms-2" for="modality{{ area.aId }}" [title]="area.name">
+                  {{ area.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 mt-5">
+    <button
+      *ngIf="!isFromHome"
+      (click)="backPreview()"
+      class="btn btn-primary d-flex align-items-center float-start"
+    >
+      <fa-icon
+        [icon]="['fas', 'arrow-left-long']"
+        class="c-pointer close-icon me-2"
+        title="Back"
+      />Back
+    </button>
+    <button
+      (click)="nextPageSearch()"
+      class="btn btn-primary d-flex align-items-center float-end"
+    >
+      Next
+      <fa-icon
+        [icon]="['fas', 'arrow-right-long']"
+        class="c-pointer close-icon ms-2"
+        title="Next"
+      />
+    </button>
+  </div>
+</ng-container>

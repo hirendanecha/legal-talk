@@ -1,0 +1,26 @@
+.login-content {
+  .banner-sction {
+    background-image: url(/assets/images/banner/banner-2.jpg);
+    width: 560px;
+    height: 490px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .hrero-section {
+      background: var(--hero-section-bg);
+      padding: 50px;
+      position: relative;
+      height: 490px;
+      .about-freedom {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translate(0, -50%);
+        padding: 50px;
+        h3 {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

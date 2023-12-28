@@ -1,0 +1,12 @@
+:host {
+  .research-sidebar.cus-scrollbar {
+    position: sticky;
+    top: 92px;
+    max-height: calc(100vh - 112px);
+    overflow-x: auto;
+  }
+
+  .border-top {
+    border-top: 1px solid var(--bs-border-color) !important;
+  }
+}

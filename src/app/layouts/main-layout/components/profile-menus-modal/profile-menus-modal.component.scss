@@ -1,0 +1,90 @@
+::ng-deep {
+  .profile-menus-modal {
+    position: fixed;
+    right: 315px;
+    top: 50px;
+    display: flex;
+    bottom: unset !important;
+    min-width: 280px;
+    max-width: 80vw;
+
+    @media (max-width: 1024px) {
+      right: 40px !important;
+    }
+
+    @media (width: 1180px) {
+      right: 112px !important;
+    }
+
+    @media (min-width: 1300px) and (max-width: 1368px) {
+      right: 112px !important;
+    }
+
+    @media (width: 1114px) {
+      right: 90px !important;
+    }
+
+    @media (min-width: 1200px) and (width: 1280px) {
+      right: 90px !important;
+    }
+
+    @media (min-width: 1400px) and (max-width: 1680px) {
+      right: 90px !important;
+    }
+
+    @media (min-width: 1941px) and (max-width: 2580px) {
+      right: 23% !important
+    }
+
+    @media (min-width: 2641px) {
+      right: 23% !important;
+    }
+  }
+}
+
+.main-area {
+  cursor: pointer;
+
+  .view-profile {
+    a {
+      background-color: var(--box-1st-color);
+      color: var(--primary-color);
+    }
+  }
+
+  ul {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+      color: var(--heading-1st-color);
+    }
+
+    li {
+      &:last-child {
+        border-top: 1px solid var(--bs-border-color);
+        border-bottom: 1px solid var(--bs-border-color);
+      }
+
+      &:first-child {
+        border-bottom: 1px solid var(--bs-border-color);
+      }
+    }
+  }
+
+  .switch-wrapper {
+    .form-switch {
+      margin-bottom: 0px;
+
+      .form-check-input {
+        width: 3rem;
+        padding: 12px;
+        margin-top: 0px;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<div class="single-box p-sm-5 p-3">
+  <h6 class="head-area text-start m-0 pt-0 pb-5">Delete Account</h6>
+
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <div class="d-flex flex-column justify-content-start align-items-start" >
+      <span class="text-start" >Do you really want to delete your account?</span>
+      <span class="text-start text-danger">If you will delete your account then you will not be able to login atFreedom.social.</span>
+    </div>
+
+    <button class="btn btn-sm btn-outline-danger px-3 py-1 h-auto d-flex gap-2 align-items-center delete-account" (click)="deleteAccount()">
+      Delete
+
+      <fa-icon [icon]="['fas', 'trash-can']" class="font-20-px text-danger" />
+    </button>
+  </div>
+</div>

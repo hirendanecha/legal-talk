@@ -1,0 +1,176 @@
+<div class="main-container">
+  <nav class="navbar navbar-light bg-white px-6 px-sm-10 auth-btns">
+    <div class="d-flex flex-column">
+      <img
+        src="/assets/images/landingpage/Healing-Tube-Logo.svg"
+        class="h-60-px pt-2"
+        alt=""
+      />
+      <!-- <h6 class="text-danger text-end">BETA</h6> -->
+    </div>
+    <div class="d-lg-none d-md-none d-block c-button-landing">
+      <fa-icon [icon]="['fas', 'bars']" (click)="mobileMenu()" />
+    </div>
+    <div class="landing-btn d-none d-md-block d-lg-block">
+      <button
+        class="btn btn-primary alt third w-80-px"
+        (click)="openLoginPage()"
+      >
+        Login
+      </button>
+      <button
+        class="btn btn-outline alt third w-80-px ms-2"
+        (click)="openSignPage()"
+      >
+        Signup
+      </button>
+    </div>
+  </nav>
+
+  <div (click)="closeMenu()">
+    <div
+      class="d-flex flex-column text-center py-10 custom-height justify-content-center"
+    >
+    <div class="container">
+      <div class="row m-0 justify-content-end offset-0">
+        <div class="col-md-6 banner-text">
+          <!-- <span class="pb-2 pb-lg-4">
+            <i class="text-white text-s">Worldwide Freedom is the Buzzzz!</i>
+          </span>
+          <span class="pb-4">
+            <i class="text-white text-s">No AI and we DO NOT sell your data</i>
+          </span> -->
+          <span class="text-white c-fonts text-center mt-3">
+            Private video consultations with Naturopathic Doctors <br />
+            and Holistic Healers from around the world
+          </span>
+          <span class="text-white c-fonts py-6 mt-10 text-center"
+            >Social Discussion on how to heal various ailments</span
+          >
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- <div class="bg-white">
+      <div class="answers_main">
+        <div class="d-flex justify-content-center mb-17">
+          <img src="/assets/images/landingpage/freedom-tube.png" alt="" />
+        </div>
+        <div class="sub-container">
+          <p class="sub-text c-width py-5 py-lg-10">
+            <strong class="head-text">Freedom.buzz</strong> is a decentralized
+            platform that promotes freedom based projects worldwide
+          </p>
+          <div class="mb-20">
+            <p class="head-text sub-text">
+              Freedom.buzz is end user regulated:
+            </p>
+            <p class="sub-text">
+              - End users are subscribed to all end users and channels and pages
+            </p>
+            <p class="sub-text">
+              - If you do not like something or someone, Unsubscribe
+            </p>
+            <p class="sub-text">
+              - If you like something or someone, you can See First
+            </p>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-center">WE HAVE ANSWERS</h2>
+          <div class="answers_token">
+            <img
+              alt="answer"
+              loading="lazy"
+              width="308"
+              height="308"
+              decoding="async"
+              data-nimg="1"
+              style="color: transparent"
+              src="/assets/images/landingpage/freedomAnswer.png"
+            />
+            <img
+              alt="answer"
+              loading="lazy"
+              width="308"
+              height="308"
+              decoding="async"
+              data-nimg="1"
+              style="color: transparent"
+              src="/assets/images/landingpage/localFood.png"
+            />
+            <img
+              alt="answer"
+              loading="lazy"
+              width="308"
+              height="308"
+              decoding="async"
+              data-nimg="1"
+              style="color: transparent"
+              src="/assets/images/landingpage/tokens.png"
+            />
+            <img
+              alt="answer"
+              loading="lazy"
+              width="308"
+              height="308"
+              decoding="async"
+              data-nimg="1"
+              style="color: transparent"
+              src="/assets/images/landingpage/masterNodesIcon.png"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="c-footer bg-color py-6 py-sm-20">
+      <p class="footer-txt">
+        Worldwide Freedom Foundation and its Members around the world have set
+        this decentralized platform free.
+      </p>
+      <p class="footer-txt">
+        Freedom.buzz does not have a managing or governing organization. Its
+        Members are 1776 Token Masternode Owners.
+      </p>
+      <p class="footer-txt">
+        We believe in free speech, and we live with love and truth.
+      </p>
+      <p class="footer-txt">
+        This decentralized platform does not sell end user data. We are not
+        interested in profits from this platform.
+      </p>
+      <p class="footer-txt">
+        We are interested in advancing humanity within organic form and seeing
+        that children live safe and happy lives.
+      </p>
+      <p class="footer-txt">
+        If you desire to help fund this project, become a 1776 Masternode owner.
+        Inquire within.
+      </p>
+    </div> -->
+  </div>
+</div>
+<ng-container *ngIf="mobileMenuToggle">
+  <div class="main-area p-5 profile-content">
+    <div class="head-area">
+      <div class="d-flex gap-3">
+        <div class="text-area">
+          <h6 class="m-0 mb-1"></h6>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row-reverse c-button-landing">
+      <button class="c-btn" (click)="closeMenu()">
+        <fa-icon [icon]="['fas', 'xmark']" />
+      </button>
+    </div>
+    <ul class="ps-0">
+      <li>
+        <a class="mdtxt text-black" (click)="openLoginPage()"> Login </a>
+      </li>
+      <li>
+        <a class="mdtxt text-black" (click)="openSignPage()"> Sign up </a>
+      </li>
+    </ul>
+  </div>
+</ng-container>

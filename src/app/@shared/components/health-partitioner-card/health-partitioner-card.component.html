@@ -1,0 +1,49 @@
+<ng-container *ngIf="community?.Id">
+  <div class="single-box filter-single-box text-start p-5 p-md-3 align-items-center gap-4">
+    <div class="d-flex d-xl-flex">
+      <div class="avatar-area">
+        <img loading="lazy" class="avatar-img cover-img w-152-px h-152-px rounded" data-src="{{ community?.coverImg }}"
+          onerror="this.onerror=null;this.src='/assets/images/banner/Healing-Tube-Logo.png'" alt="avatar" />
+      </div>
+      <div class="title-area mx-5">
+        <h5><a>{{ community.CommunityName }}</a></h5>
+        <p class="smtxt public-group mb-0">{{ community.CommunityDescription }}</p>
+        <div class="inside-profile pt-3 justify-content-between">
+          <div class="avatar-area d-flex align-items-center gap-3">
+            <!-- <img loading="lazy" class="w-48-px h-48-px rounded-3 shadow-none" data-src="{{ community?.logoImg }}"
+              onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';" alt="avatar" /> -->
+            <button class="btn btn-sm btn-primary">Request Call</button>
+          </div>
+          <div class="d-flex mt-2">
+            <fa-icon [icon]="['fas', 'globe']" class="eye-icon"></fa-icon>
+            <span class="ms-1">{{community.Country}},{{community.State}},{{community.County}},{{community.City}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex mt-2 align-items-center">
+      <div class="d-flex flex-row align-items-center label">
+        <fa-icon [icon]="['fas', 'circle']" class="eye-icon font-14-px"></fa-icon>
+        <span class="ms-1">Emphasis of Healing:</span>
+      </div>
+      <div class="d-flex flex-row flex-wrap gap-2">
+        <div class="smtxt category-card" *ngFor="let item of community.emphasis">
+          {{item.name}}
+        </div>
+      </div>
+    </div>
+    <div class="d-flex mt-2 align-items-center">
+      <div class="d-flex flex-row align-items-center label">
+        <fa-icon [icon]="['fas', 'circle']" class="eye-icon font-14-px"></fa-icon>
+        <span class="ms-1">Areas of Healing:</span>
+      </div>
+      <div class="d-flex flex-row flex-wrap gap-2">
+        <div class="smtxt category-card" *ngFor="let item of community.areas">
+          {{item.name}}
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</ng-container>

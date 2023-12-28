@@ -1,0 +1,262 @@
+<div class="profile-picture-area justify-content-center mb-15">
+  <div class="single-box p-5">
+    <div class="col-md-12">
+      <div class="upload-single cover-img">
+        <div class="profile-picture position-relative text-start">
+          <img
+            loading="eager"
+            data-src="{{
+              customer?.CoverPicName || '/assets/images/profile-cover.png'
+            }}"
+            class="preview-image w-100"
+            onerror="this.onerror=null;this.src='/assets/images/profile-cover.png';"
+            alt="Preview Image"
+          />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-4 profile text-start d-flex align-items-center">
+          <img
+            class="preview-image w-120-px h-120-px"
+            loading="eager"
+            data-src="{{
+              customer?.ProfilePicName ||
+                '/assets/images/avtar/placeholder-user.png'
+            }}"
+            onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+            alt="Preview Image"
+          />
+          <div class="user-details ms-3">
+            <h3 class="d-flex">
+              {{ customer?.Username }}
+            </h3>
+            <div class="col-md" *ngIf="+profileId === customer.Id">
+              <button
+                class="btn btn-sm btn-primary float-end d-flex"
+                (click)="openEditProfile()"
+              >
+                <fa-icon [icon]="['fas', 'link']" class="font-14-px me-1" />
+                Privacy and settings
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-8">
+        <div class="page-details">
+          <ul class="nav pt-3 flex-wrap tab-area">
+            <li class="nav-item" role="presentation" (click)="activeTab = 1">
+              <a
+                class="nav-link d-center"
+                [ngClass]="activeTab === 1 ? 'active' : ''"
+                >Posts</a
+              >
+            </li>
+            <li
+              class="nav-item"
+              role="presentation"
+              (click)="activeTab = 2; getCommunities()"
+            >
+              <a
+                class="nav-link d-center"
+                [ngClass]="activeTab === 2 ? 'active' : ''"
+                >Health Practitioner</a
+              >
+            </li>
+            <li
+              class="nav-item"
+              role="presentation"
+              (click)="activeTab = 3; getPdfs()"
+            >
+              <a
+                class="nav-link d-center"
+                [ngClass]="activeTab === 3 ? 'active' : ''"
+                >Uploaded Files</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-lg-flex d-block w-100 gap-5 min-vh-100">
+    <div class="flex-column mb-15 w-100">
+      <ng-container *ngIf="activeTab === 1">
+        <app-post-list
+          parentComponent="ViewProfileComponent"
+          [id]="profileId"
+        />
+      </ng-container>
+      <ng-container *ngIf="activeTab === 2">
+        <ng-container *ngIf="communityList.length; else noData">
+          <div class="row">
+            <div
+              class="col-xl-6 col-sm-6"
+              *ngFor="let community of communityList"
+            >
+              <div class="single-box p-5">
+                <div class="avatar-box position-relative">
+                  <img
+                    class="w-100 h-180-px rounded-3"
+                    loading="lazy"
+                    data-src="{{ community.coverImg }}"
+                    alt="avatar"
+                    onerror="this.onerror=null;"
+                  />
+                  <div
+                    class="abs-area w-100 position-absolute top-0 p-3 d-center justify-content-end"
+                  >
+                    <div class="btn-group cus-dropdown dropend">
+                      <div class="btn-group cus-dropdown">
+                        <button
+                          type="button"
+                          class="dropdown-btn"
+                          (click)="openDropDown(community.id)"
+                        >
+                          <fa-icon
+                            [icon]="['fas', 'ellipsis']"
+                            class="font-24-px"
+                          />
+                        </button>
+                        <ul
+                          class="dropdown-menu p-4 pt-2"
+                          [ngClass]="communityId === community.id ? 'show' : ''"
+                          (mouseleave)="communityId = null"
+                        >
+                          <!-- <li>
+                            <a
+                              class="droplist d-flex align-items-center gap-2"
+                              (click)="communityId = null"
+                            >
+                              <fa-icon [icon]="['fas', 'pen-to-square']" />
+                              <span>Edit</span>
+                            </a>
+                          </li> -->
+                          <li>
+                            <a
+                              class="droplist d-flex align-items-center gap-2"
+                              (click)="communityId = null"
+                            >
+                              <fa-icon [icon]="['fas', 'trash-can']" />
+                              <span>Delete</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="abs-avatar-item">
+                  <img
+                    class="w-48-px h-48-px m-3 rounded-3"
+                    loading="lazy"
+                    data-src="{{ community.logoImg }}"
+                    alt="avatar"
+                  />
+                </div>
+                <a
+                  ><h6 class="m-0 mb-2 mt-3">
+                    {{ community.CommunityName }}
+                  </h6></a
+                >
+                <p class="smtxt public-group">
+                  {{ community.CommunityDescription }}
+                </p>
+                <!-- <div class="friends-list d-center mt-3 gap-1 text-center">
+                  <span class="smtxt m-0">{{ community.members }} Member</span>
+                </div> -->
+                <div class="d-center btn-border pt-5 gap-2 mt-4">
+                  <button
+                    class="cmn-btn p-2 alt third"
+                    (click)="goToCommunityDetails(community)"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noData>
+          <div>
+            <h6 class="text-center">No Practitioner</h6>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="activeTab === 3">
+        <ng-container  *ngIf="pdfList.length; else noData">
+          <div class="single-box" *ngFor="let item of pdfList">
+            <div class="d-flex p-4 justify-content-between">
+              <div class="d-flex">
+                <div class="avatar-item me-2">
+                  <img
+                    class="avatar-img w-48-px h-48-px rounded-3"
+                    loading="lazy"
+                    data-src="{{
+                      item?.ProfilePicName ||
+                        '/assets/images/avtar/placeholder-user.png'
+                    }}"
+                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                    alt="avatar"
+                  />
+                </div>
+                <div class="single-item notification-area text-area text-start">
+                  <h6 class="m-0 mb-1 d-flex align-items-center">
+                    <a class="cursor" (click)="viewUserPost(item.id)">{{
+                      item?.Username
+                    }}</a>
+                    <span class="smtxt time-schedule ms-1">
+                    <fa-icon class="ms-2" [icon]="['fas', 'clock']" />
+                      {{ item.postcreationdate | dateDay }}</span>
+                  </h6>
+                  <a class="ms-1 cursor c-color" [href]="item?.pdfUrl" target="_blank">{{ item?.pdfName }}</a>
+                </div>
+              </div>
+  
+              <div class="btn-group cus-dropdown d-flex gap-3">
+                <div ngbDropdown class="d-inline-block">
+                  <button class="dropdown-btn" ngbDropdownToggle>
+                    <fa-icon [icon]="['fas', 'ellipsis']" class="font-24-px" />
+                  </button>
+                  <div ngbDropdownMenu class="dropdown-menu">
+                    <button ngbDropdownItem>
+                      <a
+                        class="droplist d-flex align-items-center gap-2"
+                        [appCopyClipboard]="item.pdfUrl"
+                      >
+                        <fa-icon [icon]="['fas', 'link']" />
+                        <span>Copy URL</span>
+                      </a>
+                    </button>
+                    <button ngbDropdownItem>
+                      <!-- (click)="readUnreadNotification(notification.id, 'N')" -->
+                      <a
+                        class="droplist d-flex align-items-center gap-2"
+                        (click)="downloadPdf(item.pdfUrl)"
+                      >
+                        <fa-icon [icon]="['fas', 'download']" />
+                        <span>Download</span>
+                      </a>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noData>
+          <div>
+            <h6 class="text-center">No Files Available</h6>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="(breakpointService?.screen | async).xl.gatherThen">
+      <div class="my-list-sidebar">
+        <app-right-sidebar />
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<router-outlet />
+
+<ng-container *ngIf="showButton">
+  <button
+    class="scrollToTop d-none d-lg-flex justify-content-center align-items-center"
+    (click)="scrollToTop()"
+    [ngClass]="showButton ? 'active' : ''"
+  >
+    <fa-icon class="c-icon-color" [icon]="['fas', 'angles-up']"></fa-icon>
+  </button>
+</ng-container>
+
+<app-toasts-container />
+
+<!-- <ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
+</ngx-spinner> -->
+<ngx-spinner
+  [type]="'line-scale'"
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  [fullScreen]="true"
+>
+  <img
+    src="/assets/images/landingpage/Healing-Tube-Logo-Square.svg"
+    alt=""
+    class="spinner-wrapper"
+  />
+</ngx-spinner>

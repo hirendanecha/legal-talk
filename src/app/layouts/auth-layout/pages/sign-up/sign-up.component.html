@@ -1,0 +1,171 @@
+<div class="row mt-8 login-content">
+  <div class="col-lg-6 d-lg-flex d-none align-items-center">
+    <div class="m-10 banner-sction">
+      <div class="hrero-section">
+        <div class="about-freedom" routerLink="/">
+          <h3 class="text-center">
+            Private video consultations with Naturopathic Doctors
+            and Holistic Healers from around the world Social Discussion on how to heal various ailments
+          </h3>
+          <img src="/assets/images/landingpage/Healing-Tube-Logo.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6 mx-auto">
+    <p class="text-2 mb-5">
+      Already activated?
+      <a class="fw-500" routerLink="/login">Login</a>
+    </p>
+    <h3 class="mb-4">Register Your Account</h3>
+
+    <form class="form-dark d-flex flex-column" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="alert alert-{{ type }}" role="alert" *ngIf="registrationMessage || msg">
+        {{ registrationMessage || msg }}
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <div class="col-12 mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="input-area" name="FirstName" placeholder="Enter Your Name"
+              formControlName="FirstName" />
+          </div>
+
+          <div class="col-12 mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="input-area" name="LastName" placeholder="Enter Your Name"
+              formControlName="LastName" />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3 d-flex flex-column">
+          <label class="form-label">Profile Picture<span class="text-danger">*</span></label>
+          <app-img-picker (onFileChange)="selectFiles($event)" />
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Username<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" name="Username" placeholder="Enter Your Username Name"
+            formControlName="Username" autocomplete="Username" required (input)="onChangeTag($event)" />
+          <div class="text-danger" *ngIf="
+              registerForm.get('Username').invalid &&
+              registerForm.get('Username').touched
+            ">
+            <ng-container *ngIf="registerForm.get('Username').hasError('required')">
+              Username is required.
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Email Address<span class="text-danger">*</span></label>
+          <input type="email" name="Email" class="input-area" required placeholder="Enter your email"
+            formControlName="Email" autocomplete="Email" />
+          <div class="text-danger" *ngIf="
+              registerForm.get('Email').hasError('required') &&
+              registerForm.get('Email').touched
+            ">
+            Please enter valid Email.
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Password<span class="text-danger">*</span></label>
+          <input type="password" class="input-area" required name="password" placeholder="Enter your password"
+            (input)="changetopassword($event)" (keyup)="changetopassword($event)" formControlName="Password"
+            autocomplete="new-password" />
+          <div class="text-danger" *ngIf="
+              registerForm.get('Password').hasError('required') &&
+              registerForm.get('Password').touched
+            ">
+            Please enter valid Password.
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Confirm Password<span class="text-danger">*</span></label>
+          <input type="password" class="input-area" required name="confirmPassword" placeholder="Enter confirm password"
+            (focusout)="validatepassword()" (input)="changetopassword($event)" (keyup)="changetopassword($event)"
+            formControlName="confirm_password" autocomplete="new-password" />
+          <div class="text-danger" *ngIf="
+              registerForm.get('confirm_password').hasError('required') &&
+              registerForm.get('confirm_password').touched
+            ">
+            Password is not matched.
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Mobile<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" name="MobileNo" placeholder="Enter your mobile number"
+            formControlName="MobileNo" />
+          <div class="text-danger" *ngIf="
+              registerForm.get('MobileNo').hasError('required') &&
+              registerForm.get('MobileNo').touched
+            ">
+            Mobile number is required.
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Country<span class="text-danger">*</span></label>
+          <select id="Country" required name="Country" class="input-area w-100" (change)="changeCountry()"
+            formControlName="Country">
+            <option [value]="defaultCountry">United states</option>
+            <option [value]="item.country_code" *ngFor="let item of allCountryData">
+              {{ item.country }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">Zip Code<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" required placeholder="Enter your zip code" formControlName="Zip"
+            name="Zip" #zipCode />
+          <div class="text-danger" *ngIf="
+              registerForm.get('Zip').hasError('required') &&
+              registerForm.get('Zip').touched
+            ">
+            Zip code is required.
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">State<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" required placeholder="Enter your state" name="State"
+            formControlName="State" />
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">City<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" required name="City" placeholder="Enter your city"
+            formControlName="City" />
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label class="form-label">County<span class="text-danger">*</span></label>
+          <input type="text" class="input-area" required name="County" placeholder="Enter your County"
+            formControlName="County" />
+        </div>
+      </div>
+
+      <div class="form-check ps-0 my-4 d-flex">
+        <input type="checkbox" class="p-0" formControlName="TermAndPolicy" />
+        <label class="form-check-label ms-2">
+          I agree to the <a>Terms</a> and <a>Privacy Policy</a>.
+          <span class="text-danger">*</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary my-2 ms-auto" type="submit" [disabled]="!registerForm.valid">
+        Register
+      </button>
+    </form>
+  </div>
+</div>
+<div class="text-center mt-3">
+  <p class="text-danger">
+    If you are having technical issues, email <a href="mailto:support@healing.tube">{{'support@healing.tube'}}</a>
+  </p>
+</div>

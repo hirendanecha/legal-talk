@@ -1,0 +1,52 @@
+:host {
+  .left-sidebar.cus-scrollbar {
+    position: sticky;
+    top: 92px;
+    width: 100%;
+    max-height: calc(100vh - 112px);
+    overflow-x: auto;
+    cursor: pointer;
+
+    li {
+      margin-top: 15px;
+    }
+
+    .profile-pic {
+      .avatar-img {
+        border-radius: 15px;
+        min-width: 48px;
+        max-width: 48px;
+        min-height: 48px;
+        max-height: 48px;
+      }
+    }
+    span {
+      font-size: 18px;
+    }
+  }
+
+  .abs-area {
+    right: initial;
+    top: 0px;
+    // top: 153px;
+    left: 8px;
+    width: 15px;
+    height: 15px;
+    background: var(--highlight-color);
+    border-radius: 50%;
+
+    @media (max-width: 991px) {
+      top: 236px;
+    }
+  }
+
+  .profile-link {
+    a.active,
+    li.active > .toggle-dropdown {
+      i,
+      span {
+        color: var(--primary-color) !important;
+      }
+    }
+  }
+}

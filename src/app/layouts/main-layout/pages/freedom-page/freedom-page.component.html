@@ -1,0 +1,64 @@
+<div class="mb-5 d-flex gap-3 justify-content-between">
+  <div class="d-flex flex-column pt-3">
+    <h6 class="d-block d-xl-none text-start">Health Topics</h6>
+
+    <ul
+      ngbNav
+      #nav="ngbNav"
+      [(activeId)]="activeIdTab"
+      (activeIdChange)="getPages()"
+      class="nav flex-wrap tab-area"
+    >
+      <li ngbNavItem="my">
+        <button ngbNavLink class="d-flex gap-1">
+          My
+          <div class="d-none d-xl-block">Topics</div>
+        </button>
+      </li>
+
+      <li ngbNavItem="joined">
+        <button ngbNavLink class="d-flex gap-1">
+          Joined
+          <div class="d-none d-xl-block">Topics</div>
+        </button>
+      </li>
+
+      <li ngbNavItem="local">
+        <button ngbNavLink class="d-flex gap-1">
+          All
+          <div class="d-none d-xl-block">Topics</div>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="btn-item text-center">
+    <button
+      class="btn btn-sm btn-primary gap-1 d-flex align-items-center m-auto mt-1"
+      (click)="createCommunity()"
+    >
+    <fa-icon class="c-icon-color" [icon]="['fas', 'plus']" />
+      Create <div class="d-none d-sm-block">Health</div><div class="d-none d-xl-block">Topics</div>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <ng-container *ngFor="let page of pageList">
+    <div class="col-12 col-md-6 col-xl-4 pb-6">
+      <app-community-card
+        [type]="activeIdTab"
+        [community]="page"
+        (getCommunities)="getPages()"
+      />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!pageList.length">
+    <app-inline-loader *ngIf="isPageLoader" />
+
+    <ng-container *ngIf="!isPageLoader">
+      <span>No Page found</span>
+    </ng-container>
+  </ng-container>
+</div>

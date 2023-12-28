@@ -1,0 +1,85 @@
+<div class="research d-flex flex-column">
+  <div class="single-box community-details p-5 w-100">
+    <img data-src={{groupDetails?.CoverPicName}} loading="lazy" class="w-100 h-272-px rounded-3 mb-5"
+      onerror="this.onerror=null;this.src='/assets/images/profile-cover.png';" [alt]="groupDetails?.FirstName" />
+
+    <div class="text-start d-flex align-items-center gap-3">
+      <img class="w-56-px h-56-px rounded-3" loading="lazy" data-src={{groupDetails?.ProfilePicName}}
+        onerror="this.onerror=null;this.src='/assets/images/avtar/avtar.png';" [alt]="groupDetails?.FirstName" />
+
+      <div class="d-flex flex-column me-auto">
+        <h5 class="mb-1">{{groupDetails?.FirstName}}</h5>
+        <span class="description">Members: 711352</span>
+      </div>
+
+      <button type="button" class="btn btn-sm btn-primary align-self-start">Join Group</button>
+    </div>
+
+    <div class="page-details pt-5">
+      <ul ngbNav #nav="ngbNav" class="nav pt-3 flex-wrap tab-area">
+        <li ngbNavItem>
+          <button ngbNavLink>Posts</button>
+          <ng-template ngbNavContent>
+            <h6 class="text-start mb-2">{{groupDetails?.FirstName}}</h6>
+
+            <div class="row px-2">
+              <ng-container *ngIf="posts?.length > 0; else elsePostNotFound" >
+                <ng-container *ngFor="let post of posts">
+                  <div class="col-4 px-2 pb-4">
+                    <app-research-card [post]="post" />
+                  </div>
+                </ng-container>
+
+                <button class="btn btn-sm btn-primary w-auto m-auto" *ngIf="isLoadMorePosts" (click)="loadMorePosts()">
+                  Load More
+                </button>
+              </ng-container>
+            </div>
+          </ng-template>
+        </li>
+
+        <li ngbNavItem>
+          <button ngbNavLink>About</button>
+          <ng-template ngbNavContent>
+            About Group
+          </ng-template>
+        </li>
+
+        <li ngbNavItem>
+          <button ngbNavLink (click)="GetGroupFileResourcesById(groupDetails?.ID)">Resource</button>
+          <ng-template ngbNavContent>
+            <h6 class="text-start mb-2">Uploaded Files</h6>
+
+            <div class="row px-3">
+              <ng-container *ngIf="resources?.length > 0; else elseResourcesNotFound" >
+                <ng-container *ngFor="let resource of resources">
+                  <div class="col-6 px-3 pb-6">
+                    <div class="card group-post-card single-box border-secondary justify-content-between mb-0 p-3 h-100">
+                      <span class="text-start" [innerHTML]="resource?.PostDescription || 'File Name not found'" ></span>
+                      <a href="https://healing.tube/Posts/Files/{{groupDetails?.ID}}/{{resource?.FileName}}" target="_blank" [download]="resource?.FileName" class="btn btn-sm btn-outline-primary mt-4 d-flex flex-row justify-content-between align-items-center align-self-end">
+                        Download
+                        <fa-icon [icon]="['fas', 'download']" class="font-16-px ms-2" />
+                      </a>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="d-flex gap-6">
+    <div class="single-box d-flex flex-column gap-3 p-5" [ngbNavOutlet]="nav"></div>
+  </div>
+</div>
+
+<ng-template #elsePostNotFound>
+  <h6>No post available</h6>
+</ng-template>
+
+<ng-template #elseResourcesNotFound>
+  <h6>No resources available</h6>
+</ng-template>

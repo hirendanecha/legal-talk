@@ -1,0 +1,128 @@
+/*============================================
+# Template Name: Circlehub
+# Version: 1.0
+# Date: 10/03/2023
+# Author: uiaxis
+# Author URI: https://themeforest.net/user/uiaxis
+# Description: Circlehub - HTML Templates
+============================================*/
+
+/*============================================
+======== Table of Css Content =========
+# Typography
+# Normalize
+# Global style
+# Header Area
+# Banner Area
+# Section Area
+# Footer Area
+============================================*/
+
+// CSS Plugin import
+@import "plugins/materialicons.scss";
+
+// Sass Global
+@import "main/_global.scss";
+
+// Pages
+@import "pages/_banner-footer.scss";
+@import "pages/_section.scss";
+
+// Responsive Area
+@import "main/_responsive.scss";
+
+.content-area {
+  padding: 40px 0;
+  background: var(--body-color);
+}
+
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0px 17px 12px var(--box-shadow) !important;
+  background-color: var(--section-1st-color) !important;
+  /* padding: 30px; */
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}
+
+.dropdown-menu {
+  background-color: var(--section-1st-color) !important;
+  box-shadow: 0px 17px 12px var(--box-shadow) !important;
+  border-radius: 10px !important;
+  border-color: var(--bs-primary) !important;
+  z-index: 1 !important;
+
+  .dropdown-item:hover,
+  .dropdown-item:focus {
+    background-color: #ababab57 !important;
+  }
+}
+
+.input-group-text {
+  color: var(--heading-1st-color) !important;
+}
+
+.input-group {
+  flex-wrap: nowrap !important;
+
+  .input-group-prepend {
+    background-color: var(--box-1st-color) !important;
+    border-radius: 10px;
+
+    .input-group-text {
+      background-color: transparent;
+      opacity: 0.5;
+      color: #a6acd1;
+    }
+  }
+}
+
+select.input-area {
+  min-height: 56px;
+}
+
+.c-pointer {
+  cursor: pointer !important;
+}
+
+.c-text {
+  cursor: text !important;
+}
+
+.outline-0 {
+  outline: none;
+}
+
+.offcanvas {
+  background-color: var(--section-1st-color) !important;
+  width: 300px !important;
+  max-width: 90% !important;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 16px;
+
+  .form-label {
+    text-align: start;
+  }
+
+  .invalid-feedback {
+    display: flex;
+    position: absolute;
+    right: 16px;
+    bottom: -2px;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,62 @@
+::ng-deep {
+  .notifications-modal {
+    cursor: pointer;
+    position: fixed;
+    right: 385px;
+    top: 50px;
+    display: flex;
+    bottom: unset !important;
+    min-width: 280px;
+    max-width: 80vw;
+
+    @media (max-width: 1024px) {
+      right: 110px !important;
+    }
+
+    @media (width: 1180px) {
+      right: 182px !important;
+    }
+
+    @media (min-width: 1300px) and (max-width: 1368px) {
+      right: 182px !important;
+    }
+
+    @media (width: 1114px) {
+      right: 160px !important;
+    }
+
+    @media (min-width: 1200px) and (width: 1280px) {
+      right: 160px !important;
+    }
+
+    @media (min-width: 1400px) and (max-width: 1680px) {
+      right: 160px !important;
+    }
+
+    @media (min-width: 1941px) and (max-width: 2580px) {
+      right: calc(23% + 70px) !important;
+    }
+
+    @media (min-width: 2641px) {
+      right: calc(23% + 70px) !important;
+    }
+  }
+}
+
+.notification-content {
+  .unread-notification {
+    width: 13px;
+    height: 13px;
+    background: red;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+}
+.modal-height {
+  max-height: 500px;
+  overflow: auto;
+
+  @media (max-width:991px) {
+    max-height: unset;
+  }
+}

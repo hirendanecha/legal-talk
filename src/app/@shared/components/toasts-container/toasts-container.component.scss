@@ -1,0 +1,13 @@
+::ng-deep {
+  .toast-container {
+    .toast-body {
+      display: flex;
+    }
+  }
+
+  .c-icon-color{
+    svg path {
+      fill: var(--secondary-color) !important;
+    }
+  }
+}

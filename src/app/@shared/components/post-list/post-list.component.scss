@@ -1,0 +1,80 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+::ng-deep {
+  .emoji-menu-panale {
+    position: fixed;
+    right: 36%;
+    top: 160px;
+    display: flex;
+    bottom: unset !important;
+    max-width: 400px;
+    .modal-content {
+      .emoji-mart {
+        background-color: var(--body-color);
+        width: 314px !important;
+        height: 320px;
+        border-color: var(--body-color);
+        emoji-search {
+          display: none;
+        }
+        .emoji-mart-bar {
+          emoji-preview {
+            display: none;
+          }
+        }
+        .emoji-mart-scroll {
+          .emoji-mart-category {
+            .emoji-mart-category-label {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .share-post {
+      border:1px solid var(--post-border-color);
+    .post-message-input {
+      a {
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+}
+
+.comment-input {
+  font-size: 16px;
+  min-height: 56px;
+
+  &[placeholder]:empty {
+    &:before {
+      content: attr(placeholder);
+      color: #697495;
+    }
+    &:focus {
+      &:before {
+        content: "";
+      }
+    }
+  }
+
+  .user-dropdown-menu {
+    max-height: 300px;
+  }
+}
+
+.comment-input {
+  min-height: 24px !important;
+}
+
+.community-details, .community-members {
+  .description {
+    color: var(--para-1st-color);
+  }
+}

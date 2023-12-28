@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-12 col-md-8 col-lg-7 col-xl-6 mx-auto d-flex flex-column">
+    <div class="d-flex justify-content-center my-20" routerLink="/">
+      <img
+        height="60"
+        src="/assets/images/landingpage/Healing-Tube-Logo.svg"
+        class="h-60-px rounded"
+        alt=""
+      />
+    </div>
+    <div class="d-flex flex-column justify-content-center mt-10">
+      <!-- <p class="text-2 mb-5">
+        Have an existing old Freedom.social account, click on Reset Password or create a new account!
+        <a class="fw-500 cursor" (click)="forgotPasswordOpen()">Click here</a>
+      </p> -->
+      <p class="text-2 mb-5">
+        Not activated?
+        <a class="fw-500" routerLink="/register">Register</a>
+      </p>
+      <h3 class="mb-4">Log In to Your Account</h3>
+
+      <form
+        id="loginForm"
+        class="form-dark d-flex flex-column"
+        #signInForm="ngForm"
+        [formGroup]="loginForm"
+        (ngSubmit)="signInForm.form.valid && onSubmit()"
+        *ngIf="!isLoggedIn"
+        novalidate
+        autocomplete="none"
+      >
+        <div
+          class="alert alert-{{ type }}"
+          role="alert"
+          *ngIf="errorMessage || msg"
+        >
+          {{ errorMessage || msg }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label"
+            >Email Address or Username<span class="text-danger">*</span></label
+          >
+          <input
+            type="email"
+            class="input-area"
+            required
+            placeholder="Enter Your Email"
+            formControlName="Email"
+            autocomplete="email"
+          />
+          <div
+            class="srv-validation-message text-danger"
+            *ngIf="
+                signInForm.submitted &&
+                   loginForm.controls['Email'].invalid &&
+                   loginForm.controls['Email'].errors?.['required']
+                 "
+          >
+            Email field is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="d-flex justify-content-between">
+            <label class="form-label"
+              >Password<span class="text-danger">*</span></label
+            >
+            <a class="fw-500 c-pointer" (click)="forgotPasswordOpen()"
+              >Forgot Password ?</a
+            >
+          </div>
+          <input
+            type="password"
+            class="input-area"
+            required
+            placeholder="Enter Password"
+            formControlName="Password"
+          />
+          <div
+            class="srv-validation-message text-danger"
+            *ngIf="
+              signInForm.submitted &&
+                 loginForm.controls['Password'].invalid &&
+                 loginForm.controls['Password'].errors?.['required']
+               "
+          >
+            Please enter valid password!
+          </div>
+        </div>
+
+        <button class="btn btn-primary my-2 ms-auto" type="submit">
+          Log in
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <p class="text-danger">
+      If you are having technical issues, email <a href="mailto:support@healing.tube">{{'support@healing.tube'}}</a>
+    </p>
+  </div>
+</div>

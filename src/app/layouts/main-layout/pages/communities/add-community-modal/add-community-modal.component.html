@@ -1,0 +1,269 @@
+<div class="add-pratitioner-contaner">
+  <div class="modal-header border-0">
+    <h5 class="text-start mb-5">{{ title }}</h5>
+    <!-- <h5 class="text-start">Create Community</h5> -->
+    <!-- <fa-icon
+      [icon]="['fas', 'xmark']"
+      class="xxltxt"
+      role="button"
+      (click)="activeModal.close()"
+    /> -->
+  </div>
+  
+  <div class="modal-body text-center">
+    <form
+      class="form-dark row"
+      [formGroup]="communityForm"
+      (ngSubmit)="uploadImgAndSubmit()"
+    >
+      <div class="col-12 mb-5">
+        <label class="form-label d-flex"
+          >Practitioner Name<span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="input-area"
+          name="cname"
+          formControlName="CommunityName"
+          placeholder="Enter your name"
+          (keyup)="onCommunityNameChange()"
+        />
+      </div>
+      <div class="row">
+        <div class="col-6 mb-5 d-grid">
+          <label class="form-label d-flex"
+            >Country<span class="text-danger">*</span></label
+          >
+          <select
+            id="Country"
+            required
+            name="Country"
+            class="input-area w-100"
+            (change)="changeCountry()"
+            formControlName="Country"
+          >
+            <option [value]="defaultCountry">United states</option>
+            <option
+              [value]="item.country_code"
+              *ngFor="let item of allCountryData"
+            >
+              {{ item.country }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6 mb-5 d-grid">
+          <label class="form-label d-flex"
+            >Zip<span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="input-area"
+            name="Zip"
+            formControlName="Zip"
+            placeholder="Enter your Zip"
+            #zipCode
+          />
+        </div>
+      </div>
+  
+      <div class="col-12 mb-5 custom-textarea">
+        <label class="form-label d-flex">Address</label>
+        <input
+          name="Address"
+          cols="30"
+          rows="1"
+          placeholder="Enter your Address"
+          formControlName="address"
+          required
+        >
+      </div>
+  
+      <div class="row">
+        <div class="col-4 mb-3">
+          <label class="form-label d-flex"
+            >State<span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            class="input-area"
+            required
+            placeholder="Enter your state"
+            name="State"
+            formControlName="State"
+          />
+        </div>
+  
+        <div class="col-4 mb-3">
+          <label class="form-label d-flex"
+            >City<span class="text-danger">*</span></label
+          >
+          <!-- <input
+            type="text"
+            class="input-area"
+            required
+            name="City"
+            placeholder="Enter your city"
+            formControlName="City"
+          /> -->
+          <input
+            type="text"
+            class="input-area"
+            required
+            name="County"
+            placeholder="Enter your city"
+            formControlName="County"
+          />
+        </div>
+        <div class="col-4 mb-3">
+          <label class="form-label d-flex"
+            >County<span class="text-danger">*</span></label
+          >
+          <!-- <input
+            type="text"
+            class="input-area"
+            required
+            name="County"
+            placeholder="Enter your County"
+            formControlName="County"
+          /> -->
+          <input
+            type="text"
+            class="input-area"
+            required
+            name="City"
+            placeholder="Enter your county"
+            formControlName="City"
+          />
+        </div>
+      </div>
+  
+      <div class="col-12 mb-5 custom-textarea">
+        <label class="form-label d-flex">Description</label>
+        <textarea
+          name="CommunityDescription"
+          cols="30"
+          rows="3"
+          placeholder="Enter your description"
+          formControlName="CommunityDescription"
+          required
+        ></textarea>
+      </div>
+  
+      <div class="col-6 mb-5 d-grid">
+        <label class="form-label d-flex"
+          >Logo Image<span class="text-danger">*</span></label
+        >
+        <app-img-picker
+          classes="w-160-px h-160-px p-0"
+          (onFileChange)="onLogoImgChange($event)"
+          [url]="data?.logoImg"
+        />
+      </div>
+  
+      <div class="col-6 mb-5 d-grid">
+        <label class="form-label d-flex"
+          >Cover Image<span class="text-danger">*</span></label
+        >
+        <app-img-picker
+          classes="w-160-px h-160-px p-0"
+          (onFileChange)="onCoverImgChange($event)"
+          [url]="data?.coverImg"
+        />
+      </div>
+  
+      <div class="col-12 mb-5">
+        <label class="form-label d-flex"
+          >Practitioner Url<span class="text-danger">*</span></label
+        >
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text h-100 border-0 ps-5 pe-0">{{
+              originUrl
+            }}</span>
+          </div>
+          <input
+            type="text"
+            class="input-area ps-1"
+            name="cSlug"
+            formControlName="slug"
+            placeholder="Enter practitioner url slug"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div class="d-flex flex-column mt-4">
+    <h4>Emphasis of Practice</h4>
+    <div class="container">
+      <div class="row">
+        <div *ngFor="let emphasis of practitionerEmphasis" class="col-md-6 col-lg-3">
+          <div class="form-check">
+            <div class="d-flex align-items-center">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="emphasis.eId"
+                id="modality{{ emphasis.eId }}"
+                (change)="onCheckboxChange($event, emphasis)"
+              />
+              <div class="title-container">
+                <label class="form-check-label ms-2" for="modality{{ emphasis.eId }}" [title]="emphasis.name">
+                  {{ emphasis.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column mt-6">
+    <h4>Areas of Practice</h4>
+    <div class="container">
+      <div class="row">
+        <div *ngFor="let area of practitionerArea" class="col-md-6 col-lg-3">
+          <div class="form-check">
+            <div class="d-flex align-items-center">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [value]="area.aId"
+                id="modality{{ area.aId }}"
+                (change)="onAreaboxChange($event, area)"
+              />
+              <div class="title-container">
+                <label class="form-check-label ms-2" for="modality{{ area.aId }}" [title]="area.name">
+                  {{ area.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal-footer justify-content-end gap-3 border-0 mt-10">
+    <button
+      id="common-filter-cancel"
+      type="button"
+      class="cmn-btn alt p-2"
+      (click)="clearForm()"
+      >
+      <!-- (click)="activeModal.close('Cancel')" -->
+      <!-- Cancel -->
+      {{ cancelButtonLabel }}
+    </button>
+    <button
+      id="common-filter-confirm"
+      type="submit"
+      class="cmn-btn p-2"
+      [disabled]="!communityDetails"
+      (click)="uploadImgAndSubmit()"
+    >
+      <!-- Create -->
+      {{ confirmButtonLabel }}
+    </button>
+  </div>
+</div>

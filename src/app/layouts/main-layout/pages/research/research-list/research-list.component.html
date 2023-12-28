@@ -1,0 +1,419 @@
+<div class="research d-flex flex-column gap-3 z-0">
+  <ng-container *ngIf="sharedService?.isUserMediaApproved()">
+    <div class="single-box d-flex flex-column p-5 mb-3">
+      <form
+        [formGroup]="researchForm"
+        *ngIf="researchForm"
+        autocomplete="off"
+        role="form"
+        class="form-dark d-flex flex-column row"
+      >
+        <div class="col form-group">
+          <label for="posttoprofileid" class="form-label"
+            >Select Group <span class="text-danger">*</span></label
+          >
+          <select
+            class="input-area w-100"
+            id="posttoprofileid"
+            formControlName="posttoprofileid"
+            placeholder="Select select group"
+            trim="blur"
+          >
+            <option *ngFor="let research of researches" [value]="research?.ID">
+              {{ research?.FirstName }}
+            </option>
+          </select>
+
+          <div
+            *ngIf="isFormSubmittedAndError('posttoprofileid')"
+            class="invalid-feedback"
+          >
+            <div *ngIf="isFormSubmittedAndError('posttoprofileid', 'required')">
+              This field is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="col form-group">
+          <label for="postdescription" class="form-label"
+            >Type or paste the Title or Description (no links)
+            <span class="text-danger">*</span></label
+          >
+          <app-tag-user-input
+            id="postdescription"
+            placeholder="What's going on?"
+            [isShowMetaPreview]="false"
+            [isAllowTagUser]="true"
+            [value]="tagInputDefaultData"
+            [isShowMetaLoader]="false"
+            (onDataChange)="
+              onTagUserInputDescription($event, 'postdescription')
+            "
+          />
+          <div
+            *ngIf="isFormSubmittedAndError('postdescription')"
+            class="invalid-feedback"
+          >
+            <div *ngIf="isFormSubmittedAndError('postdescription', 'required')">
+              This field is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="col form-group">
+          <label for="textpostdesc" class="form-label"
+            >Paste article or video link</label
+          >
+          <!-- <input type="text" class="input-area" id="textpostdesc" formControlName="textpostdesc" placeholder="Paste article or video link..." trim="blur"> -->
+          <app-tag-user-input
+            id="textpostdesc"
+            placeholder="Paste article or video link..."
+            [isShowMetaPreview]="true"
+            [isAllowTagUser]="false"
+            [value]="tagInputDefaultData"
+            [isShowMetaLoader]="true"
+            (onDataChange)="onTagUserInputChangeEvent($event, 'textpostdesc')"
+          />
+        </div>
+
+        <div
+          class="col form-group"
+          *ngIf="
+            !this.researchForm.get('meta').value?.metaimage && !selectedpdfFile
+          "
+        >
+          <label for="textpostdesc" class="form-label">Upload Image</label>
+          <div class="d-flex custom-input-area" *ngIf="!selectedImgFile">
+            <fa-icon
+              [icon]="['fas', 'image']"
+              class="text-primary cursor font-24-px"
+              (click)="uploadImage.click()"
+            />
+            <input
+              #uploadImage
+              class="d-none"
+              type="file"
+              id="fileInput"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+          </div>
+          <ng-container *ngIf="selectedImgFile">
+            <div class="position-relative w-100-px h-100-px">
+              <img
+                loading="lazy"
+                data-src="{{ postImageUrl }}"
+                class="w-100 h-100 rounded-4"
+                alt="icon"
+                onerror="this.onerror=null;"
+              />
+              <fa-icon
+                [icon]="['fas', 'xmark']"
+                class="position-absolute top-0 start-100 translate-middle badge bg-danger p-1 font-12-px c-pointer c-icon-color"
+                role="button"
+                (click)="removeImgFile()"
+              />
+            </div>
+          </ng-container>
+        </div>
+        <div class="col form-group" *ngIf="!selectedImgFile">
+          <label for="textpostdesc" class="form-label">Upload File</label>
+          <div class="d-flex custom-input-area" *ngIf="!selectedpdfFile">
+            <fa-icon
+              [icon]="['fas', 'file']"
+              class="text-primary cursor font-24-px"
+              (click)="pdfFile.click()"
+            />
+            <input
+              type="file"
+              #pdfFile
+              hidden
+              class="d-none"
+              accept="application/pdf"
+              (change)="onPostFileSelect($event)"
+            />
+          </div>
+          <ng-container *ngIf="selectedpdfFile">
+            <div class="position-relative w-250-px h-100-px mt-5">
+              <div class="d-flex align-items-center">
+                <fa-icon
+                  [icon]="['fas', 'file-pdf']"
+                  class="c-pointer close-icon font-40-px"
+                />
+                <fa-icon
+                  [icon]="['fas', 'xmark']"
+                  class="position-absolute top-0 translate-middle badge bg-danger p-1 font-12-px c-pointer c-icon"
+                  role="button"
+                  (click)="removePostSelectedFile()"
+                />
+                <span class="c-pdf-show">{{ selectedpdfFile.name }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- <div class="col form-group">
+          <label for="postdescription" class="form-label"
+            >Type or paste the Title or Description
+            </label> -->
+        <!-- (no links) -->
+        <!-- <span class="text-danger">*</span> -->
+
+        <!-- <app-tag-user-input
+          id="postdescription"
+          placeholder="What's going on?"
+          [isShowMetaPreview]="true"
+          [isAllowTagUser]="false"
+          [value]="tagInputDefaultData"
+          (onDataChange)="onTagUserInputDescription($event, 'postdescription')"
+        /> -->
+
+        <!-- <textarea
+            class="input-area"
+            id="postdescription"
+            formControlName="postdescription"
+            placeholder="What's going on?"
+            trim="blur"
+          ></textarea> -->
+
+        <!-- <div
+            *ngIf="isFormSubmittedAndError('postdescription')"
+            class="invalid-feedback"
+          >
+            <div *ngIf="isFormSubmittedAndError('postdescription', 'required')">
+              This field is required.
+            </div>
+          </div>
+        </div> -->
+
+        <div class="col form-group">
+          <label for="keywords" class="form-label"
+            >Enter upto 5 tags separated by a comma</label
+          >
+          <input
+            type="text"
+            class="input-area"
+            id="keywords"
+            formControlName="keywords"
+            placeholder="Enter Keywords"
+            trim="blur"
+            (input)="onChangeTag($event)"
+          />
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+          <button
+            class="btn btn-sm btn-secondary px-3 py-1 d-flex justify-content-center align-items-center gap-2 me-2"
+            *ngIf="
+              researchForm?.get('posttoprofileid').value ||
+              researchForm?.get('postdescription').value ||
+              researchForm?.get('textpostdesc').value ||
+              tagInputDefaultData
+            "
+            (click)="resetPost()"
+          >
+            Cancel
+            <fa-icon class="c-icon-color" [icon]="['fas', 'xmark']" />
+          </button>
+          <button
+            class="btn btn-sm btn-primary px-3 py-1 d-flex justify-content-center align-items-center gap-2"
+            (click)="createImagePost()"
+            [ngClass]="isGroupPostsLoader ? 'disabled' : ''"
+          >
+            Post
+            <fa-icon
+              [icon]="['fas', 'paper-plane']"
+              class="font-20-px c-icon-color"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+  <div class="single-box d-flex flex-column p-5 mb-3">
+    <h6 class="text-start mb-5">HealingTube Messaging</h6>
+
+    <div class="d-flex flex-column border-top pt-5 gap-3">
+      <span class="font-12-px text-start"
+        >RESEARCH OF TRUTH IS HOW WE UNITE</span
+      >
+      <span class="font-12-px text-start"
+        >UNINFORMED PROGRAMMED FOLKS MUST BE BROUGHT UP TO SPEED</span
+      >
+      <span class="font-12-px text-start"
+        >PLEASE SHARE INFO IN FACEBOOK AND TWITTER, ETC</span
+      >
+    </div>
+  </div>
+
+  <div class="single-box d-flex flex-column p-5 mb-3">
+    <h6 class="text-start mb-5">Customize Your Feed</h6>
+
+    <div
+      class="btn-group"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnGroupFeedType"
+        [formControl]="btnGroupFeedTypeCtrl"
+        value="All"
+        id="btnRadioAll"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary border-0 rounded" for="btnRadioAll"
+        >All</label
+      >
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnGroupFeedType"
+        [formControl]="btnGroupFeedTypeCtrl"
+        value="Articles"
+        id="btnRadioArticles"
+        autocomplete="off"
+      />
+      <label
+        class="btn btn-outline-primary border-0 rounded"
+        for="btnRadioArticles"
+        >Articles</label
+      >
+
+      <input
+        type="radio"
+        class="btn-check text-white"
+        name="btnGroupFeedType"
+        [formControl]="btnGroupFeedTypeCtrl"
+        value="Videos"
+        id="btnRadioVideos"
+        autocomplete="off"
+      />
+      <label
+        class="btn btn-outline-primary border-0 rounded"
+        for="btnRadioVideos"
+        >Videos</label
+      >
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnGroupFeedType"
+        [formControl]="btnGroupFeedTypeCtrl"
+        value="Groups"
+        id="btnRadioGroups"
+        autocomplete="off"
+      />
+      <label
+        class="btn btn-outline-primary border-0 rounded"
+        for="btnRadioGroups"
+        >Groups</label
+      >
+    </div>
+
+    <ng-container *ngIf="btnGroupFeedTypeCtrl?.value === 'Groups'">
+      <select name="research" class="input-area mt-5">
+        <option
+          *ngFor="let research of researches"
+          [value]="research?.FirstName"
+        >
+          {{ research?.FirstName }}
+        </option>
+      </select>
+    </ng-container>
+
+    <div class="d-flex gap-5 pt-5 mt-5 border-top">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input p-2"
+          name="btnGroupViewType"
+          type="radio"
+          [formControl]="btnGroupViewTypeCtrl"
+          id="btnRadioTopStories"
+          value="TopStories"
+        />
+        <label class="form-check-label" for="btnRadioTopStories"
+          >Top Stories View</label
+        >
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input p-2"
+          name="btnGroupViewType"
+          type="radio"
+          [formControl]="btnGroupViewTypeCtrl"
+          id="btnRadioMostRecent"
+          value="MostRecent"
+        />
+        <label class="form-check-label" for="btnRadioMostRecent"
+          >Most Recent View</label
+        >
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="groupPosts?.length > 0; else elseNoGroupPostsFound">
+    <ng-container *ngFor="let group of groupPosts">
+      <ng-container *ngIf="group?.name && group?.posts?.length > 0">
+        <div class="single-box d-flex flex-column p-5 mb-3">
+          <div
+            class="d-flex justify-content-between align-items-center mb-5 mobile-research-card"
+          >
+            <h6 class="text-start mb-0 me-1">{{ group?.name }}</h6>
+
+            <a
+              href="/research/{{ group?.groupUniqueLink }}"
+              target="_blank"
+              class="c-pointer"
+            >
+              <fa-icon [icon]="['fas', 'chevron-right']" />
+            </a>
+          </div>
+
+          <ngb-carousel
+            [showNavigationIndicators]="false"
+            [interval]="0"
+            (slide)="getNextPageGroupPostsById($event, group)"
+          >
+            <ng-container *ngFor="let post of group?.posts; let i = index">
+              <ng-container *ngIf="i !== 0 && (i + 1) % pagination.limit === 0">
+                <ng-template ngbSlide>
+                  <div class="row px-2">
+                    <ng-container
+                      *ngFor="let revIndex of pagination.limitArray"
+                    >
+                      <div
+                        class="px-2"
+                        [ngClass]="{
+                          'col-4': pagination.limit === 3,
+                          'col-6': pagination.limit === 2,
+                          'col-12': pagination.limit === 1
+                        }"
+                      >
+                        <app-research-card
+                          [post]="group?.posts[i - revIndex]"
+                        />
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          </ngb-carousel>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #elseNoGroupPostsFound>
+  <app-inline-loader *ngIf="isGroupPostsLoader" />
+
+  <ng-container *ngIf="!isGroupPostsLoader">
+    <span>No Group Posts found</span>
+  </ng-container>
+</ng-template>

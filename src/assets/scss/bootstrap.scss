@@ -1,0 +1,42 @@
+// Custom.scss
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+) !default;
+
+@for $i from 1 through 20 {
+    $spacers: map-merge(
+      (
+        $i: (
+          $spacer * $i * 0.25,
+        ),
+      ),
+      $spacers
+    );
+}
+
+@import 'bootstrap/scss/bootstrap';
+
+// Then add additional custom code here
+@for $i from 1 through 100 {
+  .w-#{$i*4}-px {
+    width: $i*4+px;
+    min-width: $i*4+px;
+  }
+
+  .h-#{$i*4}-px {
+    height: $i*4+px;
+    min-height: $i*4+px;
+  }
+
+  .font-#{$i*4}-px {
+    font-size: $i*4+px;
+  }
+}
+
+
+@each $val in (0, 90, 180, 270) {
+  .rotate-#{$val} {
+    transform: rotate(#{$val}deg);
+  }
+}

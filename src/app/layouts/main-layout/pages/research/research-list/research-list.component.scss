@@ -1,0 +1,121 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .c-icon {
+    left: 45px;
+  }
+  .c-pdf-show {
+    margin-left: 15px;
+    overflow: hidden;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    max-width: 170px;
+  }
+  ::ng-deep {
+    .mobile-research-card {
+      h6{
+        font-weight: 600;
+      }
+      @media (max-width: 576px) {
+        align-self: center;
+      }
+    }
+    .carousel {
+      .carousel-inner {
+        border-radius: var(--bs-border-radius);
+      }
+  
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 32px;
+        opacity: 1;
+  
+        span {
+          background-color: var(--bs-primary);
+          border-radius: 10px;
+          background-size: 18px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+  
+      .carousel-control-prev {
+        left: -36px;
+      }
+  
+      .carousel-control-next {
+        right: -36px;
+      }
+    }
+  
+    .btn-check:checked + .btn,
+    :not(.btn-check) + .btn:active,
+    .btn:first-child:active,
+    .btn.active,
+    .btn.show {
+      color: white !important;
+    }
+  
+    @media (max-width: 990px) {
+      .carousel {
+        .carousel-control-prev,
+        .carousel-control-next {
+          width: 46px;
+        }
+      }
+    }
+    .c-icon-color {
+      svg path {
+        fill: var(--secondary-color) !important;
+      }
+    }
+    .tag-input-div {
+      max-width: 615px !important;
+      width: 100% !important;
+
+    }
+  }
+}
+
+
+.custom-input-area {
+  width: 100%;
+  border-radius: 10px;
+  padding: 15px 20px;
+  background-color: var(--box-1st-color);
+  color: var(--heading-1st-color) !important;
+  &:focus-within {
+    outline: 1px solid var(--primary-color);
+    border-color: transparent;
+    color: var(--heading-1st-color) !important;
+  }
+  &.second {
+    padding: 6px 10px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    input {
+      font-size: 16px;
+    }
+  }
+  i {
+    color: var(--para-3rd-color);
+  }
+  input,
+  textarea {
+    border-radius: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--heading-1st-color) !important;
+
+    &::placeholder {
+      opacity: 0.5;
+      color: #a6acd1;
+    }
+  }
+}

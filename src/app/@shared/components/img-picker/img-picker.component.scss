@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .img-picker {
+    .edit-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .eye-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #6c757da3;
+        border-radius: 50%;
+        transition: 0.3s ease-in-out;
+        border: 2px solid transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:hover {
+        .eye-icon {
+          transform: scale(1.2);
+          background-color: var(--section-1st-color);
+        }
+      }
+    }
+  }
+}
+::ng-deep .c-icon-color{
+  svg path {
+    fill: var( --secondary-color);
+  }
+}

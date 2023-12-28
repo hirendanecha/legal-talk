@@ -1,0 +1,79 @@
+<div class="main-area p-5 profile-content">
+  <div class="head-area">
+    <div class="d-flex gap-3">
+      <div class="avatar-item">
+        <img
+          class="w-48-px h-48-px rounded-3"
+          loading="lazy"
+          data-src="{{ sharedService?.userData?.ProfilePicName }}"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+          alt="avatar"
+        />
+      </div>
+      <div class="text-area">
+        <h6 class="m-0 mb-1">{{ sharedService?.userData?.Username }}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="view-profile my-2">
+    <a
+      [routerLink]="'settings/view-profile/' + profileId"
+      class="mdtxt w-100 text-center py-2"
+      (click)="closeMenu($event, 'profile')"
+      >View Profile</a
+    >
+  </div>
+  <ul class="ps-0">
+    <li>
+      <a 
+        [routerLink]="'settings/edit-profile/' + userId"
+        class="mdtxt" (click)="closeMenu($event, 'setting')">
+        <fa-icon [icon]="['fas', 'gear']" class="font-20-px" />
+        Setting & Privacy
+      </a>
+    </li>
+    <li>
+      <a class="mdtxt" (click)="closeMenu($event, 'logout')">
+        <fa-icon [icon]="['fas', 'right-from-bracket']" class="font-20-px" />
+        Sign Out
+      </a>
+    </li>
+    <!-- <li>
+      <a class="mdtxt" (click)="closeMenu($event, 'change-password')">
+        <fa-icon [icon]="['fas', 'unlock-keyhole']" class="font-20-px" />
+        Change Password
+      </a>
+    </li> -->
+  </ul>
+  <div
+    class="switch-wrapper mt-4 d-flex gap-1 align-items-center"
+    (click)="closeMenu($event, '')"
+  >
+    <!-- [icon]="['fas', 'sun']" -->
+    <fa-icon
+      [icon]="['fas', 'sun']"
+      class="moon icon"
+      [ngClass]="{ active: sharedService.isDark }"
+      class="font-20-px"
+    />
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        [checked]="!sharedService.isDark"
+        (change)="sharedService.toggleUi()"
+      />
+    </div>
+    <fa-icon
+      [icon]="['fas', 'moon']"
+      class="sun icon"
+      [ngClass]="{ active: !sharedService.isDark }"
+      class="font-20-px"
+    />
+
+    <!-- [icon]="['fas', 'moon']" -->
+
+    <span class="mdtxt ms-2">Mode</span>
+  </div>
+</div>
