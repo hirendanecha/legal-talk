@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/@shared/services/toast.service';
 export class ImgPickerComponent {
 
   @Input('url') url: string = '';
-  @Input('defaultImg') defaultImg: string = '/assets/images/avtar/placeholder-user.png';
+  @Input('defaultImg') defaultImg: string = '/assets/images/avtar/default-profile.jpg';
   @Input('classes') classes: string = 'w-156-px h-156-px';
   @Output('onFileChange') onFileChange: EventEmitter<any> = new EventEmitter<any>();
 

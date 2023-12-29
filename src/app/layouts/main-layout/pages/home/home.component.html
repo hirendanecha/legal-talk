@@ -80,7 +80,7 @@
     ">
     <div class="share-post d-flex gap-3 gap-sm-5 p-3 p-sm-5 mb-5">
       <img loading="lazy" data-src="{{ sharedService?.userData?.ProfilePicName }}"
-        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';"
         class="w-56-px h-56-px rounded-4" alt="icon" />
 
       <!-- placeholder="Write something to post.." -->
@@ -216,7 +216,7 @@
               <div ngbDropdownItem class="d-flex gap-3 pe-auto" role="button" (click)="joinCommunity(user.Id)">
                 <img loading="lazy" class="w-32-px h-32-px rounded" data-src="{{ user.ProfilePicName }}"
                   [alt]="user.Username"
-                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';" />
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';" />
                 <span>{{ user.Username }}</span>
               </div>
             </ng-container>
@@ -230,8 +230,8 @@
       <div class="single-box d-flex align-items-center gap-2 px-3 py-2">
         <img class="w-48-px h-48-px rounded-4" loading="lazy" data-src="{{
             member?.ProfilePicName ||
-              '/assets/images/avtar/placeholder-user.png'
-          }}" onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png'" alt="avatar" />
+              '/assets/images/avtar/default-profile.jpg'
+          }}" onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg'" alt="avatar" />
 
         <div class="d-flex flex-column justify-content-center align-items-start w-100">
           <p class="mb-1">{{ member?.Username }}</p>
