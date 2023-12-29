@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isNavigationEnd = true;
       });
       const data = {
-        title: 'HealingTube',
+        title: 'Legaltalk Tube',
         url: `${window.location.href}`,
       };
       this.seoService.updateSeoMetaData(data);
@@ -428,7 +428,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     modalRef.result.then((res) => {
       if (res === 'success') {
         if (data.pageType === 'community') {
-          this.router.navigate(['health-practitioner']);
+          this.router.navigate(['attorneys']);
         } else {
           this.router.navigate(['pages']);
         }
@@ -513,7 +513,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 // this.getCommunityDetailsBySlug();
                 this.router.navigate([
                   `${this.communityDetails.pageType === 'community'
-                    ? 'health-practitioner'
+                    ? 'attorneys'
                     : 'pages'
                   }`,
                 ]);
@@ -572,7 +572,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     modalRef.componentInstance.title = `Warning message`;
     modalRef.componentInstance.confirmButtonLabel = 'Ok';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-    modalRef.componentInstance.message = `Videos on HealingTube home are limited to 2 Minutes!
+    modalRef.componentInstance.message = `Videos on Legaltalk Tube home are limited to 2 Minutes!
     Videos must be a mp4 format`;
     modalRef.result.then((res) => {
       if (res === 'success') {

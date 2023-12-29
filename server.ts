@@ -86,9 +86,9 @@ export function app(): express.Express {
         var seo: any = {
           title: 'Legaltalk Tube',
           description:
-            'Private video consultations with Naturopathic Doctors and Holistic Healers from around the world. Social Discussion on how to heal various ailments.',
+            'Speak face-to-face with attorneys locally of worldwide',
           image:
-            'https://www.legaltalk.tube/assets/images/Ht-Profile-pic-default.png',
+            'https://www.legaltalk.tube/assets/images/LegalTalk-Banner.jpg',
           site: 'https://www.legaltalk.tube/',
           url: 'https://www.legaltalk.tube' + params,
           keywords: 'LegaltalkTube',
@@ -155,7 +155,7 @@ export function app(): express.Express {
           const talent = {
             name: post?.title || post?.albumname || 'Legaltalk.Tube Post',
             description: pdhtml?.textContent || 'Post content',
-            image: post?.thumbfilename || post?.metaimage || post?.imageUrl || 'https://www.legaltalk.tube/assets/images/Ht-Profile-pic-default.png',
+            image: post?.thumbfilename || post?.metaimage || post?.imageUrl || 'https://www.legaltalk.tube/assets/images/LegalTalk-Banner.jpg',
           };
           seo.title = talent.name;
           seo.description = strip_html_tags(talent.description);

@@ -6,8 +6,8 @@
   --body-color: #f9fbfc;
   --primary-color: #0085ff;
   --secondary-color: #f3f3f3;
-  --border-color: #2b3b58;
-  --bs-border-color: #2b3b58;
+  --border-color: #704a3c;
+  --bs-border-color: #704a3c;
   --border-1st-color: #e2e2e2;
   --border-2nd-color: #dbdbdb;
   --highlight-color: #ff4949;
@@ -29,19 +29,19 @@
   --box-shadow: 0px 4px 26px rgba(222, 222, 222, 0.25);
   --box-2nd-shadow: 0px 4px 26px rgba(189, 189, 189, 0.25);
   --hero-section-bg: #f9fbfcc9;
-  --font-icon-color: #171954;
-  --scroll-color: #e41e1d;
-  --post-border-color: #2b3b58;
+  --font-icon-color: #45322b;
+  --scroll-color: #704a3c;
+  --post-border-color: #704a3c;
 }
 
 .dark-ui {
   --body-color: #000000;
-  --primary-color: #0085ff;
+  --primary-color: #edb66d;
   --secondary-color: #f3f3f3;
-  --border-color: #2b3b58;
-  --bs-border-color: #2b3b58;
-  --border-1st-color: #2b3b58;
-  --border-2nd-color: #2b3b58;
+  --border-color: #704a3c;
+  --bs-border-color: #704a3c;
+  --border-1st-color: #704a3c;
+  --border-2nd-color: #704a3c;
   --icon-color: #888888;
   --icon-alt-color: #a6acb6;
   --heading-1st-color: #ffffff;
@@ -51,16 +51,16 @@
   --para-4th-color: #ffffff;
   --para-5th-color: #ffffff;
   --para-6th-color: #a6acb6;
-  --box-1st-color: #2b3b58;
-  --box-2nd-color: #2b3b58;
+  --box-1st-color: #704a3c;
+  --box-2nd-color: #704a3c;
   --btn-1st-color: #0085ff;
   --btn-2nd-color: #185e54;
-  --section-1st-color: #212f48;
+  --section-1st-color: #45322b;
   --box-shadow: 0px 4px 26px rgba(66, 66, 66, 0.25);
   --box-2nd-shadow: 0px 4px 26px rgba(66, 66, 66, 0.25);
   --hero-section-bg: #000428bf;
   --font-icon-color: #ffffff;
-  --scroll-color: #e41e1d;
+  --scroll-color: #704a3c;
   --post-border-color: #f3f3f3;
 }
 .cursor {
@@ -645,9 +645,9 @@ li {
 
 /* cmn btn */
 .cmn-btn {
-  background: var(--primary-color);
+  background: var(--primary-color) !important;
   padding: 4px 15px;
-  color: var(--bs-white);
+  color: var(--bs-white) !important;
   display: inline-flex;
   align-items: center;
   font-size: 14px;
@@ -656,9 +656,14 @@ li {
   transition: 0.3s;
 
   &:disabled {
+    border: var(--primary-color) !important;
+    background: var(--primary-color) !important;
     background-color: var(--box-1st-color);
+    color: var(--bs-white) !important;
 
     &:hover {
+      background: var(--primary-color) !important;
+      color: var(--bs-white) !important;
       background-color: var(--box-1st-color);
     }
   }
@@ -1107,4 +1112,9 @@ li {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px !important;
   background-color: var(--scroll-color) !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
 }

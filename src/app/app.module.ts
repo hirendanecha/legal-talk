@@ -22,7 +22,7 @@ import { SharedModule } from './@shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    BrowserModule.withServerTransition({ appId: 'HealingTube' }),
+    BrowserModule.withServerTransition({ appId: 'LegaltalkTube' }),
     BrowserAnimationsModule,
     TransferHttpCacheModule,
   ],

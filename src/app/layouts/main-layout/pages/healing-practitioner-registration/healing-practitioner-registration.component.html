@@ -10,7 +10,7 @@
               private video consultation?
             </p>
             <button>
-              <a (click)="backPreview()" class="btn btn-primary">Select</a>
+              <a (click)="backPreview()" class="btn cmn-btn">Select</a>
             </button>
           </div>
         </div>
@@ -20,7 +20,7 @@
               Social discussion on how to heal various ailments?
             </p>
             <button>
-              <a href="/home" class="btn btn-primary">Select</a>
+              <a href="/home" class="btn cmn-btn">Select</a>
             </button>
           </div>
         </div>
@@ -30,7 +30,7 @@
               Watch videos from Naturopathic Doctors and Holistic Practitioners
             </p>
             <button>
-              <a href="https://video.healing.tube/" class="btn btn-primary"
+              <a href="https://video.legaltalk.tube/" class="btn cmn-btn"
                 >Select</a
               >
             </button>
@@ -119,7 +119,7 @@
             <button (click)="selectCard(card.id)">
               <a
                 class="btn"
-                [ngClass]="isSelected(card.id) ? 'btn-success' : 'btn-primary'"
+                [ngClass]="isSelected(card.id) ? 'btn-success' : 'cmn-btn'"
               >
                 {{ isSelected(card.id) ? "Selected" : "Select" }}</a
               >
@@ -158,7 +158,7 @@
     <button
       *ngIf="!isFromHome"
       (click)="backPreview()"
-      class="btn btn-primary d-flex align-items-center float-start"
+      class="btn cmn-btn d-flex align-items-center float-start"
     >
       <fa-icon
         [icon]="['fas', 'arrow-left-long']"
@@ -168,7 +168,7 @@
     </button>
     <button
       (click)="nextPageSearch()"
-      class="btn btn-primary d-flex align-items-center float-end"
+      class="btn cmn-btn d-flex align-items-center float-end"
     >
       Next
       <fa-icon

@@ -36,7 +36,7 @@
         opacity: 1;
   
         span {
-          background-color: var(--bs-primary);
+          background-color: var(--primary-color);
           border-radius: 10px;
           background-size: 18px;
           width: 32px;
@@ -59,6 +59,7 @@
     .btn.active,
     .btn.show {
       color: white !important;
+      background-color: var(--primary-color);
     }
   
     @media (max-width: 990px) {

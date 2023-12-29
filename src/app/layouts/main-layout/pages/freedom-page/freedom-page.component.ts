@@ -29,7 +29,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'HealingTube Health Topics',
+      title: 'Legaltalk Tube Law Firm Pages',
       url: `${location.href}`,
       description: '',
     };

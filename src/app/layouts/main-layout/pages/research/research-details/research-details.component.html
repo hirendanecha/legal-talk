@@ -12,7 +12,7 @@
         <span class="description">Members: 711352</span>
       </div>
 
-      <button type="button" class="btn btn-sm btn-primary align-self-start">Join Group</button>
+      <button type="button" class="btn btn-sm cmn-btn align-self-start">Join Group</button>
     </div>
 
     <div class="page-details pt-5">
@@ -30,7 +30,7 @@
                   </div>
                 </ng-container>
 
-                <button class="btn btn-sm btn-primary w-auto m-auto" *ngIf="isLoadMorePosts" (click)="loadMorePosts()">
+                <button class="btn btn-sm cmn-btn w-auto m-auto" *ngIf="isLoadMorePosts" (click)="loadMorePosts()">
                   Load More
                 </button>
               </ng-container>
@@ -56,7 +56,7 @@
                   <div class="col-6 px-3 pb-6">
                     <div class="card group-post-card single-box border-secondary justify-content-between mb-0 p-3 h-100">
                       <span class="text-start" [innerHTML]="resource?.PostDescription || 'File Name not found'" ></span>
-                      <a href="https://healing.tube/Posts/Files/{{groupDetails?.ID}}/{{resource?.FileName}}" target="_blank" [download]="resource?.FileName" class="btn btn-sm btn-outline-primary mt-4 d-flex flex-row justify-content-between align-items-center align-self-end">
+                      <a href="https://legaltalk.tube/Posts/Files/{{groupDetails?.ID}}/{{resource?.FileName}}" target="_blank" [download]="resource?.FileName" class="btn btn-sm btn-outline-primary mt-4 d-flex flex-row justify-content-between align-items-center align-self-end">
                         Download
                         <fa-icon [icon]="['fas', 'download']" class="font-16-px ms-2" />
                       </a>

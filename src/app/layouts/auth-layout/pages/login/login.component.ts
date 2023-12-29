@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.type = 'success';
     }
     const data = {
-      title: 'HealingTube login',
+      title: 'Legaltalk Tube login',
       url: `${environment.webUrl}login`,
       description: 'login page',
       image: `${environment.webUrl}assets/images/landingpage/Healing-Tube-Logo.png`,

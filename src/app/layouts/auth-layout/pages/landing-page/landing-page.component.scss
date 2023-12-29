@@ -6,17 +6,18 @@
   .text-s {
     font-size: min(max(16px, 1vw), 22px);
   }
+
   .c-fonts {
     // font-size: min(max(25px, 2vw), 44px);
     font-size: 22px;
-    
+
     @media (max-width: 999px) {
       font-size: 16px;
     }
   }
 
   .custom-height {
-    background-image: url(/assets/images/landingpage/healing-hm-pg.jpg);
+    background-image: url(../../../../../assets/images/landingpage/LegalTalk-Home.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     object-fit: cover;
@@ -36,6 +37,7 @@
       min-height: 300px;
     }
   }
+
   .sub-container {
     display: flex;
     flex-direction: column;
@@ -45,6 +47,7 @@
 
     .head-text {
       font-size: min(max(25px, 2vw), 36px) !important;
+
       @media (max-width: 684px) {
         line-height: 24px;
       }
@@ -54,8 +57,10 @@
       color: #11134d !important;
       font-size: min(max(14px, 2vw), 24px);
     }
+
     .c-width {
       max-width: 722px;
+
       // padding: 0 20px;
       @media (max-width: 684px) {
         line-height: 24px;
@@ -63,6 +68,7 @@
       }
     }
   }
+
   .c-footer {
     max-height: 530px;
     height: 100vh;
@@ -76,12 +82,14 @@
       font-size: min(max(15px, 2vw), 20px) !important;
       text-align: center;
       padding: 0 10px;
+
       @media (max-width: 600px) {
         line-height: 19px;
       }
     }
   }
 }
+
 // .bg-color {
 //   background: #11134d;
 // }
@@ -90,6 +98,7 @@
     // justify-content: center;
   }
 }
+
 .answers_main {
   padding: 30px 0;
   // padding: 30px 200px;
@@ -190,20 +199,13 @@
   }
 }
 
-.answers_main
-  .Answers_online__lw6jA
-  .Answers_rightAnswer___Ek_r
-  .Answers_internet__ywf41 {
+.answers_main .Answers_online__lw6jA .Answers_rightAnswer___Ek_r .Answers_internet__ywf41 {
   display: flex;
   align-items: flex-start;
   grid-gap: 10px;
 }
 
-.answers_main
-  .Answers_online__lw6jA
-  .Answers_rightAnswer___Ek_r
-  .Answers_internet__ywf41
-  p {
+.answers_main .Answers_online__lw6jA .Answers_rightAnswer___Ek_r .Answers_internet__ywf41 p {
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -212,33 +214,27 @@
   margin-bottom: 16px;
 }
 
-.answers_main
-  .Answers_online__lw6jA
-  .Answers_rightAnswer___Ek_r
-  .Answers_internet__ywf41
-  img {
+.answers_main .Answers_online__lw6jA .Answers_rightAnswer___Ek_r .Answers_internet__ywf41 img {
   width: 33px;
   height: 23px;
   margin-top: 6px;
 }
 
-.answers_main
-  .Answers_online__lw6jA
-  .Answers_rightAnswer___Ek_r
-  .Answers_internet__ywf41:last-child {
+.answers_main .Answers_online__lw6jA .Answers_rightAnswer___Ek_r .Answers_internet__ywf41:last-child {
   margin-bottom: 0;
 }
 
 .landing-btn {
-  .btn-primary {
-    background: #11134d;
-    color: #fff;
-    border: #11134d;
-    height: 38px;
-  }
+  // .cmn-btn {
+  //   background: #11134d;
+  //   color: #fff;
+  //   border: #11134d;
+  //   height: 38px;
+  // }
+
   .btn-outline {
-    border-color: #11134d;
-    color: #11134d;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
     height: 38px;
   }
 }
@@ -256,9 +252,11 @@
   @media (min-width: 768px) {
     display: none;
   }
+
   @media (max-width: 768px) {
     display: block;
   }
+
   .c-btn {
     align-items: center;
     justify-content: center;
@@ -273,6 +271,7 @@
       fill: #fff;
     }
   }
+
   ul {
     a {
       display: flex;
@@ -294,6 +293,7 @@
     }
   }
 }
+
 ::ng-deep.c-button-landing {
   svg path {
     fill: #000428;

@@ -17,7 +17,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'health-practitioner',
+        path: 'attorneys',
         loadChildren: () => import('./pages/communities/communities.module').then((m) => m.CommunitiesModule),
         data: {
           isShowLeftSideBar: true

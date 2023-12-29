@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-community-modal.component.scss'],
 })
 export class AddCommunityModalComponent implements OnInit, AfterViewInit {
-  @Input() title: string | undefined = 'Apply to be Health Practitioner';
+  @Input() title: string | undefined = 'Apply to be attorneys';
   @Input() cancelButtonLabel: string | undefined = 'Cancel';
   @Input() confirmButtonLabel: string | undefined = 'Create';
   @Input() closeIcon: boolean | undefined;
@@ -182,7 +182,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
               this.submitted = true;
               this.createCommunityAdmin(res.data);
               this.toastService.success(
-                'Your Health Practitioner will be approved within 24 hours!'
+                'Your attorneys will be approved within 24 hours!'
               );
               this.activeModal.close('success');
               this.router.navigate(['/health-practitioner']);
@@ -210,14 +210,14 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
               this.submitted = true;
               // this.createCommunityAdmin(res.data);
               this.toastService.success(
-                'Your Health Practitioner edit successfully!'
+                'Your attorneys edit successfully!'
               );
               this.activeModal.close('success');
             }
           },
           error: (err) => {
             this.toastService.danger(
-              'Please change Health Practitioner. this Health Practitioner name already in use.'
+              'Please change attorneys. this attorneys name already in use.'
             );
             this.spinner.hide();
           },
@@ -347,7 +347,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
     }
   }
 
-  clearForm(){
+  clearForm() {
     this.router.navigate(['/health-practitioner'])
   }
 }
