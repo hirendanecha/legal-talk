@@ -2,7 +2,7 @@
   <ng-container *ngIf="post; else noPost">
     <div class="d-flex p-2">
       <img class="w-24-px h-24-px rounded" loading="lazy" data-src="{{ post?.ProfilePicName }}"
-        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';" alt="avatar" />
+        onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';" alt="avatar" />
       <div class="d-flex flex-column h6 m-0 ms-2" *ngIf="post?.Username || post?.FirstName">
         <div class="d-flex align-items-center cursor c-padding posted-wrap-text">
           <div class="d-flex align-items-center" (click)="redirectToParentProfile(post)">
