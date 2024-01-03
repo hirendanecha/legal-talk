@@ -6,7 +6,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PostService } from 'src/app/@shared/services/post.service';
 import { SeoService } from 'src/app/@shared/services/seo.service';
@@ -29,14 +29,18 @@ export class PostDetailComponent implements OnInit {
     public sharedService: SharedService,
     private route: ActivatedRoute,
     private seoService: SeoService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.postId = this.route.snapshot.paramMap.get('id');
-      // console.log('route', this.route);
-      if (this.postId) {
-        this.getPostsByPostId();
-      }
+      this.router.events.subscribe((event: any) => {
+        const id = event?.routerEvent?.url.split('/')[2];
+        console.log(id);
+        this.postId = id;
+        if (this.postId) {
+          this.getPostsByPostId();
+        }
+      });
     }
   }
 

@@ -17,7 +17,7 @@
   }
 
   .custom-height {
-    background-image: url(../../../../../assets/images/landingpage/LegalTalk-Home.jpg);
+    background-image: url(/assets/images/landingpage/LegalTalk-Home.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     object-fit: cover;
@@ -29,8 +29,18 @@
       width: 100%;
       background-color: #0b0d0ed4;
       border-radius: 5px;
-      padding: 40px;
-      height: 300px;
+      padding:20px 40px;
+      // height: 300px;
+      span {
+        h1 {
+          font-size: min(max(30px, 3vw),24px);
+          font-weight: 700;
+        }
+
+        h4 {
+          font-size: min(max(17px, 2vw),25px);
+        }
+      }
     }
 
     @media (max-width: 600px) {
