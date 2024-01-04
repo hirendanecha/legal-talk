@@ -18,12 +18,11 @@
 
   .custom-height {
     background-image: url(/assets/images/landingpage/LegalTalk-Home.jpg);
-    background-size: cover;
+    background-size: 100% 100%;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-position: center;
     object-fit: cover;
-    height: calc(100vh );
-    min-height: 400px;
+    height: calc(100vh - 48px);
 
     .banner-text {
       max-width: 600px;
