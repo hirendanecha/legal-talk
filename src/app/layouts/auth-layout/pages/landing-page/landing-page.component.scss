@@ -20,8 +20,9 @@
     background-image: url(/assets/images/landingpage/LegalTalk-Home.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     object-fit: cover;
-    height: calc(100vh - 48px);
+    height: calc(100vh );
     min-height: 400px;
 
     .banner-text {
@@ -306,6 +307,6 @@
 
 ::ng-deep.c-button-landing {
   svg path {
-    fill: #000428;
+    fill: var(--primary-color);
   }
 }
