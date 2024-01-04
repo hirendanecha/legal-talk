@@ -91,6 +91,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           localStorage.setItem('profileId', data.user.profileId);
           localStorage.setItem('communityId', data.user.communityId);
           localStorage.setItem('channelId', data.user?.channelId);
+          localStorage.setItem('email', data.user?.Email);
           window.localStorage.user_level_id = 2;
           window.localStorage.user_id = data.user.Id;
           window.localStorage.user_country = data.user.Country;
