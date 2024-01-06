@@ -426,7 +426,7 @@
       }
       img[src$=".gif"] {
         display: unset !important;
-        width: 70px;
+        width: 50px;
       }
 
       // h1,h2,h3,h4,h5,h6 {
@@ -481,7 +481,7 @@
         right: 50px !important;
 
         @media (min-width:768px) and (max-width:991px) {
-          right: 115px !important;
+          right: 150px !important;
         }
         @media (min-width:576px) and (max-width:767px) {
           right: 80px !important;

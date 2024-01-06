@@ -177,8 +177,7 @@
                 !(postData?.postdescription || postData?.file?.name) ||
                 buttonClicked
               " (click)="uploadPostFileAndCreatePost()">
-              {{ postData?.id ? "Update Post" : "Post" }}
-
+              {{ "Post" }}
               <fa-icon class="c-icon-color" [icon]="['fas', 'paper-plane']" />
             </button>
           </div>

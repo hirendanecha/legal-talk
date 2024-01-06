@@ -228,7 +228,7 @@
                     <span>Download</span>
                   </a>
                 </button>
-                <button ngbDropdownItem>
+                <button ngbDropdownItem *ngIf="!isViewProfile">
                   <a
                     class="droplist d-flex align-items-center gap-2"
                     (click)="editPost(post)"
@@ -637,9 +637,7 @@
                       [isShowEmojis]="true"
                       (onDataChange)="onTagUserReplayInputChangeEvent($event)"
                     />
-                    <div
-                      class="file-input d-flex gap-2 align-items-center"
-                    >
+                    <div class="file-input d-flex gap-2 align-items-center">
                       <div class="file-upload d-flex">
                         <label class="file">
                           <input

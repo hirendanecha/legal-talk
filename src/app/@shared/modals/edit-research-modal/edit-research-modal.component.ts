@@ -160,7 +160,7 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
       reqObj['metadescription'] = meta?.metadescription;
       reqObj['metaimage'] = meta?.metaimage;
       reqObj['metalink'] = meta?.metalink;
-      reqObj['imageUrl'] = this.postImage;
+      reqObj['imageUrl'] = this.postImage || this.postImageUrl;
       reqObj['pdfUrl'] = this.postFile;
 
       this.socketService?.createOrEditPost(reqObj);

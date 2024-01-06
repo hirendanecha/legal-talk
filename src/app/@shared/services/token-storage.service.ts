@@ -25,7 +25,7 @@ export class TokenStorageService {
     sessionStorage.clear();
     const theme = localStorage.getItem('theme');
     localStorage.clear();
-    this.cookieService.delete('auth-user', '/', environment.domain);
+    this.cookieService.delete( 'userData', '/', environment.domain);
     // this.cookieService.deleteAll('/');
     localStorage.setItem('theme', theme);
     this.toastService.success('Logout successfully');

@@ -7,6 +7,7 @@ import { PostService } from 'src/app/@shared/services/post.service';
 import { ProfileService } from 'src/app/@shared/services/profile.service';
 import { SeoService } from 'src/app/@shared/services/seo.service';
 import { SharedService } from 'src/app/@shared/services/shared.service';
+import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import {
   deleteExtraParamsFromReqObj,
@@ -60,7 +61,8 @@ export class ResearchListComponent {
     private spinner: NgxSpinnerService,
     private breakpointService: BreakpointService,
     private toastService: ToastService,
-    private seoService: SeoService
+    private seoService: SeoService,
+    private socketService: SocketService
   ) {
     const data = {
       title: 'Legaltalk Tube Research',
@@ -197,33 +199,36 @@ export class ResearchListComponent {
       reqObj['metalink'] = meta?.metalink;
       reqObj['imageUrl'] = this.postImage;
       reqObj['pdfUrl'] = this.postFile;
-      this.postService
-        .createPost(reqObj)
-        .subscribe({
-          next: (res) => {
-            if (res) {
-              console.log('res : ', res);
-              this.toastService.success('Research added successfully.');
-              this.groupsAndPosts();
-            } else {
-              this.toastService.danger(res['message']);
-            }
-          },
-          error: (error: any) => {
-            this.toastService.danger(error.message);
-          },
-        })
-        .add(() => {
-          this.researchForm.reset();
-          this.tagInputDefaultData = 'reset';
-          this.postImage = null;
-          this.postFile = null;
-          setTimeout(() => {
-            this.tagInputDefaultData = '';
-          }, 100);
-          this.formIsClicked.setValue(false);
-          this.formIsSubmitted.setValue(false);
-        });
+      this.socketService?.createOrEditPost(reqObj);
+      this.toastService.success('Research added successfully.');
+      this.resetPost()
+      // this.postService
+      //   .createPost(reqObj)
+      //   .subscribe({
+      //     next: (res) => {
+      //       if (res) {
+      //         console.log('res : ', res);
+      //         this.toastService.success('Research added successfully.');
+      //         this.groupsAndPosts();
+      //       } else {
+      //         this.toastService.danger(res['message']);
+      //       }
+      //     },
+      //     error: (error: any) => {
+      //       this.toastService.danger(error.message);
+      //     },
+      //   })
+      //   .add(() => {
+      //     this.researchForm.reset();
+      //     this.tagInputDefaultData = 'reset';
+      //     this.postImage = null;
+      //     this.postFile = null;
+      //     setTimeout(() => {
+      //       this.tagInputDefaultData = '';
+      //     }, 100);
+      //     this.formIsClicked.setValue(false);
+      //     this.formIsSubmitted.setValue(false);
+      //   });
     }
     this.removeImgFile();
     this.removePostSelectedFile();
