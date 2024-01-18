@@ -69,6 +69,7 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
   postImageUrl: string;
   postImage: any;
 
+  pdfName = ''
   postFileUrl: string;
   postFile: any;
 
@@ -86,6 +87,7 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
       // this.selectedImgFile = this.data?.imageUrl
       this.postFileUrl = this.data?.pdfUrl
       // this.selectedpdfFile = this.data?.pdfUrl
+      this.pdfName = this.data?.pdfUrl?.split('/')[3];  
     }
   }
 
@@ -161,8 +163,7 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
       reqObj['metaimage'] = meta?.metaimage;
       reqObj['metalink'] = meta?.metalink;
       reqObj['imageUrl'] = this.postImage || this.postImageUrl;
-      reqObj['pdfUrl'] = this.postFile;
-
+      reqObj['pdfUrl'] = this.postFile || this.postFileUrl;
       this.socketService?.createOrEditPost(reqObj);
       this.activeModal.close();
       this.resetPost()
@@ -216,8 +217,8 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
     const profileId = localStorage.getItem('profileId');
     if (this.selectedImgFile) {
       this.postService
-        .upload(this.selectedImgFile, profileId, 'post')
-        .subscribe({
+      .uploadFile(this.selectedImgFile)        
+      .subscribe({
           next: (res: any) => {
             if (res?.body?.url) {
               this.postImage = res?.body?.url;
@@ -227,8 +228,8 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
         });
     } else if (this.selectedpdfFile) {
       this.postService
-        .upload(this.selectedpdfFile, profileId, 'post')
-        .subscribe({
+      .uploadFile(this.selectedpdfFile)
+      .subscribe({
           next: (res: any) => {
             if (res?.body?.url) {
               this.postFile = res?.body?.url;
@@ -258,7 +259,7 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
     this.postImageUrl = null;
   }
 
-  onPostFileSelect(event: any): void {
+  onPostFileSelect1(event: any): void {
     const file = event.target?.files?.[0] || {};
     console.log(file)
     if (file) {
@@ -282,9 +283,20 @@ export class EditResearchModalComponent implements OnInit, AfterViewInit {
     // }
   }
 
+  onPostFileSelect(event: any): void {
+    const file = event.target?.files?.[0] || {};
+    if (file.type.includes('application/pdf')) {
+      this.selectedpdfFile = file;
+      this.pdfName = file?.name;
+    }
+    else {
+      this.toastService.danger(`sorry ${file.type} are not allowed!`)
+    }
+  }
   removePostSelectedFile(): void {
     this.selectedpdfFile = null;
     this.postFileUrl = null;
+    this.pdfName = '';
   }
 
   resetPost(): void {

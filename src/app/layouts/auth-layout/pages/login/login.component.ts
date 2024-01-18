@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       title: 'Legaltalk Tube login',
       url: `${environment.webUrl}login`,
       description: 'login page',
-      image: `${environment.webUrl}assets/images/landingpage/Healing-Tube-Logo.png`,
+      image: `${environment.webUrl}assets/images/landingpage/LegalTalk-Banner.jpg`,
     };
     // this.seoService.updateSeoMetaData(data);
   }
