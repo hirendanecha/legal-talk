@@ -13,14 +13,48 @@ export class SocketService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.socket = io(environment.socketUrl, {
-        reconnectionDelay: 100,
-        reconnectionDelayMax: 300,
-        // reconnection: true,
-        randomizationFactor: 0.2,
-        // timeout: 120000,
-        reconnectionAttempts: 50000, transports: ["websocket"]
-      });
+      const token = localStorage.getItem('auth-token');
+      if (token) {
+        const customHeaders = {
+          Authorization: `Bearer ${token}`,
+        };
+        this.socket = io(environment.socketUrl, {
+          reconnectionDelay: 100,
+          reconnectionDelayMax: 300,
+          // reconnection: true,
+          randomizationFactor: 0.2,
+          // timeout: 120000,
+          reconnectionAttempts: 50000,
+          transports: ['websocket'],
+          auth: customHeaders,
+        });
+      }
+    }
+  }
+
+  connect(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('auth-token');
+      if (token) {
+        const customHeaders = {
+          Authorization: `Bearer ${token}`,
+        };
+        // if (this.socket) {
+        //   this.socket?.close();
+        // }
+        if (!this.socket) {
+          this.socket = io(environment.socketUrl, {
+            reconnectionDelay: 100,
+            reconnectionDelayMax: 300,
+            reconnection: true,
+            randomizationFactor: 0.2,
+            // timeout: 120000,
+            reconnectionAttempts: 50000,
+            transports: ['websocket'],
+            auth: customHeaders,
+          });
+        }
+      }
     }
   }
 

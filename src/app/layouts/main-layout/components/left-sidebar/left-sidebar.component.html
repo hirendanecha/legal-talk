@@ -4,7 +4,7 @@
     'mh-100 vh-100': (breakpointService?.screen | async).lg.lessThen
   }"
 >
-  <ng-container *ngIf="tokenService.getCredentials()">
+  <ng-container *ngIf="tokenService.getToken()">
     <div class="profile-pic d-flex gap-2" routerLink="/home">
       <div class="position-relative">
         <img
@@ -230,7 +230,7 @@
       </div>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="!tokenService.getCredentials()">
+  <ng-container *ngIf="!tokenService.getToken()">
     <div class="dashboard-img mb-5">
       <img
         class="w-100 rounded-3"

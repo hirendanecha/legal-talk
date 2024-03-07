@@ -46,7 +46,7 @@
                 class="d-flex align-items-center"
                 (mouseover)="showHoverBox = true"
               >
-                {{ (post?.Username || post?.FirstName).split(" ").join("") }}
+                {{ (post?.Username || post?.FirstName)?.split(" ")?.join("") }}
                 <!-- [ngbTooltip]="post.postcreationdate | date : ' h:mm a MMM d, y'" -->
                 <div>
                   <fa-icon
@@ -92,12 +92,12 @@
                 alt="avatar"
               />
               <p class="cursor mt-2">
-                {{ (post?.Username || post?.FirstName).split(" ").join("") }}
+                {{ (post?.Username || post?.FirstName)?.split(" ")?.join("") }}
               </p>
               <div
                 class="d-flex"
                 *ngIf="
-                  profileId != post.profileid && tokenService.getCredentials()
+                  profileId != post.profileid && tokenService.getToken()
                 "
               >
                 <button>
@@ -132,7 +132,7 @@
               <!-- <div
                 class="d-flex"
                 *ngIf="
-                  +profileId === post.profileid && tokenService.getCredentials()
+                  +profileId === post.profileid && tokenService.getToken()
                 "
               >
                 <button (click)="goToViewProfile(post.profileid)">
@@ -156,13 +156,13 @@
 
         <div class="d-flex">
           <div
-            *ngIf="shareButton && tokenService.getCredentials()"
+            *ngIf="shareButton && tokenService.getToken()"
             class="cursor me-5"
             (click)="getPostUrl(post)"
           >
             <fa-icon [icon]="['fas', 'share']" class="font-24-px m-0" />
           </div>
-          <div ngbDropdown *ngIf="tokenService.getCredentials()">
+          <div ngbDropdown *ngIf="tokenService.getToken()">
             <fa-icon
               [icon]="['fas', 'ellipsis']"
               class="font-24-px m-0"
@@ -264,7 +264,7 @@
     </div>
     <div
       class="d-none d-lg-flex text-center justify-content-center align-items-center h-24-px w-100 mt-lg-4 ms-2 ms-lg-0"
-      *ngIf="profileId != post.profileid && tokenService.getCredentials()"
+      *ngIf="profileId != post.profileid && tokenService.getToken()"
     >
       <button>
         <a
@@ -336,7 +336,7 @@
             class="c-pointer close-icon font-60-px"
           />
           <span class="pdf-name c-pointer">
-            {{ post.pdfUrl.split("/")[3].replaceAll("%", " ") }}
+            {{ post.pdfUrl?.split("/")[3]?.replaceAll("%", " ") }}
           </span>
         </div>
       </div>
@@ -371,7 +371,7 @@
         data-toggle="tooltip"
         data-placement="bottom"
         title="Post Likes"
-        [disabled]="!tokenService.getCredentials()"
+        [disabled]="!tokenService.getToken()"
         (click)="
           post.react == 'L' ? dislikeFeedPost(post) : reactLikeOnPost(post)
         "
@@ -397,7 +397,7 @@
         data-toggle="tooltip"
         data-placement="bottom"
         title="View Comments"
-        [disabled]="!tokenService.getCredentials()"
+        [disabled]="!tokenService.getToken()"
         (click)="viewComments(post?.id)"
       >
         <fa-icon [icon]="['fas', 'comment']" class="font-20-px" />
@@ -406,7 +406,7 @@
       </button>
     </div>
 
-    <form *ngIf="tokenService.getCredentials()">
+    <form *ngIf="tokenService.getToken()">
       <div class="d-flex mt-5 gap-3 align-items-start">
         <img
           loading="lazy"
@@ -513,8 +513,8 @@
                     <h6 class="m-0">
                       {{
                         (comment.Username || comment.FirstName)
-                          .split(" ")
-                          .join("")
+                          ?.split(" ")
+                          ?.join("")
                       }}
                       <span class="font-12-px text-lowercase">
                         <fa-icon class="ms-2" [icon]="['fas', 'clock']" />
@@ -586,7 +586,7 @@
                   <li class="d-center">
                     <button
                       class="d-center gap-1 gap-sm-2 font-12-px"
-                      [disabled]="!tokenService.getCredentials()"
+                      [disabled]="!tokenService.getToken()"
                       (click)="
                         comment.react == 'L'
                           ? disLikeComments(comment)
@@ -605,7 +605,7 @@
                   <li class="d-center">
                     <button
                       class="d-center gap-1 gap-sm-2 font-12-px"
-                      [disabled]="!tokenService.getCredentials()"
+                      [disabled]="!tokenService.getToken()"
                       (click)="showReplySection(comment.id)"
                     >
                       <fa-icon [icon]="['fas', 'message']" class="font-16-px" />
@@ -713,8 +713,8 @@
                             <h6 class="m-0 align-items-center">
                               {{
                                 (reply.Username || reply.FirstName)
-                                  .split(" ")
-                                  .join("")
+                                  ?.split(" ")
+                                  ?.join("")
                               }}
                               <span class="font-12-px text-lowercase">
                                 <fa-icon
@@ -791,7 +791,7 @@
                           <li class="d-center">
                             <button
                               class="d-center gap-1 gap-sm-2 font-12-px"
-                              [disabled]="!tokenService.getCredentials()"
+                              [disabled]="!tokenService.getToken()"
                               (click)="
                                 reply.react == 'L'
                                   ? disLikeComments(reply)

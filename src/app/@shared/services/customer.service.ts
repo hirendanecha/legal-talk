@@ -112,4 +112,8 @@ export class CustomerService {
       `${this.baseUrl}/notification/${id}&q=${Date.now()}`,
     );
   }
+
+  verifyToken(token): Observable<any> {
+    return this.http.get(`${this.baseUrl}/verify-token/${token}`);
+  }
 }

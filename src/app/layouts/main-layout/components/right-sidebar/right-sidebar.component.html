@@ -4,7 +4,7 @@
     'mh-100 vh-100': (breakpointService?.screen | async).lg.lessThen
   }"
 >
-  <ng-container *ngIf="tokenService.getCredentials()">
+  <ng-container *ngIf="tokenService.getToken()">
     <!-- <div class="dashboard-img mb-5">
       <img class="w-100 rounded-3" src="/assets/images/freedom-dashboard.png" />
       <span class="mt-3 text-start font-14-px">
@@ -148,7 +148,7 @@
       </div>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="!tokenService.getCredentials()">
+  <ng-container *ngIf="!tokenService.getToken()">
     <!-- <div class="dashboard-img mb-5">
       <img class="w-100 rounded-3" src="/assets/images/freedom-dashboard.png" />
       <span class="mt-3 text-start font-14-px">

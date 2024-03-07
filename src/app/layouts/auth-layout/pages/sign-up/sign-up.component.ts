@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   allCountryData: any;
   type = 'danger';
   defaultCountry = 'US';
-  profilePic = '';
+  profilePic: string;
   profileImg: any = {
     file: null,
     url: '',
@@ -49,10 +49,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     confirm_password: new FormControl('', [Validators.required]),
     MobileNo: new FormControl('', [Validators.required]),
     Country: new FormControl('US', [Validators.required]),
-    Zip: new FormControl({ value: '', disabled: true }, Validators.required),
-    State: new FormControl({ value: '', disabled: true }, Validators.required),
-    City: new FormControl({ value: '', disabled: true }, Validators.required),
-    County: new FormControl({ value: '', disabled: true }, Validators.required),
+    Zip: new FormControl('', Validators.required),
+    State: new FormControl('', Validators.required),
+    City: new FormControl('', Validators.required),
+    County: new FormControl('', Validators.required),
     TermAndPolicy: new FormControl(false, Validators.required),
   });
 
@@ -84,7 +84,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       .subscribe((event) => {
         const val = event['target'].value;
         if (val.length > 3) {
-          this.onZipChange(val);
+          // this.onZipChange(val);
         }
       });
   }
@@ -93,32 +93,37 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     this.profileImg = event;
   }
 
-  upload(file) {
+  upload(file: any = {}) {
     // if (file.size / (1024 * 1024) > 5) {
     //   return 'Image file size exceeds 5 MB!';
     // }
     this.spinner.show();
-    this.uploadService.uploadFile(file).subscribe({
-      next: (res: any) => {
-        this.spinner.hide();
-        if (res.body) {
-          this.profilePic = res?.body?.url;
-          this.creatProfile(this.registerForm.value);
-        }
-        // if (file?.size < 5120000) {
-        // } else {
-        //   this.toastService.warring('Image is too large!');
-        // }
-      },
-      error: (err) => {
-        this.spinner.hide();
-        this.profileImg = {
-          file: null,
-          url: '',
-        };
-        return 'Could not upload the file:' + file.name;
-      },
-    });
+    if (file) {
+      this.uploadService.uploadFile(file).subscribe({
+        next: (res: any) => {
+          this.spinner.hide();
+          if (res.body) {
+            this.profilePic = res?.body?.url;
+            this.creatProfile(this.registerForm.value);
+          }
+          // if (file?.size < 5120000) {
+          // } else {
+          //   this.toastService.warring('Image is too large!');
+          // }
+        },
+        error: (err) => {
+          this.spinner.hide();
+          this.profileImg = {
+            file: null,
+            url: '',
+          };
+          return 'Could not upload the file:' + file.name;
+        },
+      });
+    } else {
+      this.spinner.hide();
+      this.creatProfile(this.registerForm.value);
+    }
   }
 
   save() {
@@ -178,14 +183,14 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   onSubmit(): void {
     this.msg = '';
-    if (!this.profileImg?.file?.name) {
-      this.msg = 'Please upload profile picture';
-      this.scrollTop();
-      // return false;
-    }
+    // if (!this.profileImg?.file?.name) {
+    //   this.msg = 'Please upload profile picture';
+    //   this.scrollTop();
+    //   // return false;
+    // }
+    // this.profileImg?.file?.name &&
     if (
       this.registerForm.valid &&
-      this.profileImg?.file?.name &&
       this.registerForm.get('TermAndPolicy').value === true
     ) {
       if (!this.validatepassword()) {
@@ -240,37 +245,37 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onZipChange(event) {
-    this.spinner.show();
-    this.customerService
-      .getZipData(event, this.registerForm.get('Country').value)
-      .subscribe(
-        (data) => {
-          if (data[0]) {
-            const zipData = data[0];
-            this.registerForm.get('State').enable();
-            this.registerForm.get('City').enable();
-            this.registerForm.get('County').enable();
-            this.registerForm.patchValue({
-              State: zipData.state,
-              City: zipData.city,
-              County: zipData.places,
-            });
-          } else {
-            this.registerForm.get('State').disable();
-            this.registerForm.get('City').disable();
-            this.registerForm.get('County').disable();
-            this.toastService.danger(data?.message);
-          }
+  // onZipChange(event) {
+  //   this.spinner.show();
+  //   this.customerService
+  //     .getZipData(event, this.registerForm.get('Country').value)
+  //     .subscribe(
+  //       (data) => {
+  //         if (data[0]) {
+  //           const zipData = data[0];
+  //           this.registerForm.get('State').enable();
+  //           this.registerForm.get('City').enable();
+  //           this.registerForm.get('County').enable();
+  //           this.registerForm.patchValue({
+  //             State: zipData.state,
+  //             City: zipData.city,
+  //             County: zipData.places,
+  //           });
+  //         } else {
+  //           this.registerForm.get('State').disable();
+  //           this.registerForm.get('City').disable();
+  //           this.registerForm.get('County').disable();
+  //           this.toastService.danger(data?.message);
+  //         }
 
-          this.spinner.hide();
-        },
-        (err) => {
-          this.spinner.hide();
-          console.log(err);
-        }
-      );
-  }
+  //         this.spinner.hide();
+  //       },
+  //       (err) => {
+  //         this.spinner.hide();
+  //         console.log(err);
+  //       }
+  //     );
+  // }
 
   changetopassword(event) {
     event.target.setAttribute('type', 'password');
@@ -292,7 +297,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       MobileNo: data?.MobileNo,
       UserID: window?.sessionStorage?.user_id,
       IsActive: 'N',
-      ProfilePicName: this.profilePic,
+      ProfilePicName: this.profilePic || null,
     };
     console.log(profile);
 
@@ -330,5 +335,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
   onChangeTag(event) {
     this.registerForm.get('Username').setValue(event.target.value.replaceAll(' ', ''));
+  }
+
+  convertToUppercase(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    let inputValue = inputElement.value;   
+    inputValue = inputValue.replace(/\s/g, '');
+    inputElement.value = inputValue.toUpperCase();
   }
 }

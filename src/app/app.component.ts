@@ -6,6 +6,8 @@ import { Meta } from '@angular/platform-browser';
 import { SocketService } from './@shared/services/socket.service';
 import { CustomerService } from './@shared/services/customer.service';
 import { Howl } from 'howler';
+import { TokenStorageService } from './@shared/services/token-storage.service';
+import { ToastService } from './@shared/services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,8 @@ export class AppComponent {
     private spinner: NgxSpinnerService,
     private socketService: SocketService,
     private customerService: CustomerService,
+    private tokenService: TokenStorageService,
+    private toastService: ToastService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.checkDocumentFocus()
@@ -37,6 +41,20 @@ export class AppComponent {
       this.profileId = localStorage.getItem('profileId');
       this.originalFavicon = document.querySelector('link[rel="icon"]');
       this.sharedService.getUserDetails();
+
+      if (this.tokenService.getToken()) {
+        this.customerService.verifyToken(this.tokenService.getToken()).subscribe({
+          next: (res: any) => {
+            if (!res?.verifiedToken) {
+              this.tokenService.signOut();
+            }
+          },
+          error: (err) => {
+            this.toastService.danger(err.error.message);
+            this.tokenService.signOut();
+          },
+        });
+      }
     }
   }
 

@@ -62,10 +62,10 @@ export class SharedService {
   getUserDetails() {
     const profileId = localStorage.getItem('profileId');
     if (profileId) {
-      const localUserData = JSON.parse(localStorage.getItem('userData'));
-      if (localUserData?.Id) {
-        this.userData = localUserData;
-      }
+      // const localUserData = JSON.parse(localStorage.getItem('userData'));
+      // if (localUserData?.Id) {
+      //   this.userData = localUserData;
+      // }
 
       this.spinner.show();
 

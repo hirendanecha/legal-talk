@@ -76,7 +76,7 @@
 <ng-container *ngIf="activeCommunityTab === 1">
   <ng-container *ngIf="
       (!communitySlug || communityDetails?.memberIds?.includes(+profileId)) &&
-      tokenService.getCredentials()
+      tokenService.getToken()
     ">
     <div class="share-post d-flex gap-3 gap-sm-5 p-3 p-sm-5 mb-5">
       <img loading="lazy" data-src="{{ sharedService?.userData?.ProfilePicName }}"

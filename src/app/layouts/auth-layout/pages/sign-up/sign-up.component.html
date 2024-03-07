@@ -39,7 +39,7 @@
         </div>
 
         <div class="col-12 col-md-6 mb-3 d-flex flex-column">
-          <label class="form-label">Profile Picture<span class="text-danger">*</span></label>
+          <label class="form-label">Profile Picture</label>
           <app-img-picker (onFileChange)="selectFiles($event)" />
         </div>
 
@@ -97,7 +97,7 @@
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Mobile<span class="text-danger">*</span></label>
-          <input type="text" class="input-area" name="MobileNo" placeholder="Enter your mobile number"
+          <input type="number" class="input-area" name="MobileNo" placeholder="Enter your mobile number"
             formControlName="MobileNo" />
           <div class="text-danger" *ngIf="
               registerForm.get('MobileNo').hasError('required') &&
@@ -109,7 +109,7 @@
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Country<span class="text-danger">*</span></label>
-          <select id="Country" required name="Country" class="input-area w-100" (change)="changeCountry()"
+          <select id="Country" required name="Country" class="input-area w-100"
             formControlName="Country">
             <option [value]="defaultCountry">United states</option>
             <option [value]="item.country_code" *ngFor="let item of allCountryData">
@@ -121,7 +121,7 @@
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Zip Code<span class="text-danger">*</span></label>
           <input type="text" class="input-area" required placeholder="Enter your zip code" formControlName="Zip"
-            name="Zip" #zipCode />
+            name="Zip" #zipCode (input)="convertToUppercase($event)" />
           <div class="text-danger" *ngIf="
               registerForm.get('Zip').hasError('required') &&
               registerForm.get('Zip').touched
@@ -134,18 +134,36 @@
           <label class="form-label">State<span class="text-danger">*</span></label>
           <input type="text" class="input-area" required placeholder="Enter your state" name="State"
             formControlName="State" />
+            <div class="text-danger" *ngIf="
+              registerForm.get('State').hasError('required') &&
+              registerForm.get('State').touched
+            ">
+            State is required.
+          </div>
         </div>
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">City<span class="text-danger">*</span></label>
           <input type="text" class="input-area" required name="City" placeholder="Enter your city"
             formControlName="City" />
+            <div class="text-danger" *ngIf="
+              registerForm.get('City').hasError('required') &&
+              registerForm.get('City').touched
+            ">
+            City is required.
+          </div>
         </div>
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">County<span class="text-danger">*</span></label>
           <input type="text" class="input-area" required name="County" placeholder="Enter your County"
             formControlName="County" />
+            <div class="text-danger" *ngIf="
+              registerForm.get('County').hasError('required') &&
+              registerForm.get('County').touched
+            ">
+            County is required.
+          </div>
         </div>
       </div>
 
