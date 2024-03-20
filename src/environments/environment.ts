@@ -11,5 +11,7 @@ export const environment = {
   socketUrl: `${url}/`,
   webUrl: webUrl,
   tubeUrl: tubeUrl,
-  domain: '.legaltalk.tube'
+  domain: '.legaltalk.tube',
+  siteKey:'0x4AAAAAAAUxBxMFPW6VfnXa',
+  secretKey:'0x4AAAAAAAUxB2CV7_19q9CZZ7Ix_8I00-o'
 };
