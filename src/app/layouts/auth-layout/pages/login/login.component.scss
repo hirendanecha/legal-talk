@@ -3,3 +3,10 @@
   flex-direction: column;
   width: 100%;
 }
+.captcha-btn{
+  display: flex;
+
+@media(max-width: 410px) {
+  flex-direction: column;
+ }
+}
