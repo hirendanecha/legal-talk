@@ -86,7 +86,7 @@ export function app(): express.Express {
         var seo: any = {
           title: 'Legaltalk Tube',
           description:
-            'Speak face-to-face with attorneys locally of worldwide',
+            'Speak face-to-face with attorneys locally or worldwide',
           image:
             'https://www.legaltalk.tube/assets/images/LegalTalk-Banner.jpg',
           site: 'https://www.legaltalk.tube/',
