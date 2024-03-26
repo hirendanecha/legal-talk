@@ -19,7 +19,7 @@
         <router-outlet />
       </div>
 
-      <ng-container *ngIf="sidebar?.isShowRightSideBar && (breakpointService?.screen | async).xl.gatherThen">
+      <ng-container *ngIf="sidebar?.isShowRightSideBar && (breakpointService?.screen | async).xxl.gatherThen">
         <div class="my-list-sidebar">
           <app-right-sidebar />
         </div>

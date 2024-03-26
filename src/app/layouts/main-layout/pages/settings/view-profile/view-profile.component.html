@@ -195,9 +195,9 @@
                     loading="lazy"
                     data-src="{{
                       item?.ProfilePicName ||
-                        '/assets/images/avtar/default-profile.jpg'
+                        '/assets/images/avtar/placeholder-user.png'
                     }}"
-                    onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';"
+                    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
                     alt="avatar"
                   />
                 </div>
@@ -210,6 +210,8 @@
                     <fa-icon class="ms-2" [icon]="['fas', 'clock']" />
                       {{ item.postcreationdate | dateDay }}</span>
                   </h6>
+                  <!-- <span class="ms-1 cursor" (click)="viewUserPost(item.id)">{{ item?.pdfName }} </span> -->
+                  <!-- <a class="ms-1 cursor" [routerLink]="'/post/' + item?.id" target="_blank">{{ item?.pdfName }}</a> -->
                   <a class="ms-1 cursor c-color" [href]="item?.pdfUrl" target="_blank">{{ item?.pdfName }}</a>
                 </div>
               </div>
@@ -221,15 +223,6 @@
                   </button>
                   <div ngbDropdownMenu class="dropdown-menu">
                     <button ngbDropdownItem>
-                      <a
-                        class="droplist d-flex align-items-center gap-2"
-                        [appCopyClipboard]="item.pdfUrl"
-                      >
-                        <fa-icon [icon]="['fas', 'link']" />
-                        <span>Copy URL</span>
-                      </a>
-                    </button>
-                    <button ngbDropdownItem>
                       <!-- (click)="readUnreadNotification(notification.id, 'N')" -->
                       <a
                         class="droplist d-flex align-items-center gap-2"
@@ -237,6 +230,25 @@
                       >
                         <fa-icon [icon]="['fas', 'download']" />
                         <span>Download</span>
+                      </a>
+                    </button>
+                    <button ngbDropdownItem>
+                      <a
+                        class="droplist d-flex align-items-center gap-2"
+                        *ngIf="profileId == customer?.Id"
+                        (click)="deletePost(item.id)"
+                      >
+                        <fa-icon [icon]="['fas', 'trash-can']" />
+                        <span>Delete</span>
+                      </a>
+                    </button>
+                    <button ngbDropdownItem>
+                      <a
+                        class="droplist d-flex align-items-center gap-2"
+                        [appCopyClipboard]="item.pdfUrl"
+                      >
+                        <fa-icon [icon]="['fas', 'link']" />
+                        <span>Copy URL</span>
                       </a>
                     </button>
                   </div>

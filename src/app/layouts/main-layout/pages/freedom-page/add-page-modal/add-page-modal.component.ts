@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-page-modal.component.scss'],
 })
 export class AddFreedomPageComponent implements OnInit, AfterViewInit {
-  @Input() title: string | undefined = 'Create Health Topics';
+  @Input() title: string | undefined = 'Create Legal Topics';
   @Input() cancelButtonLabel: string | undefined = 'Cancel';
   @Input() confirmButtonLabel: string | undefined = 'Create';
   @Input() closeIcon: boolean | undefined;

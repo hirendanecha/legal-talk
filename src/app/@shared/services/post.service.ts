@@ -87,7 +87,7 @@ export class PostService {
   }
 
   getPdfsFile(id): Observable<Object> {
-    return this.http.get<Object>(`${this.baseUrl}/get-pdfs/${id}`);
+    return this.http.get<Object>(`${this.baseUrl}/get-pdfs/${id}?q=${Date.now()}`);
   }
 
 
