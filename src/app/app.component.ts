@@ -50,7 +50,7 @@ export class AppComponent {
             }
           },
           error: (err) => {
-            this.toastService.danger(err.error.message);
+            // this.toastService.danger(err.error.message);
             this.tokenService.signOut();
           },
         });
