@@ -19,7 +19,10 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   getCustomer(id: number): Observable<any> {
-    this.http.get<any>(`${this.baseUrl}/${id}`).pipe(take(1)).subscribe((customers) => {
+    this.http
+    .get<any>(`${this.baseUrl}/${id}`)
+    .pipe(take(1))
+    .subscribe((customers) => {
       const cust = customers?.[0];
       this.customerObs.next(cust);
     });
@@ -84,8 +87,11 @@ export class CustomerService {
     );
   }
 
-  getNotificationList(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/get-notification/${id}?q=${Date.now()}`);
+  getNotificationList(id: number, data = {}): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/get-notification/${id}?q=${Date.now()}`,
+      data
+    );
   }
 
   deleteNotification(id: number): Observable<any> {

@@ -12,6 +12,8 @@
         post?.image ||
         post?.metaimage ||
         post?.imageUrl ||
+        post?.thumbfilename ||
+
         '/assets/images/default-profile.jpg'
       "
       class="card-img-top"
@@ -43,7 +45,7 @@
       class="d-flex flex-wrap justify-content-start align-items-start mt-2 pt-2 border-top"
     >
       <a
-        class="link-primary font-12-px w-50 text-start"
+        class="link-primary font-12-px w-50 text-start c-pointer"
         [appCopyClipboard]="
           webUrl + 'research/post/' + (post?.postID || post?.id)
         "
@@ -52,7 +54,7 @@
       <a
         href="/research/post/{{ post?.id }}"
         target="_blank"
-        class="link-primary font-12-px w-50 text-start"
+        class="link-primary font-12-px w-50 text-start c-pointer"
         >larger view</a
       >
       <!-- <a href="#" class="link-primary font-12-px w-50 text-start"

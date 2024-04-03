@@ -103,7 +103,7 @@ export class PostCardComponent implements OnInit {
     this.profileId = localStorage.getItem('profileId');
     afterNextRender(() => {
 
-      if (this.post?.id && this.post?.posttype === 'V') {
+      if (this.post?.id && this.post?.posttype === 'V' || this.post?.posttype === 'R') {
         this.playVideo(this.post?.id);
       }
       this.socketListner();
