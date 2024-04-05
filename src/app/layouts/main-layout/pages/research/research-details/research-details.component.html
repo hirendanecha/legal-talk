@@ -12,7 +12,7 @@
         <span class="description">Members: 711352</span>
       </div>
 
-      <button type="button" class="btn btn-sm cmn-btn align-self-start">Join Group</button>
+      <button type="button" *ngIf="tokenService.getCredentials()" class="btn btn-sm cmn-btn align-self-start">Join Group</button>
     </div>
 
     <div class="page-details pt-5">

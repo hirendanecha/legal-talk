@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProfileService } from 'src/app/@shared/services/profile.service';
 import { SeoService } from 'src/app/@shared/services/seo.service';
+import { TokenStorageService } from 'src/app/@shared/services/token-storage.service';
 
 @Component({
   selector: 'app-research-details',
@@ -24,7 +25,8 @@ export class ResearchDetailsComponent {
     private profileService: ProfileService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private seoService: SeoService
+    private seoService: SeoService,
+    public tokenService: TokenStorageService
   ) {
     this.GetGroupBasicDetails();
   }
