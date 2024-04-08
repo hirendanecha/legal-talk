@@ -221,14 +221,6 @@
         </a>
       </li>
     </ul>
-    <ng-container>
-      <div class="mt-3" *ngIf="sharedService?.advertizementLink?.length">
-        <h6>Advertizement Link</h6>
-        <div *ngFor="let item of sharedService?.advertizementLink">
-          <app-post-meta-data-card [post]="item" />
-        </div>
-      </div>
-    </ng-container>
   </ng-container>
   <ng-container *ngIf="!tokenService.getToken()">
     <div class="dashboard-img mb-5">
@@ -245,6 +237,14 @@
       <!-- <span class="c-fonts py-6 mt-10 text-center"
         >Social Discussion on how to heal various ailments</span
       > -->
+    </div>
+  </ng-container>
+  <ng-container *ngIf="sharedService?.advertizementLink?.length">
+    <div class="mt-3">
+      <h6>Advertizement Link</h6>
+      <div *ngFor="let item of sharedService?.advertizementLink">
+        <app-post-meta-data-card [post]="item" />
+      </div>
     </div>
   </ng-container>
 </div>
