@@ -487,6 +487,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
               if (res) {
                 this.toastService.success(res.message);
                 this.getCommunityDetailsBySlug();
+                if (this.buttonClicked) {
+                  this.buttonClicked = false;
+                }
               }
             },
             error: (error) => {

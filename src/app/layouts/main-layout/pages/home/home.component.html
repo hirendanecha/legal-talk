@@ -292,6 +292,16 @@
         Delete {{ communityDetails?.pageType }}
       </button>
     </ng-container>
+    <ng-container *ngIf="communityDetails?.profileId !== +profileId && communityDetails?.memberIds.includes(+profileId)">
+      <button
+        class="btn btn-sm btn-danger w-152-px float-end"
+        (click)="removeFromCommunity()"
+      >
+        Leave {{ communityDetails?.pageType === "community"
+        ? "Law Firm Pages"
+        : "page" }}
+      </button>
+    </ng-container>
   </div>
 </ng-container>
 
