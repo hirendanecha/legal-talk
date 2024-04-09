@@ -42,6 +42,7 @@
                 />
               </div>
               <div
+              *ngIf="tokenService.getCredentials()"
                 class="icon-area d-center position-relative ms-7"
                 (click)="openNotificationsMobileModal()"
               >
