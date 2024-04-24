@@ -103,6 +103,7 @@
           class="d-flex gap-4"
           [routerLink]="'settings/view-profile/' + profileId"
           routerLinkActive="active"
+          (click)="closeSidebar()"
         >
           <fa-icon [icon]="['fas', 'gear']" class="font-20-px" />
           <span>View Profile</span>
