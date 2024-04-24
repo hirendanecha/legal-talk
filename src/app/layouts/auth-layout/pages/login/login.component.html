@@ -68,13 +68,17 @@
               >Forgot Password ?</a
             >
           </div>
-          <input
-            type="password"
-            class="input-area"
-            required
-            placeholder="Enter Password"
-            formControlName="Password"
-          />
+          <div class="d-flex custom-input-area position-relative">
+            <input
+              type="password"
+              class="input-area"
+              required
+              placeholder="Enter Password"
+              formControlName="Password"
+              #passwordInput
+              />
+            <fa-icon [icon]="passwordHidden ? ['fas', 'eye'] : ['fas', 'eye-slash']" class="font-20-px position-absolute" (click)="togglePasswordVisibility(passwordInput)"></fa-icon>
+          </div>
           <div
             class="srv-validation-message text-danger"
             *ngIf="

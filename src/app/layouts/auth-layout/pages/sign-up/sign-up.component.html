@@ -71,9 +71,21 @@
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Password<span class="text-danger">*</span></label>
-          <input type="password" class="input-area" required name="password" placeholder="Enter your password"
-            (input)="changetopassword($event)" (keyup)="changetopassword($event)" formControlName="Password"
-            autocomplete="new-password" />
+          <div class="d-flex custom-input-area position-relative">
+            <input
+              type="password"
+              class="input-area"
+              required
+              name="password"
+              placeholder="Enter your password"
+              (input)="changetopassword($event)"
+              (keyup)="changetopassword($event)"
+              formControlName="Password"
+              autocomplete="new-password"
+              #passwordInput
+            />
+            <fa-icon [icon]="passwordHidden ? ['fas', 'eye'] : ['fas', 'eye-slash']" class="font-20-px position-absolute" (click)="togglePasswordVisibility(passwordInput)"></fa-icon>
+          </div>
           <div class="text-danger" *ngIf="
               registerForm.get('Password').hasError('required') &&
               registerForm.get('Password').touched
