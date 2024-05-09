@@ -153,7 +153,7 @@ export function app(): express.Express {
           const pdhtml = document.createElement('div');
           pdhtml.innerHTML = post?.postdescription || post?.metadescription;
           const talent = {
-            name: post?.title || post?.albumname || 'Legaltalk.Tube Post',
+            name: post?.title || post?.albumname || 'LegalTalk.tube Post',
             description: pdhtml?.textContent || 'Post content',
             image: post?.thumbfilename || post?.metaimage || post?.imageUrl || 'https://www.legaltalk.tube/assets/images/LegalTalk-Banner.jpg',
           };
