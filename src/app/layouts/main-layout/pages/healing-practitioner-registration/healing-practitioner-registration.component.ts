@@ -26,6 +26,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
   selectPractitionerPage: boolean;
 
   practitionerArea: any = [];
+  practitionerEmphasis: any = [];
   selectedAreaValues: number[] = [];
 
   selectedCards: any[] = [];
@@ -98,23 +99,27 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
     private toastService: ToastService,
-    private communityService: CommunityService,
+    private communityService: CommunityService
   ) {
     const queryParams = this.route.snapshot.queryParams;
     const newParams = { ...queryParams };
     // console.log(this.router.routerState.snapshot.url);
-    this.selectPractitionerPage = this.router.routerState.snapshot.url.includes('request-video-call') || false;
-    this.isFromHome = this.router.routerState.snapshot.url.includes('request-video-call') || false;
+    this.selectPractitionerPage =
+      this.router.routerState.snapshot.url.includes('request-video-call') ||
+      false;
+    this.isFromHome =
+      this.router.routerState.snapshot.url.includes('request-video-call') ||
+      false;
     // console.log(this.selectPractitionerPage)
     // this.channelId = this.shareService?.channelData?.id;
     // this.route.queryParams.subscribe((params: any) => {
     //   console.log(params.channelId);
     if (newParams['token']) {
       const token = newParams['token'];
-      this.tokenStorage.saveToken(token)
-      delete newParams['token']
+      this.tokenStorage.saveToken(token);
+      delete newParams['token'];
       const navigationExtras: NavigationExtras = {
-        queryParams: newParams
+        queryParams: newParams,
       };
       this.router.navigate([], navigationExtras);
     }
@@ -139,7 +144,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
     } else if (selectedOption === 'worldwide' && this.isCountryChecked) {
       this.selectedCountry = '';
       this.selectedState = '';
-      this.allStateData = null
+      this.allStateData = null;
       this.isCountryChecked = false;
     }
   }
@@ -182,7 +187,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
     if (index === -1) {
       this.selectedCards.push(cardId);
     } else {
-      this.selectedCards = this.selectedCards.filter(id => id !== cardId);
+      this.selectedCards = this.selectedCards.filter((id) => id !== cardId);
     }
   }
 
@@ -200,17 +205,22 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
     if (this.selectedCards.length > 0) {
       const practitionerRequirements = {
         selectedCard: this.selectedCards,
-        selectedCountry: this.selectedCountry,
-        selectedState: this.selectedState,
-        selectedAreas: this.selectedAreaValues
+        // selectedCountry: this.selectedCountry,
+        // selectedState: this.selectedState,
+        // selectedAreas: this.selectedAreaValues,
       };
-      this.router.navigate(['/health-practitioner'], { state: { data: practitionerRequirements } });
+      this.router.navigate(['/lawyers'], {
+        state: { data: practitionerRequirements },
+      });
     } else if (this.isWorldwideChecked && this.selectedCards.length <= 0) {
-      const areaValues = { selectedAreas: this.selectedAreaValues } 
-      this.router.navigate(['/health-practitioner'], { state: { data: areaValues } });
-    }
-    else {
-      this.toastService.danger('Please select What emphasis are you interested in healing');
+      const areaValues = { selectedAreas: this.selectedAreaValues };
+      this.router.navigate(['/lawyers'], {
+        state: { data: areaValues },
+      });
+    } else {
+      this.toastService.danger(
+        'Please select What emphasis are you interested in healing'
+      );
     }
   }
 
@@ -218,6 +228,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
     this.communityService.getCategories().subscribe({
       next: (res) => {
         this.practitionerArea = res.area;
+        this.practitionerEmphasis = res.emphasis;
       },
       error: (error) => {
         this.spinner.hide();

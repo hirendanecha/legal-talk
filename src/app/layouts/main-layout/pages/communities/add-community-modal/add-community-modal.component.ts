@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-community-modal.component.scss'],
 })
 export class AddCommunityModalComponent implements OnInit, AfterViewInit {
-  @Input() title: string | undefined = 'Apply to be attorneys';
+  @Input() title: string | undefined = 'Apply to be Listed Law Firm or Lawyer on LegalTalk.tube';
   @Input() cancelButtonLabel: string | undefined = 'Cancel';
   @Input() confirmButtonLabel: string | undefined = 'Create';
   @Input() closeIcon: boolean | undefined;
@@ -182,7 +182,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
               this.submitted = true;
               this.createCommunityAdmin(res.data);
               this.toastService.success(
-                'Your attorneys will be approved within 24 hours!'
+                'Your lawyers will be approved within 24 hours!'
               );
               this.activeModal.close('success');
               this.router.navigate(['/health-practitioner']);
@@ -190,7 +190,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
           },
           error: (err) => {
             this.toastService.danger(
-              'Please change attorneys. this attorneys name already in use.'
+              'Please change lawyers. this lawyers name already in use.'
             );
             this.spinner.hide();
           },
@@ -210,14 +210,14 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
               this.submitted = true;
               // this.createCommunityAdmin(res.data);
               this.toastService.success(
-                'Your attorneys edit successfully!'
+                'Your lawyers edit successfully!'
               );
               this.activeModal.close('success');
             }
           },
           error: (err) => {
             this.toastService.danger(
-              'Please change attorneys. this attorneys name already in use.'
+              'Please change lawyers. this lawyers name already in use.'
             );
             this.spinner.hide();
           },

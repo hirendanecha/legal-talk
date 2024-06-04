@@ -94,7 +94,7 @@ export function app(): express.Express {
           keywords: 'LegaltalkTube',
         };
         if (
-          params.indexOf('attorneys/') > -1 ||
+          params.indexOf('lawyers/') > -1 ||
           params.indexOf('pages/') > -1
         ) {
           let id = params.split('/');

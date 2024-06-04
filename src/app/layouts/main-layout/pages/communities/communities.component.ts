@@ -37,7 +37,7 @@ export class CommunitiesComponent {
     }
     // this.getCommunities();
     const data = {
-      title: 'Legaltalk Tube Attorneys',
+      title: 'Legaltalk Tube lawyers',
       url: `${window.location.href}`,
       description: '',
     };
@@ -95,7 +95,7 @@ export class CommunitiesComponent {
 
 
   createCommunity() {
-    this.router.navigate(['attorneys/add-practitioner'])
+    this.router.navigate(['lawyers/add-lawyers'])
   }
   // createCommunity() {
   //   const modalRef = this.modalService.open(AddCommunityModalComponent, {

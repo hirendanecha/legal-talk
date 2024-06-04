@@ -32,7 +32,7 @@ export class CommunityCardComponent {
       this.router.navigate(['pages', this.community?.slug]);
     } else {
       if (this.community?.isApprove === 'Y') {
-        this.router.navigate(['attorneys']);
+        this.router.navigate(['lawyers']);
       } else {
         this.toastService.danger('This community not approve yet.');
       }

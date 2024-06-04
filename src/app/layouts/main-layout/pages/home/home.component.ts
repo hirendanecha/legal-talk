@@ -432,7 +432,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     modalRef.result.then((res) => {
       if (res === 'success') {
         if (data.pageType === 'community') {
-          this.router.navigate(['attorneys']);
+          this.router.navigate(['lawyers']);
         } else {
           this.router.navigate(['pages']);
         }
@@ -520,7 +520,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 // this.getCommunityDetailsBySlug();
                 this.router.navigate([
                   `${this.communityDetails.pageType === 'community'
-                    ? 'attorneys'
+                    ? 'lawyers'
                     : 'pages'
                   }`,
                 ]);

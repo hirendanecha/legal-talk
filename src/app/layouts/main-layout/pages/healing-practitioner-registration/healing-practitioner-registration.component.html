@@ -1,8 +1,8 @@
 <ng-container *ngIf="!selectPractitionerPage">
   <div class="healing-registration-container">
-    <h2 class="text-center">What do you want to do?</h2>
+    <h2 class="text-start">Introduction to LegalTalk.tube</h2>
     <div class="d-flex justify-content-center mt-10">
-      <div class="d-flex flex-wrap justify-content-center">
+      <!-- <div class="d-flex flex-wrap justify-content-center">
         <div class="card text-center">
           <div class="card-body">
             <p class="card-text">
@@ -36,13 +36,41 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
+      <ul class="ps-0">
+        <li>
+          LegalTalk.tube is an aggregation and video conference platform, we
+          provide a software platform, we do not provide legal advice.
+        </li>
+        <li>
+          All attorneys are lawyers, but not all lawyers are attorneys. Know the
+          difference!
+        </li>
+        <li>
+          There are many different types of lawyers, including criminal lawyers,
+          corporate lawyers, estate planning lawyers, and tax specialists.
+        </li>
+        <li>
+          An attorney practices law in court, while a lawyer does not typically
+          practice in court and may only act as a legal consultant.
+        </li>
+        <li>
+          If you need speak with legal representation, there is a lawyer who
+          specializes in dealing specifically with your particular legal
+          necessity.
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button>
+        <a (click)="backPreview()" class="btn cmn-btn">Next</a>
+      </button>
     </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="selectPractitionerPage">
-  <div class="d-flex justify-content-center mt-10">
+  <!-- <div class="d-flex justify-content-center mt-10">
     <div class="d-flex flex-column">
       <div class="form-check">
         <input
@@ -54,7 +82,8 @@
           (change)="updateCheckbox('country')"
         />
         <label class="form-check-label selectCountry" for="countryCheckbox">
-          <span class="d-none d-sm-block">Find a local practitioner in&nbsp;</span
+          <span class="d-none d-sm-block"
+            >Find a local practitioner in&nbsp;</span
           >Country:
           <select
             id="Country"
@@ -104,24 +133,24 @@
         </label>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="healing-sub-container">
     <h2 class="text-center mt-10">
-      What emphasis are you interested in healing:
+      Select the type of Lawyer you want to speak with
     </h2>
     <div class="d-flex justify-content-center mt-5">
       <div class="d-flex flex-wrap justify-content-center">
-        <div *ngFor="let card of cards" class="card text-center">
+        <div *ngFor="let card of practitionerEmphasis" class="card text-center">
           <div class="card-body">
-            <h4 class="card-title">{{ card.title }}</h4>
+            <h4 class="card-title">{{ card.name }}</h4>
             <p class="card-text">{{ card.description }}</p>
-            <button (click)="selectCard(card.id)">
+            <button (click)="selectCard(card.eId)">
               <a
                 class="btn"
-                [ngClass]="isSelected(card.id) ? 'btn-success' : 'cmn-btn'"
+                [ngClass]="isSelected(card.eId) ? 'btn-success' : 'cmn-btn'"
               >
-                {{ isSelected(card.id) ? "Selected" : "Select" }}</a
+                {{ isSelected(card.eId) ? "Selected" : "Select" }}</a
               >
             </button>
           </div>
@@ -129,7 +158,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column mt-6">
+  <!-- <div class="d-flex flex-column mt-6">
     <h4>Topics for Discussion with a Healing Practitioner</h4>
     <div class="container">
       <div class="row">
@@ -153,7 +182,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="w-100 mt-5">
     <button
       *ngIf="!isFromHome"

@@ -13,10 +13,9 @@ import { SeoService } from 'src/app/@shared/services/seo.service';
 })
 export class FreedomPageComponent {
   activeIdTab: string = 'local';
-  pageList = []
-  profileId: number
+  pageList = [];
+  profileId: number;
   isPageLoader: boolean = false;
-
 
   constructor(
     private modalService: NgbModal,
@@ -29,7 +28,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'Legaltalk Tube Law Firm Pages',
+      title: 'Legaltalk Tube lawyers',
       url: `${location.href}`,
       description: '',
     };
@@ -41,12 +40,12 @@ export class FreedomPageComponent {
       centered: true,
       backdrop: 'static',
       keyboard: false,
-      size: 'lg'
+      size: 'lg',
     });
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.componentInstance.confirmButtonLabel = 'Create';
     modalRef.componentInstance.closeIcon = true;
-    modalRef.result.then(res => {
+    modalRef.result.then((res) => {
       if (res === 'success') {
         this.activeIdTab = 'my';
         this.getPages();
@@ -59,11 +58,17 @@ export class FreedomPageComponent {
     this.pageList = [];
 
     if (this.activeIdTab === 'joined') {
-      getPagesObs = this.communityService.getJoinedCommunityByProfileId(this.profileId, 'page');
+      getPagesObs = this.communityService.getJoinedCommunityByProfileId(
+        this.profileId,
+        'page'
+      );
     } else if (this.activeIdTab === 'local') {
       getPagesObs = this.communityService.getCommunity(this.profileId, 'page');
     } else {
-      getPagesObs = this.communityService.getCommunityByUserId(this.profileId, 'page');
+      getPagesObs = this.communityService.getCommunityByUserId(
+        this.profileId,
+        'page'
+      );
     }
 
     this.isPageLoader = true;
@@ -80,7 +85,7 @@ export class FreedomPageComponent {
       },
       complete: () => {
         this.isPageLoader = false;
-      }
+      },
     });
   }
 

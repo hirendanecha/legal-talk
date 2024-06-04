@@ -111,7 +111,7 @@ export class ViewProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   goToCommunityDetails(community: any): void {
-    this.router.navigate(['attorneys']);
+    this.router.navigate(['lawyers']);
   }
 
   openDropDown(id) {
