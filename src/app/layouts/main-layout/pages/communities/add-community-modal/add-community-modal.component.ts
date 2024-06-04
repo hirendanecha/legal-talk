@@ -18,6 +18,7 @@ import { CustomerService } from 'src/app/@shared/services/customer.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/@shared/services/upload-files.service';
 import { Router } from '@angular/router';
+import { SeoService } from 'src/app/@shared/services/seo.service';
 
 @Component({
   selector: 'app-add-community-modal',
@@ -58,6 +59,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
   communityForm = new FormGroup({
     profileId: new FormControl(),
     CommunityName: new FormControl(''),
+    LawFirmName: new FormControl(''),
     CommunityDescription: new FormControl(''),
     slug: new FormControl('', [Validators.required]),
     pageType: new FormControl('community', [Validators.required]),
@@ -79,6 +81,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
     private toastService: ToastService,
     private customerService: CustomerService,
     private uploadService: UploadFilesService,
+    private seoService: SeoService,
     private router: Router
   ) {
     this.userId = window.sessionStorage.user_id;
@@ -93,6 +96,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
       this.communityForm.patchValue({
         profileId: this.data?.profileId,
         CommunityName: this.data?.CommunityName,
+        LawFirmName: this.data?.LawFirmName,
         CommunityDescription: this.data?.CommunityDescription,
         slug: this.data?.slug,
         pageType: this.data?.pageType,
@@ -111,6 +115,12 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
       this.communityForm.get('County').enable();
       console.log(this.data);
     }
+    const data = {
+      title: 'Legaltalk Tube lawyers',
+      url: `${window.location.href}`,
+      description: '',
+    };
+    this.seoService.updateSeoMetaData(data);
   }
 
   ngAfterViewInit(): void {

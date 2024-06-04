@@ -10,6 +10,10 @@
     text-transform: none;
   }
 
+  ul li{
+    list-style-type: disc;
+  }
+
   .card {
     width: 18rem;
     background: var(--section-1st-color);

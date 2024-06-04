@@ -18,7 +18,19 @@
     >
       <div class="col-12 mb-5">
         <label class="form-label d-flex"
-          >Attorney's Name<span class="text-danger">*</span></label
+          >Law Firm Name</label
+        >
+        <input
+          type="text"
+          class="input-area"
+          name="fname"
+          formControlName="LawFirmName"
+          placeholder="Enter firm name"
+        />
+      </div>
+      <div class="col-12 mb-5">
+        <label class="form-label d-flex"
+          >Lawyer's Name<span class="text-danger">*</span></label
         >
         <input
           type="text"
@@ -173,7 +185,7 @@
   
       <div class="col-12 mb-5">
         <label class="form-label d-flex"
-          >Attorney's Url<span class="text-danger">*</span></label
+          >Lawyer Url<span class="text-danger">*</span></label
         >
         <div class="input-group">
           <div class="input-group-prepend">
@@ -186,7 +198,7 @@
             class="input-area ps-1"
             name="cSlug"
             formControlName="slug"
-            placeholder="Enter Attorney's url slug"
+            placeholder="Enter Lawyer url slug"
           />
         </div>
       </div>
@@ -194,7 +206,7 @@
   </div>
   
   <div class="d-flex flex-column mt-4">
-    <h4>Emphasis of Practice</h4>
+    <h4>Areas of Practice</h4>
     <div class="container">
       <div class="row">
         <div *ngFor="let emphasis of practitionerEmphasis" class="col-md-6 col-lg-3">
