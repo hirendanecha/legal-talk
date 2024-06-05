@@ -74,7 +74,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       description: 'Registration page',
       image: `${environment.webUrl}assets/images/landingpage/LegalTalk-Banner.jpg`,
     };
-    // this.seoService.updateSeoMetaData(data);
+    this.seoService.updateSeoMetaData(data);
   }
 
   ngOnInit(): void {
