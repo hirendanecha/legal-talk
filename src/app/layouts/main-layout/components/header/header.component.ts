@@ -54,7 +54,7 @@ export class HeaderComponent {
     private socketService: SocketService
   ) {
     this.originalFavicon = document.querySelector('link[rel="icon"]');
-    if (this.tokenService.getToken()){
+    if (this.tokenService.getToken() && !this.router.routerState.snapshot.url.includes('lawyers')){
       this.socketService.socket.on('isReadNotification_ack', (data) => {
         if (data?.profileId) {
           this.sharedService.isNotify = false;
