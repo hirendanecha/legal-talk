@@ -185,6 +185,7 @@ export class HealingPractitionerRegistrationComponent implements OnInit {
   selectCard(cardId: string): void {
     const index = this.selectedCards.indexOf(cardId);
     if (index === -1) {
+      this.selectedCards = [];
       this.selectedCards.push(cardId);
     } else {
       this.selectedCards = this.selectedCards.filter((id) => id !== cardId);
