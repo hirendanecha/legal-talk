@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       description: 'login page',
       image: `${environment.webUrl}assets/images/landingpage/LegalTalk-Banner.jpg`,
     };
-    // this.seoService.updateSeoMetaData(data);
+    this.seoService.updateSeoMetaData(data);
   }
 
   ngOnInit(): void {
