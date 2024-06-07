@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authToken = localStorage.getItem('auth-token');
     if (!authToken) {
       this.route.queryParams.subscribe((params) => {
-        authToken = params['accesstoken'];
+        authToken = params['token'];
       });
     }
     const authRequest = request.clone({
