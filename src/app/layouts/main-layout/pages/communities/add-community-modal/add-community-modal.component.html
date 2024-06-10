@@ -336,28 +336,6 @@
       </div>
     </div>
   </ng-container>
-  <div class="modal-footer justify-content-end gap-3 border-0 mt-10">
-    <button
-      id="common-filter-cancel"
-      type="button"
-      class="cmn-btn alt p-2"
-      (click)="clearForm()"
-      >
-      <!-- (click)="activeModal.close('Cancel')" -->
-      <!-- Cancel -->
-      {{ cancelButtonLabel }}
-    </button>
-    <button
-      id="common-filter-confirm"
-      type="submit"
-      class="cmn-btn p-2"
-      [disabled]="!communityDetails"
-      (click)="uploadImgAndSubmit()"
-    >
-      <!-- Create -->
-      {{ confirmButtonLabel }}
-    </button>
-  </div>
   <div class="modal-footer justify-content-between mt-10">
     <ng-container *ngIf="!pricingPage; else backbtn">
       <button
@@ -392,7 +370,7 @@
         type="button"
         class="btn btn-primary"
         [disabled]="!communityDetails"
-        (click)="pricingPage ? nextToApplication() : uploadImgAndSubmit()"
+        (click)="uploadImgAndSubmit()"
       >
         <!-- (click)="nextToApplication()" -->
         Next<fa-icon
