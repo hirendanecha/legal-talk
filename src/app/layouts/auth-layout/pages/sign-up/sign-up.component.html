@@ -122,7 +122,7 @@
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">Country<span class="text-danger">*</span></label>
           <select id="Country" required name="Country" class="input-area w-100"
-            formControlName="Country">
+            formControlName="Country"  (change)="onCountryChange($event)">
             <option [value]="defaultCountry">United states</option>
             <option [value]="item.country_code" *ngFor="let item of allCountryData">
               {{ item.country }}
@@ -144,14 +144,27 @@
 
         <div class="col-12 col-md-6 mb-3">
           <label class="form-label">State<span class="text-danger">*</span></label>
-          <input type="text" class="input-area" required placeholder="Enter your state" name="State"
+          <!-- <input type="text" class="input-area" required placeholder="Enter your state" name="State"
             formControlName="State" />
             <div class="text-danger" *ngIf="
               registerForm.get('State').hasError('required') &&
               registerForm.get('State').touched
             ">
             State is required.
-          </div>
+          </div> -->
+          <select
+          id="State"
+          required
+          name="State"
+          class="input-area w-100"
+          formControlName="State"
+        >
+          <option
+            *ngFor="let item of allStateData"
+          >
+            {{ item.state }}
+          </option>
+        </select>
         </div>
 
         <div class="col-12 col-md-6 mb-3">

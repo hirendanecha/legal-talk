@@ -38,6 +38,7 @@
           name="Country"
           class="input-area w-100"
           formControlName="Country"
+          (change)="onCountryChange($event)"
         >
           <option [value]="defaultCountry">United states</option>
           <option
@@ -68,14 +69,19 @@
         <label class="form-label d-flex"
           >State<span class="text-danger">*</span></label
         >
-        <input
-          type="text"
-          class="input-area"
-          required
-          placeholder="Enter your state"
-          name="State"
-          formControlName="State"
-        />
+        <select
+        id="State"
+        required
+        name="State"
+        class="input-area w-100"
+        formControlName="State"
+      >
+        <option
+          *ngFor="let item of allStateData"
+        >
+          {{ item.state }}
+        </option>
+      </select>
       </div>
 
       <div class="col-4 mb-3">
