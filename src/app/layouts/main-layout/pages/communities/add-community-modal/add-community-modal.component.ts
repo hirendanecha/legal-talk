@@ -19,7 +19,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/@shared/services/upload-files.service';
 import { Router } from '@angular/router';
 import { SeoService } from 'src/app/@shared/services/seo.service';
-import { AlertModalComponent } from 'src/app/@shared/modals/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-add-community-modal',
@@ -419,10 +418,6 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
     if (selectedSlot && !this.pricingPage) {
       this.pricingPage = true;
     }
-    this.modalService.open(AlertModalComponent, {
-      centered: true,
-      backdrop: 'static',
-    });
   }
 
 
