@@ -40,6 +40,7 @@
     "font-awesome": "^4.7.0",
     "howler": "^2.2.4",
     "localstorage-polyfill": "^1.0.1",
+    "moment": "^2.30.1",
     "ng-lazyload-image": "^9.1.3",
     "ngx-cookie-service": "^16.0.1",
     "ngx-metafrenzy": "^8.1.0",

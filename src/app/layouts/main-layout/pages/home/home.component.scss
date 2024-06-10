@@ -16,6 +16,18 @@
   max-height: 332px;
   overflow: auto;
 }
+.category-card {
+  background: var(--primary-color);
+  box-shadow: 0px 4px 26px rgba(66, 66, 66, 0.25);
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px;
+  color: #ffffff;
+  white-space: nowrap;
+  max-width: 85px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 ::ng-deep {
   .emoji-menu-panale {
     position: fixed;
@@ -130,5 +142,20 @@
 
   ngb-tooltip-window {
     z-index: 1 !important;
+  }
+  .appointment-table {
+    background-color: var(--section-1st-color);
+    th {
+      font-weight: 500;
+    }
+    .table {
+      --bs-table-bg: var(--section-1st-color);
+      --bs-table-color: var(--heading-1st-color);
+      --bs-table-hover-color: var(--heading-1st-color);
+    }
+    .table-hover > tbody > tr:hover > * {
+      font-weight: 500 !important;
+      cursor: pointer;
+    }
   }
 }

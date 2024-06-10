@@ -257,7 +257,85 @@
       </div>
     </div>
   </div> -->
-  
+  <ng-container *ngIf="pricingPage">
+    <div class="modal-header">
+      <h5 class="text-start m-0">Monthly Fees Charged to Practitioner</h5>
+      <!-- <fa-icon
+        [icon]="['fas', 'xmark']"
+        class="font-20-px"
+        role="button"
+        (click)="activeModal.close()"
+      /> -->
+    </div>
+    <div class="modal-body text-center">
+      <div class="d-flex justify-content-center mt-5">
+        <div class="d-flex flex-wrap justify-content-center">
+          <ng-container *ngFor="let card of appointmentCards">
+            <div *ngIf="card.isFeature === 'N'" class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">{{ card.title }}</h5>
+                <p class="card-text">{{ card.description }}</p>
+                <h5>${{ card.amount }}.00 Per Month</h5>
+                <button (click)="selectCard(card.id, card.amount)">
+                  <a
+                    class="btn"
+                    [ngClass]="
+                      isSelected(card.id) ? 'btn-success' : 'btn-primary'
+                    "
+                  >
+                    {{ isSelected(card.id) ? "Selected" : "Select" }}</a
+                  >
+                </button>
+                <span class="font-12-px mt-2"
+                  >Month to Month No Cancelation Fees & No Refunds</span
+                >
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap justify-content-center">
+        <ng-container *ngFor="let featuredCard of appointmentCards">
+          <div
+            *ngIf="featuredCard.isFeature === 'Y'"
+            class="card feture-card text-center"
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ featuredCard.title }}</h5>
+              <p class="card-text">{{ featuredCard.description }}</p>
+              <h5>
+                <ng-container
+                  *ngIf="featuredCard.amount === 0; else contactMessage"
+                >
+                  (Select And We'll Contact You To Discuss)
+                </ng-container>
+                <ng-template #contactMessage>
+                  ${{ featuredCard.amount }}.00 Per Month
+                </ng-template>
+              </h5>
+              <button
+                (click)="
+                  feturedSelectCard(featuredCard.id, featuredCard.amount)
+                "
+              >
+                <a
+                  class="btn"
+                  [ngClass]="
+                    isSelected(featuredCard.id) ? 'btn-success' : 'btn-primary'
+                  "
+                >
+                  {{ isSelected(featuredCard.id) ? "Selected" : "Select" }}</a
+                >
+              </button>
+              <span class="font-12-px mt-2"
+                >Month to Month No Cancelation Fees & No Refunds</span
+              >
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
   <div class="modal-footer justify-content-end gap-3 border-0 mt-10">
     <button
       id="common-filter-cancel"
@@ -279,5 +357,50 @@
       <!-- Create -->
       {{ confirmButtonLabel }}
     </button>
+  </div>
+  <div class="modal-footer justify-content-between mt-10">
+    <ng-container *ngIf="!pricingPage; else backbtn">
+      <button
+        id="common-filter-cancel"
+        type="button"
+        class="cmn-btn alt back-arrow p-2"
+        (click)="clearForm()"
+      >
+        <fa-icon [icon]="['fas', 'xmark']" class="me-2" title="Back" />
+        {{ cancelButtonLabel }}
+      </button>
+      <!-- (click)="activeModal.close(cancelButtonLabel)" -->
+    </ng-container>
+    <div class="d-flex justify-content-between m-2">
+      <ng-template #backbtn>
+        <button
+          id="common-filter-cancel"
+          type="button"
+          class="cmn-btn back-arrow alt p-2"
+          (click)="backToApplication()"
+        >
+          <fa-icon
+            [icon]="['fas', 'arrow-left-long']"
+            class="me-2"
+            title="Back"
+          />
+          Back
+        </button>
+      </ng-template>
+      <button
+        id="common-filter-cancel"
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!communityDetails"
+        (click)="pricingPage ? nextToApplication() : uploadImgAndSubmit()"
+      >
+        <!-- (click)="nextToApplication()" -->
+        Next<fa-icon
+          [icon]="['fas', 'arrow-right-long']"
+          class="ms-2"
+          title="Next"
+        />
+      </button>
+    </div>
   </div>
 </div>

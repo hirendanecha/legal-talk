@@ -25,11 +25,13 @@ import { environment } from 'src/environments/environment';
 import { SeoService } from 'src/app/@shared/services/seo.service';
 import { AddCommunityModalComponent } from '../communities/add-community-modal/add-community-modal.component';
 import { AddFreedomPageComponent } from '../freedom-page/add-page-modal/add-page-modal.component';
-import { Meta } from '@angular/platform-browser';
 // import { MetafrenzyService } from 'ngx-metafrenzy';
 import { isPlatformBrowser } from '@angular/common';
 import { Howl } from 'howler';
 import { EditPostModalComponent } from 'src/app/@shared/modals/edit-post-modal/edit-post-modal.component';
+import * as moment from 'moment';
+import { AppointmentsService } from 'src/app/@shared/services/appointment.service';
+import { AppointmentModalComponent } from 'src/app/@shared/modals/appointment-modal/appointment-modal.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -66,7 +68,82 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   notificationId: number;
   buttonClicked = false;
   originalFavicon: HTMLLinkElement;
-  notificationSoundOct = ''
+  notificationSoundOct = '';
+
+  appointmentList = [];
+
+  invoiceList: any[] = [
+    {
+      "id": 41,
+      "appointmentDateTime": "2024-01-31T03:01:00.000Z",
+      "profileId": 68001,
+      "practitionerProfileId": 68001,
+      "amt": 30,
+      "createdDate": "2024-01-16T09:21:45.000Z",
+      "isCancelled": "N",
+      "practitionerName": "Opash DR",
+      "Username": "veee",
+      "FirstName": "Ajay",
+      "LastName": "Gadhwal",
+      "ProfilePicName": "https://healing-tube.s3.us-west-1.wasabisys.com/dummy-image-300x298.jpg"
+    },
+    {
+      "id": 42,
+      "appointmentDateTime": "2024-02-01T08:30:00.000Z",
+      "profileId": 78002,
+      "practitionerProfileId": 78002,
+      "amt": 200,
+      "createdDate": "2024-02-15T14:10:22.000Z",
+      "isCancelled": "N",
+      "practitionerName": "Jane Smith",
+      "Username": "jane_smith",
+      "FirstName": "Jane",
+      "LastName": "Smith",
+      "ProfilePicName": "https://healing-tube.s3.us-west-1.wasabisys.com/dummy-image-300x298.jpg"
+    },
+    {
+      "id": 43,
+      "appointmentDateTime": "2024-02-28T12:00:00.000Z",
+      "profileId": 78003,
+      "practitionerProfileId": 78003,
+      "amt": 120,
+      "createdDate": "2024-02-20T09:45:11.000Z",
+      "isCancelled": "Y",
+      "practitionerName": "John Doe",
+      "Username": "john_doe",
+      "FirstName": "John",
+      "LastName": "Doe",
+      "ProfilePicName": "https://healing-tube.s3.us-west-1.wasabisys.com/dummy-image-300x298.jpg"
+    },
+    {
+      "id": 44,
+      "appointmentDateTime": "2024-03-10T15:45:00.000Z",
+      "profileId": 78004,
+      "practitionerProfileId": 78004,
+      "amt": 220,
+      "createdDate": "2024-03-05T11:30:18.000Z",
+      "isCancelled": "N",
+      "practitionerName": "Anna Johnson",
+      "Username": "anna_johnson",
+      "FirstName": "Anna",
+      "LastName": "Johnson",
+      "ProfilePicName": "https://healing-tube.s3.us-west-1.wasabisys.com/dummy-image-300x298.jpg"
+    },
+    {
+      "id": 45,
+      "appointmentDateTime": "2024-03-20T09:00:00.000Z",
+      "profileId": 78005,
+      "practitionerProfileId": 78005,
+      "amt": 300,
+      "createdDate": "2024-03-15T13:20:05.000Z",
+      "isCancelled": "Y",
+      "practitionerName": "Michael Brown",
+      "Username": "michael_brown",
+      "FirstName": "Michael",
+      "LastName": "Brown",
+      "ProfilePicName": "https://healing-tube.s3.us-west-1.wasabisys.com/dummy-image-300x298.jpg"
+    }
+  ];
 
   constructor(
     private modalService: NgbModal,
@@ -81,7 +158,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     public tokenService: TokenStorageService,
     private seoService: SeoService,
-    // private metafrenzyService: MetafrenzyService,
+    private appointmentService: AppointmentsService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
@@ -138,7 +215,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.socketService.socket?.emit('join', { room: this.profileId });
     this.socketService.socket?.on('notification', (data: any) => {
       if (data) {
-        console.log('new-notification', data)
         this.notificationId = data.id;
         this.sharedService.isNotify = true;
         this.originalFavicon.href = '/assets/images/icon-unread.jpg';
@@ -332,7 +408,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.postData?.imageUrl ||
       this.postData?.pdfUrl
     ) {
-      if (!(this.postData?.meta?.metalink || this.postData?.metalink)) {
+      if (this.postData?.meta?.metalink || this.postData?.metalink) {
         this.postData.metalink = null
         this.postData.title = null
         this.postData.metaimage = null
@@ -424,7 +500,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       data.link1 = this.sharedService?.advertizementLink[0]?.url;
       data.link2 = this.sharedService?.advertizementLink[1]?.url;
     }
-    modalRef.componentInstance.title = `Edit ${data.pageType} Details`;
+    modalRef.componentInstance.title = `Edit ${
+      data.pageType === 'community' ? 'lawyers' : 'Page'
+    } Details`;
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     modalRef.componentInstance.confirmButtonLabel = 'Save';
     modalRef.componentInstance.closeIcon = true;
@@ -469,13 +547,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     const modalRef = this.modalService.open(ConfirmationModalComponent, {
       centered: true,
     });
-    modalRef.componentInstance.title = `Leave ${this.communityDetails.pageType}`;
+    modalRef.componentInstance.title = `Leave ${this.communityDetails.pageType === "community" ? "Lawyers" : "page"}`;
     modalRef.componentInstance.confirmButtonLabel = id ? 'Remove' : 'Leave';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
     if (id) {
-      modalRef.componentInstance.message = `Are you sure want to remove this member from ${this.communityDetails.pageType}?`;
+      modalRef.componentInstance.message = `Are you sure want to remove this member from ${this.communityDetails.pageType === "community" ? "Lawyers" : "page"}?`;
     } else {
-      modalRef.componentInstance.message = `Are you sure want to Leave from this ${this.communityDetails.pageType}?`;
+      modalRef.componentInstance.message = `Are you sure want to Leave from this ${this.communityDetails.pageType === "community" ? "Lawyers" : "page"}?`;
     }
     modalRef.result.then((res) => {
       if (res === 'success') {
@@ -505,10 +583,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     const modalRef = this.modalService.open(ConfirmationModalComponent, {
       centered: true,
     });
-    modalRef.componentInstance.title = `Delete ${this.communityDetails.pageType}`;
+    modalRef.componentInstance.title = `Delete ${this.communityDetails.pageType === "community" ? "Lawyers" : "page"}`;
     modalRef.componentInstance.confirmButtonLabel = 'Delete';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-    modalRef.componentInstance.message = `Are you sure want to delete this ${this.communityDetails.pageType}?`;
+    modalRef.componentInstance.message = `Are you sure want to delete this ${this.communityDetails.pageType === "community" ? "Lawyers" : "page"}?`;
     modalRef.result.then((res) => {
       if (res === 'success') {
         this.communityService
@@ -519,9 +597,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.toastService.success(res.message);
                 // this.getCommunityDetailsBySlug();
                 this.router.navigate([
-                  `${this.communityDetails.pageType === 'community'
-                    ? 'lawyers'
-                    : 'pages'
+                  `${
+                    this.communityDetails.pageType === 'community'
+                      ? 'health-practitioner'
+                      : 'pages'
                   }`,
                 ]);
               }
@@ -596,7 +675,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     modalRef.componentInstance.title = `Warning message`;
     modalRef.componentInstance.confirmButtonLabel = 'Ok';
     modalRef.componentInstance.cancelButtonLabel = 'Cancel';
-    modalRef.componentInstance.message = `Videos on Legaltalk Tube home are limited to 2 Minutes!
+    modalRef.componentInstance.message = `Videos on HealingTube home are limited to 2 Minutes!
     Videos must be a mp4 format`;
     modalRef.result.then((res) => {
       if (res === 'success') {
@@ -650,5 +729,96 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.postData['postdescription'] = content;
     }
+  }
+
+  openAppointmentPopUp(): void {
+    const modalRef = this.modalService.open(AppointmentModalComponent, {
+      centered: true,
+      size: 'lg',
+    });
+    console.log(this.communityDetails);
+    
+    const data = {
+      profileId: +this.profileId,
+      practitionerProfileId: this.communityDetails?.profileId,
+      practitionerName: this.communityDetails.CommunityName,
+      slug: this.communityDetails.slug,
+      topics: this.communityDetails.emphasis,
+    };
+    modalRef.componentInstance.title = `Appointment Date & Time`;
+    modalRef.componentInstance.confirmButtonLabel = 'Ok';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.componentInstance.data = data;
+    modalRef.result.then((res) => {
+      if (res === 'success') {
+        // this.openUploadVideoModal();
+      }
+    });
+  }
+
+  getAppoinments(id): void {
+    this.appointmentService.appointmentPractitioner(id).subscribe({
+      next: (res) => {
+        this.appointmentList = res.data;
+      },
+      error: (err) => {},
+    });
+  }
+
+  getStatus(appointment: any): string {
+    const currentDate = new Date();
+    const appointmentDate = new Date(appointment.appointmentDateTime);
+    if (currentDate > appointmentDate) {
+      return 'Expired';
+    } else {
+      return appointment.isCancelled === 'N' ? 'Scheduled' : 'Cancelled';
+    }
+  }
+
+  getInvoiceStatus(invoice: any): string {
+    const currentDate = new Date();
+    const appointmentDate = new Date(invoice.appointmentDateTime);
+    if (currentDate > appointmentDate) {
+      return 'Upcoming';
+    } else {
+      return invoice.isCancelled === 'N' ? 'Active' : 'Expired';
+    }
+  }
+
+  appointmentCancelation(obj) {
+    const modalRef = this.modalService.open(ConfirmationModalComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.title = `Cancel appointment`;
+    modalRef.componentInstance.confirmButtonLabel = 'Ok';
+    modalRef.componentInstance.cancelButtonLabel = 'Cancel';
+    modalRef.componentInstance.message = `Are you sure want to cancel this appointment?`;
+    modalRef.result.then((res) => {
+      if (res === 'success') {
+        const data = {
+          appointmentId: obj.id,
+          practitionerProfileId: obj.practitionerProfileId,
+          profileId: obj.profileId,
+          practitionerName: obj.practitionerName,
+        };
+        this.getCancelAppoinments(data);
+      }
+    });
+  }
+
+  getCancelAppoinments(obj): void {
+    this.appointmentService.changeAppointmentStatus(obj).subscribe({
+      next: (res) => {
+        // this.appointmentList = res.data;
+        this.toastService.success(res.message);
+        this.getAppoinments(this.communityDetails.profileId);
+      },
+      error: (err) => {},
+    });
+  }
+
+  displayLocalTime(utcDateTime: string): string {
+    const localTime = moment.utc(utcDateTime).local();
+    return localTime.format('h:mm A');
   }
 }

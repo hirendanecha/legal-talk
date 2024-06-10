@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, forkJoin, fromEvent } from 'rxjs';
 import { slugify } from 'src/app/@shared/utils/utils';
@@ -19,6 +19,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadFilesService } from 'src/app/@shared/services/upload-files.service';
 import { Router } from '@angular/router';
 import { SeoService } from 'src/app/@shared/services/seo.service';
+import { AlertModalComponent } from 'src/app/@shared/modals/alert-modal/alert-modal.component';
 
 @Component({
   selector: 'app-add-community-modal',
@@ -73,7 +74,12 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
     logoImg: new FormControl('', Validators.required),
     coverImg: new FormControl('', Validators.required),
   });
-
+  
+  practitionerId: number;
+  pricingPage: boolean;
+  totalAmt: number;
+  selectedCards: any[] = [];
+  appointmentCards: any = [];
   constructor(
     public activeModal: NgbActiveModal,
     private spinner: NgxSpinnerService,
@@ -82,7 +88,8 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
     private customerService: CustomerService,
     private uploadService: UploadFilesService,
     private seoService: SeoService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {
     this.userId = window.sessionStorage.user_id;
     this.profileId = localStorage.getItem('profileId');
@@ -358,8 +365,66 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
   }
 
   clearForm() {
-    this.router.navigate(['/health-practitioner'])
+    if (this.data.Id) {
+      this.activeModal.close();
+    } else {
+      this.router.navigate(['/lawyers']);
+    }
   }
+
+  isSelected(id: number): boolean {
+    return this.selectedCards.includes(id);
+  }
+
+  selectCard(cardId: string, amt: number): void {
+    this.totalAmt = amt;
+    const index = this.selectedCards.indexOf(cardId);
+    if (index === -1) {
+      this.selectedCards = [cardId];
+    } else {
+      this.selectedCards = [];
+      this.totalAmt = null;
+    }
+  }
+
+  feturedSelectCard(cardId: string, amt: number): void {
+    const index = this.selectedCards.indexOf(cardId);
+    if (this.totalAmt !== undefined && this.totalAmt !== null) {
+      if (index === -1) {
+        this.selectedCards.push(cardId);
+        this.totalAmt = isNaN(this.totalAmt) ? amt : this.totalAmt + amt;
+      } else {
+        this.selectedCards = this.selectedCards.filter((id) => id !== cardId);
+        this.totalAmt = this.totalAmt - amt;
+      }
+    } else {
+      this.toastService.danger(
+        'Please select your preference for Minutes of Video Time.'
+      );
+    }
+  }
+
+  backToApplication() {
+    this.pricingPage = false;
+  }
+
+  nextToApplication() {
+    const selectedSlot = {
+      selectedCard: this.selectedCards,
+      totalAmt: this.totalAmt,
+      practitionerId: this.practitionerId,
+      profileId: this.profileId,
+    };
+
+    if (selectedSlot && !this.pricingPage) {
+      this.pricingPage = true;
+    }
+    this.modalService.open(AlertModalComponent, {
+      centered: true,
+      backdrop: 'static',
+    });
+  }
+
 
   convertToUppercase(event: any) {
     const inputElement = event.target as HTMLInputElement;

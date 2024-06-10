@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.spinner.hide();
       this.msg = 'Invalid captcha kindly try again!';
       this.type = 'danger';
-      return;
+      // return;
     }
     this.authService.customerlogin(this.loginForm.value).subscribe({
       next: (data: any) => {

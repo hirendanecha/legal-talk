@@ -1,0 +1,37 @@
+<!-- <div class="modal-header justify-content-end">
+  <h6 class="text-start m-0">{{ title }}</h6>
+
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="font-20-px float-end"
+    role="button"
+    (click)="activeModal.close()"
+  />
+</div> -->
+
+<div class="modal-body text-center">
+  <h6 class="text-center my-10">
+    <strong>Healing.tube is Free to use for Healing Practitioners</strong>
+  </h6>
+  <span class="mb-10">Until Further Notice!!</span> <br />
+  <span>Please select Next button!</span>
+</div>
+
+<div class="modal-footer justify-content-end gap-2">
+  <!-- <button
+    type="button"
+    class="btn btn-sm btn-danger"
+    (click)="activeModal.close('cancel')"
+  >
+    {{ cancelButtonLabel }}
+  </button> -->
+
+  <button
+    type="button"
+    class="btn btn-sm btn-primary"
+    routerLink="/home"
+    (click)="activeModal.close('success')"
+  >
+    {{ "Next" }}
+  </button>
+</div>

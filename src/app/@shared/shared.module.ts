@@ -108,6 +108,8 @@ import { SharePostModalComponent } from './modals/share-post-modal/share-post-mo
 import { RePostCardComponent } from './components/re-post-card/re-post-card.component';
 import { HealthPraatitionerCardComponent } from './components/health-partitioner-card/health-partitioner-card.component';
 import { EditPostModalComponent } from './modals/edit-post-modal/edit-post-modal.component';
+import { AppointmentModalComponent } from './modals/appointment-modal/appointment-modal.component';
+import { AlertModalComponent } from './modals/alert-modal/alert-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -134,6 +136,8 @@ const sharedComponents = [
   RePostCardComponent,
   EditPostModalComponent,
   HealthPraatitionerCardComponent,
+  AppointmentModalComponent,
+  AlertModalComponent
 ];
 
 const sharedModules = [

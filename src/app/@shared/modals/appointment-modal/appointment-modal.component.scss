@@ -1,0 +1,77 @@
+:host {
+  ngb-datepicker {
+    border-bottom: 1px solid var(--bs-border-color);
+    border-radius: 5px;
+    color: var(--para-2nd-color);
+  }
+  .slot-box {
+    width: 250px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid;
+    background-color: var(--box-1st-color);
+  }
+  .active {
+    background-color: var(--primary-color) !important;
+  }
+  .card-text {
+    color: var(--para-2nd-color);
+
+    b{
+      color: var(--primary-color);
+    }
+  }
+  // .card {
+  //   width: 235px;
+  //   background: var(--section-1st-color);
+  //   box-shadow: var(--box-shadow);
+  //   border-radius: 10px;
+  //   margin: 10px;
+  
+  //   .card-body {
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: space-between;
+  //     padding: 10px 20px;
+
+  //     .card-title{
+  //       border-bottom: 1px solid var(--font-icon-color);
+  //     }
+  //   }
+  //   .card-text {
+  //     color: var(--para-2nd-color);
+  //     font-size: 16px;
+  //     line-height: 22px;
+  //   }
+  // }
+  // .feture-card{
+  //   width: 100%;
+  // }
+}
+::ng-deep {
+  .ngb-dp-header {
+    background-color: var(--box-1st-color) !important;
+  }
+  .ngb-dp-week {
+    background-color: var(--box-1st-color) !important;
+  }
+
+  [ngbDatepickerDayView]:hover:not(.bg-primary),
+  [ngbDatepickerDayView].active:not(.bg-primary) {
+    background-color: var(--btn-1st-color) !important;
+  }
+  .text-muted {
+    color: var(--para-1st-color) !important;
+  }
+  .back-arrow {
+    fa-icon svg path {
+      fill:#ff4747;
+      opacity: 0.9;
+    } &:hover {
+      fa-icon svg path {
+        fill:#ffff;
+        opacity: 0.9;
+      }
+    }
+  }
+}

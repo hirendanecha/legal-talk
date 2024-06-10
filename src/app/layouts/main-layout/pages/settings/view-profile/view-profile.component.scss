@@ -61,3 +61,21 @@
 .c-color{
   color: var( --para-2nd-color);
 }
+
+::ng-deep{
+  .appointment-table {
+    background-color: var(--section-1st-color);
+    th {
+      font-weight: 500;
+    }
+    .table {
+      --bs-table-bg: var(--section-1st-color);
+      --bs-table-color: var(--heading-1st-color);
+      --bs-table-hover-color: var(--heading-1st-color);
+    }
+    .table-hover > tbody > tr:hover > * {
+      font-weight: 500 !important;
+      cursor: pointer;
+    }
+  }
+}

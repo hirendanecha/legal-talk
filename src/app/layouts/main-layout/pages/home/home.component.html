@@ -1,100 +1,270 @@
 <ng-container *ngIf="communitySlug && communityDetails?.Id">
   <div class="single-box community-details p-5">
     <ng-container *ngIf="communityDetails?.coverImg">
-      <img data-src="{{
+      <img
+        data-src="{{
           communityDetails?.coverImg || '/assets/images/profile-cover.png'
-        }}" class="w-100 h-272-px rounded-3 mb-5"
-        onerror="this.onerror=null;this.src='/assets/images/profile-cover.png';" [alt]="'Preview Image'" />
+        }}"
+        class="w-100 h-272-px rounded-3 mb-5"
+        onerror="this.onerror=null;this.src='/assets/images/profile-cover.png';"
+        [alt]="'Preview Image'"
+      />
     </ng-container>
 
     <div class="text-start d-flex align-items-center gap-3">
-      <img class="w-56-px h-56px rounded-3" loading="lazy" data-src="{{ communityDetails?.logoImg }}"
-        onerror="this.onerror=null;this.src='/assets/images/avtar/avtar.png';" [alt]="'Logo Image'" />
+      <img
+        class="w-56-px h-56px rounded-3"
+        loading="lazy"
+        data-src="{{ communityDetails?.logoImg }}"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/avtar.png';"
+        [alt]="'Logo Image'"
+      />
 
       <div class="d-flex justify-content-between align-items-start w-100">
         <div class="d-flex flex-column">
           <h5 class="mb-1">{{ communityDetails?.CommunityName }}</h5>
-          <span class="description">Public Group-{{ communityDetails?.members }} Member</span>
+          <span class="description"
+            >Public Group-{{ communityDetails?.members }} Member</span
+          >
         </div>
 
         <div *ngIf="tokenService.getCredentials()">
           <ng-container *ngIf="communityDetails?.adminIds.includes(+profileId)">
-            <button class="btn btn-sm cmn-btn me-2" (click)="editCommunity(communityDetails)">
-              Edit {{ communityDetails?.pageType }}
+            <button
+              class="btn btn-sm btn-primary me-2"
+              (click)="editCommunity(communityDetails)"
+            >
+              Edit
+              {{
+                communityDetails?.pageType === "community"
+                  ? "Lawyer Details"
+                  : "page"
+              }}
             </button>
           </ng-container>
           <!-- {{ communityDetails?.pageType }} -->
+          <ng-container *ngIf="communityDetails?.pageType === 'page'">
+            <ng-container
+              *ngIf="
+                communityDetails?.memberIds?.includes(+profileId);
+                else elseJoinCommunity
+              "
+            >
+              <!-- <ng-container
+              *ngIf="
+                communityDetails?.profileId === +profileId;
+                else elseLeaveCommunity
+              "
+            >
+              <button class="btn btn-sm btn-danger" (click)="deleteCommunity()">
+                Delete {{ communityDetails?.pageType }}
+              </button>
+            </ng-container> -->
 
-          <ng-container *ngIf="
-              communityDetails?.memberIds?.includes(+profileId);
-              else elseJoinCommunity
-            ">
-            <!-- <ng-container
-            *ngIf="
-              communityDetails?.profileId === +profileId;
-              else elseLeaveCommunity
-            "
-          >
-            <button class="btn btn-sm btn-danger" (click)="deleteCommunity()">
-              Delete {{ communityDetails?.pageType }}
-            </button>
-          </ng-container> -->
+              <ng-template #elseLeaveCommunity>
+                <button
+                  class="btn btn-sm btn-danger"
+                  (click)="removeFromCommunity()"
+                >
+                  Leave
+                  {{
+                    communityDetails?.pageType === "community"
+                      ? "Lawyer Details"
+                      : "page"
+                  }}
+                </button>
+              </ng-template>
+            </ng-container>
 
-            <ng-template #elseLeaveCommunity>
-              <button class="btn btn-sm btn-danger" (click)="removeFromCommunity()">
-                Leave {{ communityDetails?.pageType }}
+            <ng-template #elseJoinCommunity>
+              <button
+                class="btn btn-sm btn-success"
+                (click)="joinCommunity()"
+                [disabled]="buttonClicked"
+              >
+                Join
+                {{
+                  communityDetails?.pageType === "community"
+                    ? "Lawyer Details"
+                    : "page"
+                }}
               </button>
             </ng-template>
           </ng-container>
-
-          <ng-template #elseJoinCommunity>
-            <button class="btn btn-sm btn-success" (click)="joinCommunity()" [disabled]="buttonClicked">
-              Join {{ communityDetails?.pageType }}
-            </button>
-          </ng-template>
         </div>
       </div>
     </div>
 
     <span class="w-100 d-flex pt-2 description">{{
       communityDetails?.CommunityDescription
-      }}</span>
+    }}</span>
 
     <div class="page-details pt-3">
       <ul class="nav pt-3 flex-wrap tab-area">
-        <li class="nav-item" role="presentation" (click)="activeCommunityTab = 1">
-          <a class="nav-link d-center" [ngClass]="activeCommunityTab === 1 ? 'active' : ''">Posts</a>
+        <li
+          class="nav-item"
+          role="presentation"
+          (click)="activeCommunityTab = 1"
+        >
+          <a
+            class="nav-link d-center"
+            [ngClass]="activeCommunityTab === 1 ? 'active' : ''"
+            >Posts</a
+          >
         </li>
-        <li class="nav-item" role="presentation" (click)="activeCommunityTab = 2">
-          <a class="nav-link d-center" [ngClass]="activeCommunityTab === 2 ? 'active' : ''">Admin</a>
+        <li
+          class="nav-item"
+          role="presentation"
+          (click)="activeCommunityTab = 2"
+        >
+          <a
+            class="nav-link d-center"
+            [ngClass]="activeCommunityTab === 2 ? 'active' : ''"
+            >Admin</a
+          >
         </li>
+        <ng-container
+          *ngIf="
+            communityDetails.profileId === +profileId &&
+            communityDetails.pageType === 'community'
+          "
+        >
+          <li
+            class="nav-item"
+            role="presentation"
+            (click)="
+              activeCommunityTab = 3; getAppoinments(communityDetails.profileId)
+            "
+          >
+            <a
+              class="nav-link d-center"
+              [ngClass]="activeCommunityTab === 3 ? 'active' : ''"
+              >Appointments</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            role="presentation"
+            (click)="activeCommunityTab = 4"
+          >
+            <a
+              class="nav-link d-center"
+              [ngClass]="activeCommunityTab === 4 ? 'active' : ''"
+              >Invoices</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            role="presentation"
+            (click)="activeCommunityTab = 5"
+          >
+            <a
+              class="nav-link d-center"
+              [ngClass]="activeCommunityTab === 5 ? 'active' : ''"
+              >Change plan</a
+            >
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>
 </ng-container>
 
 <ng-container *ngIf="activeCommunityTab === 1">
-  <ng-container *ngIf="
+  <div
+  *ngIf="communityDetails?.pageType === 'community'"
+  class="single-box filter-single-box text-start p-5 p-md-3 align-items-center gap-4"
+>
+  <div class="avatar-area d-flex align-items-center gap-3 float-end">
+    <!-- <img loading="lazy" class="w-48-px h-48-px rounded-3 shadow-none" data-src="{{ community?.logoImg }}"
+    onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';" alt="avatar" /> -->
+    <button *ngIf="communityDetails.profileId !== +profileId"
+      class="btn btn-sm btn-success"
+      (click)="openAppointmentPopUp()"
+    >
+      <fa-icon class="c-icon-color" [icon]="['fas', 'phone']" />
+      Request Call
+    </button>
+  </div>
+  <div class="d-flex mt-2">
+    <fa-icon [icon]="['fas', 'globe']" class="eye-icon"></fa-icon>
+    <span class="ms-1"
+      >{{ communityDetails.Country }},{{ communityDetails.State }},{{
+        communityDetails.County
+      }},{{ communityDetails.City }}</span
+    >
+  </div>
+  <div class="d-flex mt-4 align-items-center">
+    <div class="d-flex flex-row align-self-baseline label">
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="eye-icon font-14-px"
+      ></fa-icon>
+      <span class="ms-1 w-152-px">Areas of Practice:</span>
+    </div>
+    <div class="d-flex flex-row flex-wrap gap-2">
+      <div
+        class="smtxt category-card"
+        *ngFor="let item of communityDetails?.emphasis"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+  <!-- <div class="d-flex mt-4 align-items-center">
+    <div class="d-flex flex-row align-self-baseline label">
+      <fa-icon
+        [icon]="['fas', 'circle']"
+        class="eye-icon font-14-px"
+      ></fa-icon>
+      <span class="ms-1 w-152-px">Areas of Healing:</span>
+    </div>
+    <div class="d-flex flex-row flex-wrap gap-2">
+      <div
+        class="smtxt category-card"
+        *ngFor="let item of communityDetails.areas"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div> -->
+</div>
+</ng-container>
+
+<ng-container *ngIf="activeCommunityTab === 1">
+  <ng-container
+    *ngIf="
       (!communitySlug || communityDetails?.memberIds?.includes(+profileId)) &&
       tokenService.getToken()
-    ">
+    "
+  >
     <div class="share-post d-flex gap-3 gap-sm-5 p-3 p-sm-5 mb-5">
-      <img loading="lazy" data-src="{{ sharedService?.userData?.ProfilePicName }}"
-        onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';"
-        class="w-56-px h-56-px rounded-4" alt="icon" />
+      <img
+        loading="lazy"
+        data-src="{{ sharedService?.userData?.ProfilePicName }}"
+        onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+        class="w-56-px h-56-px rounded-4"
+        alt="icon"
+      />
 
       <!-- placeholder="Write something to post.." -->
       <div class="w-100">
         <div class="d-flex align-items-center position-relative">
-          <app-tag-user-input placeholder="Post a link or image or file or let's just talk!"
-            [value]="postMessageInputValue" [isShowMetaLoader]="true" [isShowEmojis]="true"
-            (onDataChange)="onTagUserInputChangeEvent($event)" />
+          <app-tag-user-input
+            placeholder="Post a link or image or file or let's just talk!"
+            [value]="postMessageInputValue"
+            [isShowMetaLoader]="true"
+            [isShowEmojis]="true"
+            (onDataChange)="onTagUserInputChangeEvent($event)"
+          />
           <button
-            class="d-sm-none btn btn-sm cmn-btn px-3 py-1 d-flex justify-content-center align-items-center gap-2 float-end ms-1 h-40-px"
+            class="d-sm-none btn btn-sm btn-primary px-3 py-1 d-flex justify-content-center align-items-center gap-2 float-end ms-1 h-40-px"
             [disabled]="
-            !(postData?.postdescription || postData?.file?.name) ||
-            buttonClicked
-          " (click)="uploadPostFileAndCreatePost()">
+              !(postData?.postdescription || postData?.file?.name) ||
+              buttonClicked
+            "
+            (click)="uploadPostFileAndCreatePost()"
+          >
             <!-- {{ postData?.id ? "Update Post" : "Post" }} -->
 
             <fa-icon class="c-icon-color" [icon]="['fas', 'paper-plane']" />
@@ -102,26 +272,45 @@
         </div>
         <ng-container *ngIf="postData?.imageUrl">
           <div class="position-relative w-100-px h-100-px mt-5">
-            <img loading="lazy" data-src="{{ postData?.imageUrl }}" class="w-100 h-100 rounded-4" alt="icon"
-              onerror="this.onerror=null;" />
-            <fa-icon [icon]="['fas', 'xmark']"
+            <img
+              loading="lazy"
+              data-src="{{ postData?.imageUrl }}"
+              class="w-100 h-100 rounded-4"
+              alt="icon"
+              onerror="this.onerror=null;"
+            />
+            <fa-icon
+              [icon]="['fas', 'xmark']"
               class="position-absolute top-0 start-100 translate-middle badge bg-danger p-1 font-12-px c-pointer c-icon-color"
-              role="button" (click)="removePostSelectedFile()" />
+              role="button"
+              (click)="removePostSelectedFile()"
+            />
           </div>
         </ng-container>
         <ng-container *ngIf="pdfName">
           <div class="position-relative w-100-px h-100-px mt-5">
-            <fa-icon [icon]="['fas', 'file-pdf']" class="c-pointer close-icon font-40-px" />
-            <span class="c-pdf-show">{{ pdfName.replaceAll('%', ' ') }}</span>
-            <fa-icon [icon]="['fas', 'xmark']"
+            <fa-icon
+              [icon]="['fas', 'file-pdf']"
+              class="c-pointer close-icon font-40-px"
+            />
+            <span class="c-pdf-show">{{ pdfName.replaceAll("%", " ") }}</span>
+            <fa-icon
+              [icon]="['fas', 'xmark']"
               class="position-absolute top-0 translate-middle badge bg-danger p-1 font-12-px c-pointer c-icon-color"
-              role="button" (click)="removePostSelectedFile()" />
+              role="button"
+              (click)="removePostSelectedFile()"
+            />
           </div>
         </ng-container>
 
         <ul
-          class="d-flex justify-content-between justify-content-lg-between flex-wrap ps-0 mb-0 gap-1 gap-sm-5 pt-3 pt-sm-5">
-          <li class="d-flex gap-2 align-items-center" ngbTooltip="Comming Soon!" placement="bottom">
+          class="d-flex justify-content-between justify-content-lg-between flex-wrap ps-0 mb-0 gap-1 gap-sm-5 pt-3 pt-sm-5"
+        >
+          <li
+            class="d-flex gap-2 align-items-center"
+            ngbTooltip="Comming Soon!"
+            placement="bottom"
+          >
             <!-- <li
             class="d-flex gap-2 align-items-center"
             data-toggle="tooltip"
@@ -132,21 +321,42 @@
             <span>Live</span>
           </li>
 
-          <li class="d-flex align-items-center gap-2 pointer-events" cursor (click)="postImage.click()">
-            <input type="file" #postImage hidden class="d-none" accept="image/*" (change)="onPostFileSelect($event)"
-              [disabled]="postData?.meta?.metaimage" />
+          <li
+            class="d-flex align-items-center gap-2 pointer-events"
+            cursor
+            (click)="postImage.click()"
+          >
+            <input
+              type="file"
+              #postImage
+              hidden
+              class="d-none"
+              accept="image/*"
+              (change)="onPostFileSelect($event)"
+              [disabled]="postData?.meta?.metaimage"
+            />
             <fa-icon [icon]="['fas', 'image']" class="font-20-px" />
             <span>Image</span>
           </li>
           <li class="d-flex gap-2 align-items-center" (click)="pdfFile.click()">
             <!-- ngbTooltip="Comming Soon!"
             placement="bottom" -->
-            <input type="file" #pdfFile hidden class="d-none" accept="application/pdf"
-              (change)="onPostFileSelect($event)" [disabled]="postData?.meta?.metaimage" />
+            <input
+              type="file"
+              #pdfFile
+              hidden
+              class="d-none"
+              accept="application/pdf"
+              (change)="onPostFileSelect($event)"
+              [disabled]="postData?.meta?.metaimage"
+            />
             <fa-icon [icon]="['fas', 'file']" class="font-20-px" />
             <span>File</span>
           </li>
-          <li class="d-flex gap-2 align-items-center" (click)="openAlertMessage()">
+          <li
+            class="d-flex gap-2 align-items-center"
+            (click)="openAlertMessage()"
+          >
             <!-- ngbTooltip="Comming Soon!"
             placement="bottom" -->
             <fa-icon [icon]="['fas', 'video']" class="font-20-px" />
@@ -160,24 +370,32 @@
             />
             <span>Fallings/Activity</span>
           </li> -->
-          <div class="d-none d-sm-flex btn-area gap-3 w-100 d-flex justify-content-end">
-            <button class="btn btn-sm btn-secondary px-3 py-1 d-flex justify-content-center align-items-center gap-2"
+          <div
+            class="d-none d-sm-flex btn-area gap-3 w-100 d-flex justify-content-end"
+          >
+            <button
+              class="btn btn-sm btn-secondary px-3 py-1 d-flex justify-content-center align-items-center gap-2"
               *ngIf="
                 postData?.postdescription ||
                 postData?.file?.name ||
                 postData.imageUrl
-              " (click)="resetPost()">
+              "
+              (click)="resetPost()"
+            >
               Cancel
               <fa-icon class="c-icon-color" [icon]="['fas', 'xmark']" />
             </button>
 
             <button
-              class="btn btn-sm cmn-btn px-3 py-1 d-flex justify-content-center align-items-center gap-2 float-end"
+              class="btn btn-sm btn-primary px-3 py-1 d-flex justify-content-center align-items-center gap-2 float-end"
               [disabled]="
                 !(postData?.postdescription || postData?.file?.name) ||
                 buttonClicked
-              " (click)="uploadPostFileAndCreatePost()">
+              "
+              (click)="uploadPostFileAndCreatePost()"
+            >
               {{ "Post" }}
+
               <fa-icon class="c-icon-color" [icon]="['fas', 'paper-plane']" />
             </button>
           </div>
@@ -188,34 +406,64 @@
 
   <ng-container *ngIf="isNavigationEnd">
     <ng-container *ngIf="communitySlug && communityDetails?.Id">
-      <app-post-list parentComponent="HomeComponent" [communityId]="communityDetails?.Id"
-        (onEditPost)="onEditPost($event)" />
+      <app-post-list
+        parentComponent="HomeComponent"
+        [communityId]="communityDetails?.Id"
+        (onEditPost)="onEditPost($event)"
+      />
     </ng-container>
 
     <ng-container *ngIf="!communitySlug">
-      <app-post-list parentComponent="HomeComponent" (onEditPost)="onEditPost($event)" />
+      <app-post-list
+        parentComponent="HomeComponent"
+        (onEditPost)="onEditPost($event)"
+      />
     </ng-container>
   </ng-container>
 </ng-container>
 
-<ng-container *ngIf="activeCommunityTab === 2 && communityDetails?.memberList?.length > 0">
-  <ng-container *ngIf="communityDetails?.adminIds.includes(+profileId)">
+<ng-container
+  *ngIf="activeCommunityTab === 2 && communityDetails?.memberList?.length > 0"
+>
+  <ng-container
+    *ngIf="
+      communityDetails?.adminIds?.includes(+profileId) &&
+      communityDetails.pageType === 'page'
+    "
+  >
     <span> Add new admin: </span>
     <div class="input-area h-48-px d-flex align-items-center mb-3">
       <fa-icon [icon]="['fas', 'magnifying-glass']" class="me-1" />
-      <input type="text" name="search" placeholder="Add new Admin" [(ngModel)]="searchText" autocomplete="off"
-        (keyup)="getUserList()" />
+      <input
+        type="text"
+        name="search"
+        placeholder="Add new Admin"
+        [(ngModel)]="searchText"
+        autocomplete="off"
+        (keyup)="getUserList()"
+      />
     </div>
 
     <ng-container *ngIf="searchText">
       <div #addMemberSearchDropdownRef ngbDropdown>
         <div ngbDropdownMenu class="search-user-list w-100">
           <ng-container *ngFor="let user of userList">
-            <ng-container *ngIf="!this.communityDetails.memberIds.includes(user.Id)">
-              <div ngbDropdownItem class="d-flex gap-3 pe-auto" role="button" (click)="joinCommunity(user.Id)">
-                <img loading="lazy" class="w-32-px h-32-px rounded" data-src="{{ user.ProfilePicName }}"
+            <ng-container
+              *ngIf="!this.communityDetails.memberIds.includes(user.Id)"
+            >
+              <div
+                ngbDropdownItem
+                class="d-flex gap-3 pe-auto"
+                role="button"
+                (click)="joinCommunity(user.Id)"
+              >
+                <img
+                  loading="lazy"
+                  class="w-32-px h-32-px rounded"
+                  data-src="{{ user.ProfilePicName }}"
                   [alt]="user.Username"
-                  onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg';" />
+                  onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+                />
                 <span>{{ user.Username }}</span>
               </div>
             </ng-container>
@@ -227,57 +475,85 @@
   <div class="row community-members">
     <div class="col-md-6" *ngFor="let member of communityDetails?.memberList">
       <div class="single-box d-flex align-items-center gap-2 px-3 py-2">
-        <img class="w-48-px h-48-px rounded-4" loading="lazy" data-src="{{
+        <img
+          class="w-48-px h-48-px rounded-4"
+          loading="lazy"
+          data-src="{{
             member?.ProfilePicName ||
-              '/assets/images/avtar/default-profile.jpg'
-          }}" onerror="this.onerror=null;this.src='/assets/images/avtar/default-profile.jpg'" alt="avatar" />
+              '/assets/images/avtar/placeholder-user.png'
+          }}"
+          onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png'"
+          alt="avatar"
+        />
 
-        <div class="d-flex flex-column justify-content-center align-items-start w-100">
+        <div
+          class="d-flex flex-column justify-content-center align-items-start w-100"
+        >
           <p class="mb-1">{{ member?.Username }}</p>
           <span class="font-12-px description">{{
             member?.isAdmin === "Y" ? "Admin" : "Member"
-            }}</span>
+          }}</span>
         </div>
 
-        <div class="btn-group cus-dropdown d-flex gap-3" *ngIf="
+        <div
+          class="btn-group cus-dropdown d-flex gap-3"
+          *ngIf="
             communityDetails.profileId != member.profileId &&
             profileId != member.profileId &&
             communityDetails?.adminIds.includes(+profileId)
-          ">
+          "
+        >
           <div ngbDropdown>
             <button class="dropdown-btn d-flex" ngbDropdownToggle>
               <fa-icon [icon]="['fas', 'ellipsis']" class="font-24-px m-0" />
             </button>
             <div ngbDropdownMenu class="dropdown-menu">
               <button ngbDropdownItem *ngIf="member?.isAdmin === 'Y'">
-                <a class="droplist d-flex align-items-center gap-2" (click)="createCommunityAdmin(member)">
+                <a
+                  class="droplist d-flex align-items-center gap-2"
+                  (click)="createCommunityAdmin(member)"
+                >
                   <fa-icon [icon]="['fas', 'user-check']" />
-                  <span>Make {{ this.communityDetails.pageType }} member</span>
+                  <span>Make {{ this.communityDetails.pageType === "community" ? "Lawyer Details" : "page" }} member</span>
                 </a>
               </button>
               <button ngbDropdownItem *ngIf="member?.isAdmin === 'N'">
-                <a class="droplist d-flex align-items-center gap-2" (click)="createCommunityAdmin(member)">
+                <a
+                  class="droplist d-flex align-items-center gap-2"
+                  (click)="createCommunityAdmin(member)"
+                >
                   <fa-icon [icon]="['fas', 'user-check']" />
-                  <span>Make {{ this.communityDetails.pageType }} admin</span>
+                  <span>Make {{ this.communityDetails.pageType === "community" ? "Lawyer Details" : "page" }} admin</span>
                 </a>
               </button>
               <button ngbDropdownItem>
-                <a [href]="'settings/view-profile/' + member?.profileId"
-                  class="droplist d-flex align-items-center gap-2">
+                <a
+                  [href]="'settings/view-profile/' + member?.profileId"
+                  class="droplist d-flex align-items-center gap-2"
+                >
                   <fa-icon [icon]="['fas', 'user']" />
                   <span>View Profile</span>
                 </a>
               </button>
               <button ngbDropdownItem>
-                <a class="droplist d-flex align-items-center gap-2" (click)="removeFromCommunity(member.profileId)">
+                <a
+                  class="droplist d-flex align-items-center gap-2"
+                  (click)="removeFromCommunity(member.profileId)"
+                >
                   <fa-icon [icon]="['fas', 'user-minus']" />
                   <span>Remove member</span>
                 </a>
               </button>
-              <button ngbDropdownItem *ngIf="communityDetails.profileId === profileId">
-                <a class="droplist d-flex align-items-center gap-2" (click)="deleteCommunity()">
+              <button
+                ngbDropdownItem
+                *ngIf="communityDetails.profileId === profileId"
+              >
+                <a
+                  class="droplist d-flex align-items-center gap-2"
+                  (click)="deleteCommunity()"
+                >
                   <fa-icon [icon]="['fas', 'trash-can']" />
-                  <span>Delete Community</span>
+                  <span>Delete Health Practitioner</span>
                 </a>
               </button>
             </div>
@@ -288,8 +564,16 @@
   </div>
   <div class="d-flex justify-content-end">
     <ng-container *ngIf="communityDetails?.profileId === +profileId">
-      <button class="btn btn-sm btn-danger w-152-px float-end" (click)="deleteCommunity()">
-        Delete {{ communityDetails?.pageType }}
+      <button
+        class="btn btn-sm btn-danger w-152-px float-end"
+        (click)="deleteCommunity()"
+      >
+        Delete
+        {{
+          communityDetails?.pageType === "community"
+            ? "Lawyer Details"
+            : "page"
+        }}
       </button>
     </ng-container>
     <ng-container *ngIf="communityDetails?.profileId !== +profileId && communityDetails?.memberIds.includes(+profileId)">
@@ -298,13 +582,138 @@
         (click)="removeFromCommunity()"
       >
         Leave {{ communityDetails?.pageType === "community"
-        ? "Find a lawyers"
+        ? "Lawyer Details"
         : "page" }}
       </button>
     </ng-container>
   </div>
 </ng-container>
 
+<ng-container *ngIf="activeCommunityTab === 3">
+  <ng-container *ngIf="appointmentList.length; else noData">
+    <div class="card rounded shadow border-0 appointment-table">
+      <div class="card-body rounded">
+        <h5 class="m-0">Appointment Details</h5>
+        <div class="table-responsive">
+          <table class="table table-hover w-100">
+            <thead>
+              <tr class="text-center">
+                <th>Profile</th>
+                <th>Client Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appointment of appointmentList">
+                <td>
+                  <img
+                    src="{{ appointment?.ProfilePicName }}"
+                    alt="Profile Pic"
+                    class="w-40-px rounded-5"
+                  />
+                </td>
+                <td>
+                  {{ appointment?.Username || appointment.FirstName }}
+                </td>
+                <td>
+                  {{ appointment?.appointmentDateTime | date : "yyyy-MM-dd" }}
+                </td>
+                <td>
+                  {{ displayLocalTime(appointment.appointmentDateTime) }}
+                </td>
+                <!-- <td>
+                  {{
+                    appointment?.appointmentDateTime | date : "hh:mm a"
+                  }}
+                </td> -->
+                <td (click)="getStatus(appointment) === 'Scheduled' ? appointmentCancelation(appointment) : ''">
+                  <!-- {{
+                    appointment?.isCancelled === "N"
+                      ? "Scheduled"
+                      : "Cancelled"
+                  }} -->
+                  <button
+                    class="btn btn-sm w-84-px"
+                    [ngClass]="getStatus(appointment) === 'Scheduled' ? 'btn-success' : 'btn-danger'">
+                    {{ getStatus(appointment) }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <span class="text-center"> No appoinment found </span>
+  </ng-template>
+</ng-container>
+<ng-container *ngIf="activeCommunityTab === 4">
+  <ng-container *ngIf="invoiceList.length; else noData">
+    <div class="card rounded shadow border-0 appointment-table">
+      <div class="card-body rounded">
+        <h5 class="m-0">Invoice Details</h5>
+        <div class="table-responsive">
+          <table class="table table-hover w-100">
+            <thead>
+              <tr class="text-center">
+                <th>#</th>
+                <th>Profile</th>
+                <th>Client Name</th>
+                <th>Purchase Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of invoiceList; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <img
+                    src="{{ invoice?.ProfilePicName }}"
+                    alt="Profile Pic"
+                    class="w-40-px rounded-5"
+                  />
+                </td>
+                <td>
+                  {{ invoice?.Username || invoice.FirstName }}
+                </td>
+                <td>
+                  {{ invoice?.appointmentDateTime | date : "yyyy-MM-dd" }}
+                </td>
+                <td>
+                  ${{ invoice?.amt }}.00
+                </td>
+                <td>
+                  <button
+                    class="btn btn-sm w-84-px"
+                    [ngClass]="getInvoiceStatus(invoice) === 'Active' ? 'btn-success' : 'btn-danger'">
+                    {{ getInvoiceStatus(invoice) }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <span class="text-center"> No Invoices found </span>
+  </ng-template>
+</ng-container>
+<ng-container *ngIf="activeCommunityTab === 5">
+  <span> coming soon! </span>
+</ng-container>
+
 <ng-template #emojiMenu>
-  <emoji-mart class="emoji-mart" (emojiSelect)="addEmoji($event)" title="Pick your emoji…" set="google"></emoji-mart>
+  <emoji-mart
+    class="emoji-mart"
+    (emojiSelect)="addEmoji($event)"
+    title="Pick your emoji…"
+    set="google"
+  ></emoji-mart>
 </ng-template>
