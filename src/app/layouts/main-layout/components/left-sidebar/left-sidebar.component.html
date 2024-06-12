@@ -36,6 +36,16 @@
       <li class="ms-1">
         <a
           class="d-flex gap-4"
+          routerLinkActive="active"
+          (click)="uniqueLink()"
+        >
+          <fa-icon [icon]="['fas', 'square-plus']" class="font-24-px" />
+          <span>Create Unique Link</span>
+        </a>
+      </li>
+      <li class="ms-1">
+        <a
+          class="d-flex gap-4"
           routerLink="/lawyers"
           routerLinkActive="active"
           (click)="closeSidebar()"

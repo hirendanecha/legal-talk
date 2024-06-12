@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
 import { MainLayoutComponent } from './main-layout.component';
 import { AuthenticationGuard } from 'src/app/@shared/guards/authentication.guard';
+import { AppointmentCallComponent } from 'src/app/@shared/modals/appointment-call/appointment-call.component';
 
 const routes: Routes = [
   {
@@ -67,7 +68,18 @@ const routes: Routes = [
           isShowResearchLeftSideBar: false,
         },
         canActivate: mapToCanActivate([AuthenticationGuard]),
-      }
+      },
+      {
+        path: 'appointment-call/:callId',
+        component: AppointmentCallComponent,
+        data: {
+          isShowLeftSideBar: false,
+          isShowRightSideBar: false,
+          isShowResearchLeftSideBar: false,
+          isShowChatListSideBar: false,
+          isShowChatModule: true
+        },
+      },
     ]
   },
 ];
