@@ -599,7 +599,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.router.navigate([
                   `${
                     this.communityDetails.pageType === 'community'
-                      ? 'health-practitioner'
+                      ? 'lawyers'
                       : 'pages'
                   }`,
                 ]);

@@ -203,7 +203,7 @@ export class AddCommunityModalComponent implements OnInit, AfterViewInit {
                 'Your lawyers will be approved within 24 hours!'
               );
               this.activeModal.close('success');
-              this.router.navigate(['/health-practitioner']);
+              this.router.navigate(['/lawyers']);
             }
           },
           error: (err) => {
