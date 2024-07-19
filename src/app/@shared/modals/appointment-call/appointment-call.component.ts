@@ -11,7 +11,7 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class AppointmentCallComponent implements OnInit {
   appointmentCall: SafeResourceUrl;
-  domain: string = 'facetime.tube';
+  domain: string = 'meet.facetime.tube';
   options: any;
   api: any;
 
@@ -20,7 +20,7 @@ export class AppointmentCallComponent implements OnInit {
     const appointmentURLCall = this.route.snapshot['_routerState'].url.split('/appointment-call/')[1];
     console.log(appointmentURLCall);
     this.appointmentCall = this.sanitizer.bypassSecurityTrustResourceUrl(
-    'https://facetime.tube/' + appointmentURLCall
+    'https://meet.facetime.tube/' + appointmentURLCall
   );
     this.options = {
       roomName: appointmentURLCall,
