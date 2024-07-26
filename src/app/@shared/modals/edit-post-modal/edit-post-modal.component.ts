@@ -36,19 +36,8 @@ export class EditPostModalComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.data) {
-
-      // this.renderer.setProperty(
-      //   this.parentPostCommentElement?.nativeElement,
-      //   'innerHTML',
-      //   this.data.comment
-      // );
-      console.log(this.data)
       this.postInputValue = this.data?.postdescription
       this.pdfName = this.data?.pdfUrl?.split('/')[3];
-      // this.postData.id = this.data.id
-      // this.postData.postId = this.data.postId
-      // this.postData.profileId = this.data.profileId
-      // this.postData.imageUrl = this.data?.imageUrl
       this.postData = { ...this.data }
       this.changeDetectorRef.detectChanges();
     }
@@ -82,13 +71,10 @@ export class EditPostModalComponent implements AfterViewInit {
 
   onChangeComment(): void {
     this.postData.tags = getTagUsersFromAnchorTags(this.commentMessageTags);
-    console.log(this.postData.tags)
     this.activeModal.close(this.postData);
   }
 
   onTagUserInputChangeEvent(data: any): void {
-    // console.log('comments-data', data)
-    // this.postData.comment = data?.html;
     this.extractLargeImageFromContent(data.html)
     this.commentMessageTags = data?.tags;
   }

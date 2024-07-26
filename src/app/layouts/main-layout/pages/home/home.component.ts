@@ -408,29 +408,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.postData?.imageUrl ||
       this.postData?.pdfUrl
     ) {
-      if (this.postData?.meta?.metalink || this.postData?.metalink) {
-        this.postData.metalink = null
-        this.postData.title = null
-        this.postData.metaimage = null
-        this.postData.metadescription = null
-        console.log(this.postData);
-
+      if (!(this.postData?.meta?.metalink || this.postData?.metalink)) {
+        this.postData.metalink = null;
+        this.postData.title = null;
+        this.postData.metaimage = null;
+        this.postData.metadescription = null;
       }
-      // this.spinner.show();
-      console.log(
-        'postData',
-        this.postData,
-        this.socketService.socket?.connected
-      );
       this.toastService.success('Post created successfully.');
       this.socketService?.createOrEditPost(this.postData);
       this.buttonClicked = false;
       this.resetPost();
-      // , (data) => {
-      //   this.spinner.hide();
-      //   console.log(data)
-      //   return data;
-      // });
     }
   }
 
