@@ -111,19 +111,23 @@ export class SharedService {
   getAdvertizeMentLink(id): void {
     if (id) {
       this.communityService.getLinkById(id).subscribe({
-        next: ((res: any) => {
+        next: (res: any) => {
           if (res.data) {
-            console.log(res.data)
             if (res.data[0]?.link1 || res.data[0]?.link2) {
-              this.getMetaDataFromUrlStr(res.data[0]?.link1);
-              this.getMetaDataFromUrlStr(res.data[0]?.link2);
+              this.advertizementLink = [];
+              if (res.data[0]?.link1) {
+                this.getMetaDataFromUrlStr(res.data[0]?.link1);
+              }
+              if (res.data[0]?.link2) {
+                this.getMetaDataFromUrlStr(res.data[0]?.link2);
+              }
             }
           }
-        }),
+        },
         error: (err) => {
           console.log(err);
-        }
-      })
+        },
+      });
     } else {
       this.advertizementLink = null;
     }
@@ -132,18 +136,17 @@ export class SharedService {
   getMetaDataFromUrlStr(url): void {
     this.postService.getMetaData({ url }).subscribe({
       next: (res: any) => {
-        if (res?.meta?.image) {
-          const urls = res.meta?.image?.url;
-          const imgUrl = Array.isArray(urls) ? urls?.[0] : urls;
-          const linkMetaData = {
-            title: res?.meta?.title,
-            metadescription: res?.meta?.description,
-            metaimage: imgUrl,
-            metalink: res?.meta?.url || url,
-            url: url,
-          };
-          this.advertizementLink?.push(linkMetaData);
-        }
+        const meta = res?.meta;
+        const urls = meta?.image?.url;
+        const imgUrl = Array.isArray(urls) ? urls?.[0] : urls;
+        const linkMetaData = {
+          title: meta?.title,
+          metadescription: meta?.description,
+          metaimage: imgUrl,
+          metalink: meta?.url || url,
+          url: url,
+        };
+        this.advertizementLink.push(linkMetaData);
       },
       error: (err) => {
         console.log(err);
