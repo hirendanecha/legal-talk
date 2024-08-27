@@ -84,7 +84,7 @@
               autocomplete="new-password"
               #passwordInput
             />
-            <fa-icon [icon]="passwordHidden ? ['fas', 'eye'] : ['fas', 'eye-slash']" class="font-20-px position-absolute" (click)="togglePasswordVisibility(passwordInput)"></fa-icon>
+            <fa-icon [icon]="passwordHidden ? ['fas', 'eye'] : ['fas', 'eye-slash']" class="font-20-px position-absolute c-pointer" (click)="togglePasswordVisibility(passwordInput)"></fa-icon>
           </div>
           <div class="text-danger" *ngIf="
               registerForm.get('Password').hasError('required') &&
@@ -95,28 +95,52 @@
         </div>
 
         <div class="col-12 col-md-6 mb-3">
-          <label class="form-label">Confirm Password<span class="text-danger">*</span></label>
-          <input type="password" class="input-area" required name="confirmPassword" placeholder="Enter confirm password"
-            (focusout)="validatepassword()" (input)="changetopassword($event)" (keyup)="changetopassword($event)"
-            formControlName="confirm_password" autocomplete="new-password" />
-          <div class="text-danger" *ngIf="
+          <label class="form-label"
+            >Confirm Password<span class="text-danger">*</span></label
+          >
+          <div class="d-flex custom-input-area position-relative">
+            <input
+              type="password"
+              class="input-area"
+              required
+              name="confirmPassword"
+              placeholder="Enter confirm password"
+              (focusout)="validatepassword()"
+              (input)="changetopassword($event)"
+              (keyup)="changetopassword($event)"
+              formControlName="confirm_password"
+              autocomplete="new-password"
+              #confirmpasswordInput
+            />
+            <fa-icon
+              [icon]="
+                confirmpasswordHidden ? ['fas', 'eye'] : ['fas', 'eye-slash']
+              "
+              class="font-20-px position-absolute eye-slash c-pointer"
+              (click)="toggleConfirmPasswordVisibility(confirmpasswordInput)"
+            ></fa-icon>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
               registerForm.get('confirm_password').hasError('required') &&
               registerForm.get('confirm_password').touched
-            ">
+            "
+          >
             Password is not matched.
           </div>
         </div>
 
         <div class="col-12 col-md-6 mb-3">
-          <label class="form-label">Mobile<span class="text-danger">*</span></label>
+          <label class="form-label">Mobile</label>
           <input type="number" class="input-area" name="MobileNo" placeholder="Enter your mobile number"
             formControlName="MobileNo" />
-          <div class="text-danger" *ngIf="
+          <!-- <div class="text-danger" *ngIf="
               registerForm.get('MobileNo').hasError('required') &&
               registerForm.get('MobileNo').touched
             ">
             Mobile number is required.
-          </div>
+          </div> -->
         </div>
 
         <div class="col-12 col-md-6 mb-3">
@@ -168,27 +192,27 @@
         </div>
 
         <div class="col-12 col-md-6 mb-3">
-          <label class="form-label">City<span class="text-danger">*</span></label>
-          <input type="text" class="input-area" required name="City" placeholder="Enter your city"
+          <label class="form-label">City</label>
+          <input type="text" class="input-area" name="City" placeholder="Enter your city"
             formControlName="City" />
-            <div class="text-danger" *ngIf="
+            <!-- <div class="text-danger" *ngIf="
               registerForm.get('City').hasError('required') &&
               registerForm.get('City').touched
             ">
             City is required.
-          </div>
+          </div> -->
         </div>
 
         <div class="col-12 col-md-6 mb-3">
-          <label class="form-label">County<span class="text-danger">*</span></label>
-          <input type="text" class="input-area" required name="County" placeholder="Enter your County"
+          <label class="form-label">County</label>
+          <input type="text" class="input-area" name="County" placeholder="Enter your County"
             formControlName="County" />
-            <div class="text-danger" *ngIf="
+            <!-- <div class="text-danger" *ngIf="
               registerForm.get('County').hasError('required') &&
               registerForm.get('County').touched
             ">
             County is required.
-          </div>
+          </div> -->
         </div>
       </div>
 

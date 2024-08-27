@@ -41,6 +41,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     url: '',
   };
   passwordHidden: boolean = true;
+  confirmpasswordHidden: boolean = true;
 
   @ViewChild('zipCode') zipCode: ElementRef;
   captchaToken = '';
@@ -51,12 +52,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     Email: new FormControl('', [Validators.required]),
     Password: new FormControl('', [Validators.required]),
     confirm_password: new FormControl('', [Validators.required]),
-    MobileNo: new FormControl('', [Validators.required]),
+    MobileNo: new FormControl(''),
     Country: new FormControl('US', [Validators.required]),
     Zip: new FormControl('', Validators.required),
     State: new FormControl('', Validators.required),
-    City: new FormControl('', Validators.required),
-    County: new FormControl('', Validators.required),
+    City: new FormControl(''),
+    County: new FormControl(''),
     TermAndPolicy: new FormControl(false, Validators.required),
   });
   theme = '';
@@ -114,6 +115,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
     this.passwordHidden = !this.passwordHidden;
+  }
+
+  toggleConfirmPasswordVisibility(confirmpasswordInput: HTMLInputElement) {
+    confirmpasswordInput.type = confirmpasswordInput.type === 'password' ? 'text' : 'password';
+    this.confirmpasswordHidden = !this.confirmpasswordHidden;
   }
 
   selectFiles(event) {
